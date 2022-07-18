@@ -1,4 +1,4 @@
-import React from "react";
+import React, { FC } from "react";
 import { HiPhone } from "react-icons/hi";
 import {
   FaEnvelopeOpenText,
@@ -10,9 +10,14 @@ import {
 import Logo from "/public/images/marchelogo.svg";
 import Image from "next/image";
 
-const Footer = () => {
+interface FooterProps {
+  bgColor?: string;
+  textColor?: string;
+}
+
+const Footer: FC<FooterProps> = ({ bgColor, textColor }) => {
   return (
-    <section className="bg-white">
+    <section className={`${bgColor} bg-white`}>
       <div className="containers">
         <div className="py-10 grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 border-b">
           <div className="flex flex-col mb-3 md:mb-0  items-center p-[10px] justify-center md:flex-row">
@@ -21,7 +26,9 @@ const Footer = () => {
             </div>
             <div className="flex-col flex items-center md:items-start">
               <h3>
-                <span className="text-black uppercase tracking-wider font-semibold text-xs">
+                <span
+                  className={`${textColor} text-black uppercase tracking-wider font-semibold text-xs`}
+                >
                   Appelez Nous 24/7
                 </span>
               </h3>
@@ -33,16 +40,22 @@ const Footer = () => {
               <FaEnvelopeOpenText size={48} className="text-secondary" />
             </div>
             <div className="flex-col flex items-center md:items-start">
-              <h3 className="text-black font-semibold uppercase tracking-wider text-xs">
+              <h3
+                className={`${textColor}  text-black font-semibold uppercase tracking-wider text-xs`}
+              >
                 Email Us
               </h3>
-              <p className="text-black underline text-[14px]">
+              <p
+                className={` ${textColor} text-black font-semibold uppercase tracking-wider text-xs`}
+              >
                 marchesenegal@gmail.com
               </p>
             </div>
           </div>
           <div className="flex flex-col p-[10px] mb-3 md:mb-0 items-center md:items-start">
-            <h3 className="text-black uppercase tracking-wider font-semibold mb-5 text-xs">
+            <h3
+              className={`${textColor} text-black uppercase tracking-wider font-semibold mb-5 text-xs`}
+            >
               Follow Us
             </h3>
             <div className="flex text-secondary">
@@ -66,7 +79,9 @@ const Footer = () => {
               <Image src={Logo} width={178} />
             </div>
             <div className="pl-[10px] pr-[60px] border-r">
-              <h2 className="uppercase tracking-wider mb-4 text-xs text-[#2b2b2b] font-bold">
+              <h2
+                className={`uppercase tracking-wider mb-4 text-xs text-[#2b2b2b] font-bold ${textColor}`}
+              >
                 Store location
               </h2>
               <p className="text-sm mb-4  text-[#8f8f8f]">
@@ -74,15 +89,17 @@ const Footer = () => {
               </p>
               <p className="text-sm mb-2 flex flex-col justify-between h-[56px] text-[#8f8f8f] ">
                 Lundi - Samedi:
-                <span className="text-black">08h - 21h</span>
+                <span className={`${textColor} text-black`}>08h - 21h</span>
               </p>
               <p className="text-sm flex mb-4 flex-col h-[56px] justify-between text-[#8f8f8f] ">
                 Dimanche:
-                <span className="text-black">09h - 21h</span>
+                <span className={`${textColor} text-black`}>09h - 21h</span>
               </p>
             </div>
             <div className="pl-[10px] md:pl-[85px] pr-[10px]">
-              <h2 className="uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold">
+              <h2
+                className={`uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold ${textColor}`}
+              >
                 Information
               </h2>
               <p className="text-sm mb-4 hover:text-secondary  text-[#8f8f8f]">
@@ -102,7 +119,9 @@ const Footer = () => {
               </p>
             </div>
             <div className="px-[10px]">
-              <h2 className="uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold">
+              <h2
+                className={`uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold ${textColor}`}
+              >
                 Mon Profile
               </h2>
               <p className="text-sm mb-4 hover:text-secondary  text-[#8f8f8f]">
@@ -119,7 +138,9 @@ const Footer = () => {
               </p>
             </div>
             <div className="px-[10px]">
-              <h2 className="uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold">
+              <h2
+                className={`uppercase tracking-widest mb-4 text-xs text-[#2b2b2b] font-bold ${textColor}`}
+              >
                 Légumes et Fruits
               </h2>
               <p className="text-sm mb-4 hover:text-secondary  text-[#8f8f8f]">
