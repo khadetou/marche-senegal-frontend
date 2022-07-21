@@ -1,10 +1,10 @@
-import Products from "@/components/Products";
+import ProductLandingList from "@/components/Products/ProductLandingList";
 import React from "react";
 
 const ProductScreen = () => {
   return (
     <div>
-      <Products />
+      <ProductLandingList />
       {/* <Products /> */}
     </div>
   );

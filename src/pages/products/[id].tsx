@@ -1,25 +1,26 @@
-import BannerImg from "@/components/Banner/BannerImg";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
-import ProductsList from "@/components/Products";
 import SEO from "@/components/Seo";
-import { GetStaticProps } from "next";
 import React from "react";
+import { useRouter } from "next/router";
+import ProductDetail from "@/components/Products/product";
+import { GetServerSideProps, GetStaticProps } from "next";
 
-const Products = () => {
+const Product = () => {
+  const router = useRouter();
+
   return (
     <Layout>
       <SEO />
       <Header />
-      <BannerImg />
-      <ProductsList />
+      <ProductDetail />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>
   );
 };
 
-export default Products;
-export const getStaticProps: GetStaticProps = async (context) => {
+export default Product;
+export const getServerSideProps: GetServerSideProps = async (context) => {
   return { props: { white: true } };
 };

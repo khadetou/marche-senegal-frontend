@@ -40,6 +40,7 @@ const Drawer: FC<DrawerProps> = ({
         open={open}
         onClose={toggleHandler}
         className={`drawer ${className} || ""`.trim()}
+        width="300px"
         wrapperClassName="w-[500px]"
         placement={placement}
         handler={false}
@@ -49,16 +50,10 @@ const Drawer: FC<DrawerProps> = ({
       >
         {closeButton && (
           <div className="px-[30px]">
-            <div className="border-b-[0.1px] border-light-gray pb-7">
+            <div className=" pb-7">
               <div onClick={toggleHandler} className={closeBtnStyle}>
                 {closeButton}
               </div>
-              <p className="font-normal text-[13px] text-dark-gray uppercase pt-8 ">
-                Shopping cart{" "}
-                <span className="text-white sm ml-3 bg-primary rounded-full px-[5px] py-[0.7px]">
-                  0
-                </span>
-              </p>
             </div>
           </div>
         )}

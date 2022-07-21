@@ -7,7 +7,7 @@ import Intersection from "@/components/Intersection";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import Services from "@/components/Services";
-import type { NextPage } from "next";
+import type { GetStaticProps, NextPage } from "next";
 import ProductScreen from "screen/ProductScreen";
 
 const Home: NextPage = () => {
@@ -27,3 +27,6 @@ const Home: NextPage = () => {
 };
 
 export default Home;
+export const getStaticProps: GetStaticProps = async (context) => {
+  return { props: { white: false } };
+};

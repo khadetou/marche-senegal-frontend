@@ -102,7 +102,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
                     type="text"
                     onFocus={() => setRotate(true)}
                     onBlur={() => setRotate(false)}
-                    className="w-full h-full group  text-sm py-[1px] pl-5 pr-[50px] h-full-400 bg-gray-100 rounded-full outline-1 outline-gray-200"
+                    className="w-full h-full group focus:ring-1 focus:ring-gray-200 border-0 text-sm py-[1px] pl-5 pr-[50px] h-full-400 bg-gray-100 rounded-full text-gray-600 "
                     placeholder="Search products..."
                   />
                   <button

@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 
 const BannerImg = () => {
   const router = useRouter();
-  console.log(router);
+
   return (
     <section className="pt-[80px] pb-[80px] mb-[50px] bg-[#f2f2f2] bg-auto bg-no-repeat bg-center bg-scroll bg-[url('https://res.cloudinary.com/didh3wbru/image/upload/v1658169613/Ecommerce/Images/Banner%20Images/breadcrumb_bz7j6n.jpg')]">
       <div className="containers">
