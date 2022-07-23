@@ -21,6 +21,7 @@ module.exports = {
       fontFamily: {
         Poppins: ["Poppins", "sans-serif"],
         CaveatBrush: ["Caveat Brush", "cursive"],
+        Playfair: ["Playfair Display", "serif"],
       },
       backgroundImage: {
         img1: "url('https://res.cloudinary.com/didh3wbru/image/upload/v1658135339/Ecommerce/Images/categorie/h1_ct1-ok_c6yfdj.jpg')",

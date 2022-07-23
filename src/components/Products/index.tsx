@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { Dispatch, FC, useRef, useState } from "react";
 import Image from "next/image";
 import { FiFilter } from "react-icons/fi";
 import StarsRating from "react-star-rate";
@@ -6,6 +6,8 @@ import { HiStar } from "react-icons/hi";
 import { FaOpencart } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import ProductDrawer from "./drawer/productDrawer";
+
+import ProductItem from "../Modal/productItem";
 
 const products = [
   {
@@ -42,12 +44,18 @@ const products = [
 
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
-const ProductsList = () => {
+interface ProductListProps {
+  openModal: boolean;
+  setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+}
+const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
   const [open, setOpen] = useState(false);
   return (
     <section className="mt-4 pb-8">
+      <ProductItem setOpenModal={setOpenModal} openModal={openModal} />
       <div className="containers flex flex-col items-center md:items-start md:flex-row">
         <ProductDrawer open={open} setOpen={setOpen} />
+
         <button
           className="flex md:hidden justify-center items-center rounded-md border border-primary hover:bg-primary hover:text-white transition-all ease-in duration-300 text-base w-24 h-9 font-bold"
           onClick={() => setOpen(true)}
@@ -87,14 +95,17 @@ const ProductsList = () => {
           {products.map(({ img, name, price, rating }, idx) => (
             <div key={idx} className="w-full h-full">
               <div className="w-full group h-full mx-auto max-w-[216px] relative">
-                <span className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible">
+                <span
+                  className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible"
+                  onClick={() => setOpenModal(true)}
+                >
                   <AiOutlineEye />
                 </span>
                 <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
                   <Image src={img} layout="fill" />
                 </div>
-                <div className="flex flex-col justify-center py-[25px] px-[15px]">
-                  <h2 className="text-center text-[14px] -mb-[20px] hover:text-[#A8B324]">
+                <div className="flex flex-col justify-center mb-[30px] px-[15px]">
+                  <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
                     {name}
                   </h2>
                   <div className="flex justify-center stars ">

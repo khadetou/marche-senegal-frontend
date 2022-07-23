@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Dispatch, FC } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -6,6 +6,7 @@ import StarsRating from "react-star-rate";
 import { HiStar } from "react-icons/hi";
 import { FaOpencart } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
+import ProductItem from "../Modal/productItem";
 
 const products = [
   {
@@ -42,10 +43,19 @@ const products = [
 
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
-const ProductLandingList = () => {
+interface ProductListProps {
+  openModal: boolean;
+  setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+}
+
+const ProductLandingList: FC<ProductListProps> = ({
+  openModal,
+  setOpenModal,
+}) => {
   return (
     <section className="mt-4 mb-8">
       <div className="containers">
+        <ProductItem openModal={openModal} setOpenModal={setOpenModal} />
         <div className="p-[30px] w-full flex flex-col lg:flex-row  flex-1 justify-between bg-white rounded-sm">
           <div className="p-0 xs:p-[10px] mx-auto xs:m-0 box-content">
             <div className="flex items-center mb-6">
@@ -98,17 +108,20 @@ const ProductLandingList = () => {
                 {products.map(({ img, name, price, rating }, idx) => (
                   <SwiperSlide key={idx} className="w-full h-full">
                     <div className="w-full group h-full mx-auto max-w-[216px] relative">
-                      <span className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%]  group-hover:translate-y-[0%] transition-all ease-linear duration-300">
+                      <span
+                        className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%]  group-hover:translate-y-[0%] transition-all ease-linear duration-300"
+                        onClick={() => setOpenModal(true)}
+                      >
                         <AiOutlineEye />
                       </span>
                       <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
                         <Image src={img} layout="fill" />
                       </div>
-                      <div className="flex flex-col justify-center py-[25px] px-[15px]">
-                        <h2 className="text-center text-[14px] -mb-[20px] hover:text-[#A8B324]">
+                      <div className="flex flex-col justify-center  px-[15px]">
+                        <h2 className="text-center text-[14px] mb-[10px] hover:text-[#A8B324]">
                           {name}
                         </h2>
-                        <div className="flex justify-center stars ">
+                        <div className="flex justify-center my-3 stars ">
                           <StarsRating
                             value={rating}
                             disabled

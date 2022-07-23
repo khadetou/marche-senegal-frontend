@@ -8,16 +8,18 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import Services from "@/components/Services";
 import type { GetStaticProps, NextPage } from "next";
+import { useState } from "react";
 import ProductScreen from "screen/ProductScreen";
 
 const Home: NextPage = () => {
+  const [openModal, setOpenModal] = useState(false);
   return (
-    <Layout>
+    <Layout openModal={openModal} setOpenModal={setOpenModal}>
       <SEO />
       <Header />
       <Banner />
       <Ads />
-      <ProductScreen />
+      <ProductScreen openModal={openModal} setOpenModal={setOpenModal} />
       <Intersection />
       <Category />
       <Services />

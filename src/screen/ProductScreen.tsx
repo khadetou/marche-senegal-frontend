@@ -1,10 +1,14 @@
 import ProductLandingList from "@/components/Products/ProductLandingList";
-import React from "react";
+import React, { Dispatch, FC } from "react";
 
-const ProductScreen = () => {
+interface ProductListProps {
+  openModal: boolean;
+  setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+}
+const ProductScreen: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
   return (
     <div>
-      <ProductLandingList />
+      <ProductLandingList openModal={openModal} setOpenModal={setOpenModal} />
       {/* <Products /> */}
     </div>
   );

@@ -2,25 +2,24 @@ import BannerImg from "@/components/Banner/BannerImg";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
-import ProductsList from "@/components/Products";
+import EditScreen from "@/components/Profile/EditScreen";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
-import React, { useState } from "react";
+import React from "react";
 
-const Products = () => {
-  const [openModal, setOpenModal] = useState(true);
+const Edit = () => {
   return (
-    <Layout openModal={openModal} setOpenModal={setOpenModal}>
+    <Layout>
       <SEO />
       <Header />
       <BannerImg />
-      <ProductsList openModal={openModal} setOpenModal={setOpenModal} />
+      <EditScreen />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>
   );
 };
 
-export default Products;
+export default Edit;
 export const getStaticProps: GetStaticProps = async (context) => {
   return { props: { white: true } };
 };

@@ -1,14 +1,14 @@
 import React, { useState } from "react";
 import { FaEye, FaEyeSlash } from "react-icons/fa";
 
-const RegisterScreen = () => {
+const EditScreen = () => {
   const [show, setShow] = useState(false);
   const [confShow, setConfShow] = useState(false);
   return (
     <section className="mb-28">
       <div className="containers">
         <h1 className="text-center my-[15px] text-xl text-[#2b2b2b]">
-          Inscription
+          Modifier Profile
         </h1>
         <form className="max-w-[588px] p-[30px] mx-auto border-2 border-dashed">
           <div className="flex flex-col mb-4">
@@ -77,22 +77,15 @@ const RegisterScreen = () => {
               {confShow ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
-          <div className="flex justify-between">
+          <div className="flex justify-center">
             <button className="text-white bg-primary rounded-full text-sm font-medium py-3 px-7">
-              Register
-            </button>
-            <button className="text-sm flex flex-col items-center ">
-              <span className="mr-3">Vous avez un compte</span>
-              <span className="underline text-primary">Connectez vous</span>
+              Mettre à jour
             </button>
           </div>
-          <p className="text-center text-sm hover:text-secondary cursor-pointer mt-5">
-            Mot de pass oublier
-          </p>
         </form>
       </div>
     </section>
   );
 };
 
-export default RegisterScreen;
+export default EditScreen;

@@ -2,20 +2,19 @@ import BannerImg from "@/components/Banner/BannerImg";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
-import ProductsList from "@/components/Products";
 import SEO from "@/components/Seo";
+import ProductScreen from "@/components/admin/ProdutScreen";
 import { GetStaticProps } from "next";
-import React, { useState } from "react";
+import React from "react";
 
 const Products = () => {
-  const [openModal, setOpenModal] = useState(true);
   return (
-    <Layout openModal={openModal} setOpenModal={setOpenModal}>
+    <Layout>
       <SEO />
       <Header />
       <BannerImg />
-      <ProductsList openModal={openModal} setOpenModal={setOpenModal} />
-      <Footer bgColor="!bg-primary" textColor="!text-white" />
+      <ProductScreen />
+      <Footer bgColor="!bg-primary" textColor="!text-primary" />
     </Layout>
   );
 };

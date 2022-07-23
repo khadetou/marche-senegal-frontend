@@ -103,7 +103,9 @@ const CheckoutPage = () => {
               </h1>
             </div>
             <div className="flex py-4 border-b justify-between">
-              <p className="text-sm text-gray-500">Broccoli x 1</p>
+              <p className="text-sm text-gray-500">
+                Broccoli <span className="text-dark-gray">x 1</span>
+              </p>
               <p className="text-sm text-gray-500">$32.00</p>
             </div>
             <div className="flex py-4 border-b justify-between">
