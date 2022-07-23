@@ -72,7 +72,7 @@ const ProductLandingList: FC<ProductListProps> = ({
               />
             </div>
           </div>
-          <div className="flex flex-col self-end w-full max-w-[709px] xl:max-w-[900px] box-content p-[10px] h-[494px]">
+          <div className="flex flex-col self-end w-full max-w-[670px] xl:max-w-[709px] 2xl:max-w-[900px] box-content p-[10px] h-[494px]">
             <ul className="flex flex-wrap xs:flex-nowrap w-full mb-[50px] justify-end">
               {categories.map((items, idx) => (
                 <li

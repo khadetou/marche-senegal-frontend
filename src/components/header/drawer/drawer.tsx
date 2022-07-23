@@ -48,16 +48,17 @@ const Drawer: FC<DrawerProps> = ({
         {...props}
       >
         {closeButton && (
-          <>
+          <div className="py-[10px] px-[20px] h-[80px] relative">
             <div onClick={toggleHandler} className={closeBtnStyle}>
               {closeButton}
             </div>
             <Link passHref href="/">
-              <button className="w-[95px] text-white xl:w-[115px] flex items-center justify-center top-[25px] left-[30px] absolute z-10 cursor-pointer">
+              <button className="w-[95px] text-white xl:w-[115px] flex items-center justify-center top-[25px] left-[30px] absolute z-10 cursor-pointer ">
                 <Image src={Logo} alt="logo" />
               </button>
             </Link>
-          </>
+            <div className="border-b h-full"></div>
+          </div>
         )}
         <div className={drawerStyle}>{children}</div>
       </RcDrawer>

@@ -22,6 +22,7 @@ interface IconProps {
   size?: number | string;
 }
 
+let item = false;
 const Icons: FC<{
   Icon: any;
   className?: string;
@@ -45,7 +46,15 @@ const Icons: FC<{
             3
           </span>
         )}
-        <Icon className="text-base text-white" />
+        {/* <Icon className="text-base text-white" /> */}
+        {Icon === AiOutlineShoppingCart && (
+          <Icon className="text-base text-white" />
+        )}
+        {Icon === AiOutlineUser && !item ? (
+          <Icon className="text-base text-white" />
+        ) : (
+          Icon === AiOutlineUser && <p className="text-sm font-semibold">KD</p>
+        )}
       </div>
     </>
   );
@@ -64,6 +73,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
     { title: "Nous Contacter", path: "/products" },
   ];
   const [open, setOpen] = useState(false);
+  const [openProfile, setOpenProfile] = useState(false);
 
   const category = [
     "Fruits & Légumes",
@@ -116,7 +126,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
               </div>
             </div>
             <div>
-              <div className="hidden md:flex w-[209px] items-center">
+              <div className="hidden md:flex w-[209px] items-center mr-2">
                 <div className="mr-2">
                   <HiPhone size={30} className="text-secondary" />
                 </div>
@@ -134,13 +144,78 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
               <div className="flex items-center">
                 <div className="flex justify-between">
                   {[AiOutlineUser, AiOutlineShoppingCart].map((icons, key) => (
-                    <Icons
-                      open={open}
-                      setOpen={setOpen}
-                      Icon={icons}
-                      key={key}
-                      className="mr-4 last:mr-0"
-                    />
+                    <div
+                      className={`mr-2 ${
+                        icons === AiOutlineUser ? "sm:w-[171px]" : ""
+                      } last:mr-0 flex  cursor-pointer items-center`}
+                      onClick={() => {
+                        if (icons === AiOutlineUser) {
+                          setOpenProfile(!openProfile);
+                        }
+                      }}
+                    >
+                      <Icons
+                        open={open}
+                        setOpen={setOpen}
+                        Icon={icons}
+                        key={key}
+                      />
+
+                      <div className="relative group flex items-center w-full">
+                        <p className="ml-2 hidden sm:block text-dark-gray text-sm font-semibold">
+                          {icons === AiOutlineUser
+                            ? !item
+                              ? "Se connecter"
+                              : "Utilisateur"
+                            : "Cart"}
+                        </p>
+                        {icons === AiOutlineUser && item && (
+                          <RiArrowDropDownLine
+                            size="27"
+                            className={`${
+                              openProfile && "rotate-180"
+                            } transition-all ease-in-out duration-300 text-dark-gray`}
+                          />
+                        )}
+                        {icons === AiOutlineUser && item && (
+                          <div
+                            className={`absolute !w-[200px] rounded-md top-7 z-10 bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray  
+                              ${
+                                openProfile
+                                  ? "opacity-100 visible translate-y-[12px] -translate-x-40  lg:translate-x-0"
+                                  : "invisible -translate-x-40 translate-y-12 opacity-0"
+                              }`}
+                          >
+                            <Link passHref href="/orders/design">
+                              <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                Profile
+                              </a>
+                            </Link>
+
+                            <Link passHref href="/orders/web">
+                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                Utilsateurs
+                              </a>
+                            </Link>
+                            <Link passHref href="/orders/web">
+                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                Produits
+                              </a>
+                            </Link>
+                            <Link passHref href="/orders/web">
+                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                Commandes
+                              </a>
+                            </Link>
+                            <Link passHref href="/orders/web">
+                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                Log out
+                              </a>
+                            </Link>
+                          </div>
+                        )}
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
@@ -190,7 +265,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
                       {title.toLocaleLowerCase() === "boutique" && (
                         <div className="absolute !w-[200px] rounded-md top-7  bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray  invisible translate-x-3 translate-y-12 opacity-0  group-hover:visible group-hover:opacity-100 group-hover:translate-y-[21px] group-hover:translate-x-0">
                           <Link passHref href="/orders/design">
-                            <a className="!text-[14px] inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
+                            <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
                               Panier
                             </a>
                           </Link>
