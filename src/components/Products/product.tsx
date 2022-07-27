@@ -1,9 +1,12 @@
-import React, { useState, useRef } from "react";
-
+import React, { useState, useEffect } from "react";
 import StarsRating from "react-star-rate";
 import ImageGallery from "react-image-gallery";
 import { HiStar } from "react-icons/hi";
 import { useMediaQuery } from "react-responsive";
+import { useRouter } from "next/router";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { getProductById } from "store/reducers/products/productSlice";
+import Link from "next/link";
 
 const ProductDetail = () => {
   const [value, setValue] = useState<number | undefined>(0);
@@ -30,23 +33,57 @@ const ProductDetail = () => {
     },
   ];
 
+  const {
+    query: { id },
+  } = useRouter();
+
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (id) {
+      dispatch(getProductById(id as string));
+    }
+  }, [dispatch, id]);
+
+  const { product } = useAppSelector((state) => state.products);
+
+  let array: any[] = [];
+
+  if (product) {
+    array = product.image.map((item: any) => {
+      return {
+        original: item.url,
+        thumbnail: item.url,
+      };
+    });
+  }
+
   return (
     <section className="h-full">
       <div className="containers">
+        <div className="flex w-ful flex-end">
+          <Link href="/">
+            <button className="py-4 px-14 bg-primary mb-6 mt-8 text-sm font-medium hover:bg-secondary text-white rounded-full">
+              Retourner
+            </button>
+          </Link>
+        </div>
         <div className="flex flex-col  md:flex-row items-center pb-20 h-[60%] pt-20">
-          <div className="max-w-[602px] w-full mb-12 md:mb-0">
-            <ImageGallery
-              items={products}
-              additionalClass="product-items group"
-              useBrowserFullscreen={isLaptop}
-            />
+          <div className="max-w-[602px] mr-4 w-full mb-12 md:mb-0">
+            {product && array && (
+              <ImageGallery
+                items={array}
+                additionalClass="product-items group"
+                useBrowserFullscreen={isLaptop}
+              />
+            )}
           </div>
           <div className="relative">
             <h2 className="text-2xl font-medium mb-[10px] text-[#2b2b2b]">
-              Apple Fruit
+              {product && product.name}
             </h2>
             <h3 className="text-[28px] font-normal text-[#8f8f8f] mb-[18px]">
-              $50.00
+              {product && product.price} FCFA
             </h3>
             <div className="flex text-[0px] mb-[14px] items-center">
               <StarsRating
@@ -56,13 +93,12 @@ const ProductDetail = () => {
                 classNamePrefix="stars"
               />
               <p className="text-[14px] text-[#8f8f8f] ml-8">
-                (1 customer review)
+                ({product && product.Reviews} customer review)
               </p>
             </div>
             <div className="py-[35px]">
               <p className="text-sm text-[#8f8f8f] py-9">
-                Ipsa consequatur dolore labore eos et tempore et. Ab inventore
-                rerum eligendi ipsam alias. Minus quia quo qui amet in.
+                {product && product.description}
               </p>
             </div>
             <div className="flex">
@@ -93,7 +129,10 @@ const ProductDetail = () => {
               </button>
             </div>
             <p className="text-sm text-[#8f8f8f] mt-5">
-              Catégorie: <span className="text-[#2b2b2b]">Fruit</span>
+              Catégorie:{" "}
+              <span className="text-[#2b2b2b]">
+                {product && product.category}
+              </span>
             </p>
           </div>
         </div>

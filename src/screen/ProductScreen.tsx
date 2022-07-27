@@ -4,12 +4,20 @@ import React, { Dispatch, FC } from "react";
 interface ProductListProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+  img: string;
 }
-const ProductScreen: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
+const ProductScreen: FC<ProductListProps> = ({
+  openModal,
+  setOpenModal,
+  img,
+}) => {
   return (
     <div>
-      <ProductLandingList openModal={openModal} setOpenModal={setOpenModal} />
-      {/* <Products /> */}
+      <ProductLandingList
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        img={img}
+      />
     </div>
   );
 };

@@ -1,36 +1,37 @@
-import { Dispatch, FC, useRef } from "react";
+import { Dispatch, FC, useRef, useEffect } from "react";
 import { HiStar } from "react-icons/hi";
 import { IoIosClose } from "react-icons/io";
 import StarsRating from "react-star-rate";
 import Modal from "./modal";
 import ImageGallery from "react-image-gallery";
-
-const product = [
-  {
-    original:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658244260/Ecommerce/Images/Products/product-14_oaysxe.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658244260/Ecommerce/Images/Products/product-14_oaysxe.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658328125/Ecommerce/Images/Products/product-14-2_mn4tmo.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658328125/Ecommerce/Images/Products/product-14-2_mn4tmo.jpg",
-  },
-  {
-    original:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658328131/Ecommerce/Images/Products/product-14-1_epzytk.jpg",
-    thumbnail:
-      "https://res.cloudinary.com/didh3wbru/image/upload/v1658328131/Ecommerce/Images/Products/product-14-1_epzytk.jpg",
-  },
-];
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { getProductById } from "store/reducers/products/productSlice";
 
 interface ModalsProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+  id?: string;
 }
-const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal }) => {
+const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal, id }) => {
+  const dispatch = useAppDispatch();
+  useEffect(() => {
+    if (id) {
+      dispatch(getProductById(id));
+    }
+  }, [id, dispatch]);
+  const { product } = useAppSelector((state) => state.products);
+
+  let array: any[] = [];
+
+  if (product) {
+    array = product.image.map((item: any) => {
+      return {
+        original: item.url,
+        thumbnail: item.url,
+      };
+    });
+  }
+
   const modalRef = useRef<any>();
   return (
     <>
@@ -41,16 +42,18 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal }) => {
             onClick={() => setOpenModal(false)}
           />
           <div className="w-[50%]  mb-12 md:mb-0">
-            <ImageGallery
-              items={product}
-              additionalClass="product-items group"
-              showFullscreenButton={false}
-              // useBrowserFullscreen={isLaptop}
-            />
+            {product && array && (
+              <ImageGallery
+                items={array}
+                additionalClass="product-items group"
+                showFullscreenButton={false}
+                // useBrowserFullscreen={isLaptop}
+              />
+            )}
           </div>
           <div className="relative w-1/2 p-[10px]">
             <h2 className="text-2xl font-medium mb-[10px] text-[#2b2b2b]">
-              Apple Fruit
+              {product && product.name}
             </h2>
             <h3 className="text-[28px] font-normal text-[#8f8f8f] mb-[18px]">
               $50.00
@@ -63,13 +66,12 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal }) => {
                 classNamePrefix="stars"
               />
               <p className="text-[14px] text-[#8f8f8f] ml-8">
-                (1 customer review)
+                ({product && product.review} customer review)
               </p>
             </div>
             <div className="py-[15px]">
               <p className="text-sm text-[#8f8f8f] py-9">
-                Ipsa consequatur dolore labore eos et tempore et. Ab inventore
-                rerum eligendi ipsam alias. Minus quia quo qui amet in.
+                {product && product.description}
               </p>
             </div>
             <div className="flex">
@@ -100,7 +102,10 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal }) => {
               </button>
             </div>
             <p className="text-sm text-[#8f8f8f] mt-5">
-              Catégorie: <span className="text-[#2b2b2b]">Fruit</span>
+              Catégorie:{" "}
+              <span className="text-[#2b2b2b]">
+                {product && product.category}
+              </span>
             </p>
           </div>
         </div>

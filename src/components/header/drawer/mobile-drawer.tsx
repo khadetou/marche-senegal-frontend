@@ -64,7 +64,7 @@ const MobileDrawer = () => {
           <div className="w-full flex flex-col menu">
             <ul>
               {menues.map(({ title, path }, key) => (
-                <li className=" relative w-full">
+                <li key={key} className=" relative w-full">
                   <Link key={key} href={path}>
                     <a className="block border-b text-[#444444] py-[10px] hover:bg-gray-200 font-medium text-[15px]  hover:text-secondary">
                       {title}

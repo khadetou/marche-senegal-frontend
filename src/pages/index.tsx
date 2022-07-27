@@ -7,20 +7,48 @@ import Intersection from "@/components/Intersection";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import Services from "@/components/Services";
-import type { GetStaticProps, NextPage } from "next";
+import type { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
 import ProductScreen from "screen/ProductScreen";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { getUser, logout } from "store/reducers/auth/index";
+import { getCookie } from "store/actions/auth";
+import jwtDecode from "jwt-decode";
+import { wrapper } from "store";
+import { getAllProducts } from "store/reducers/products/productSlice";
 
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const dispatch = useAppDispatch();
+  const { isError, token } = useAppSelector((state) => state.auth);
+
   return (
     <Layout openModal={openModal} setOpenModal={setOpenModal}>
       <SEO />
       <Header />
       <Banner />
       <Ads />
-      <ProductScreen openModal={openModal} setOpenModal={setOpenModal} />
+      <ProductScreen
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        img="https://res.cloudinary.com/didh3wbru/image/upload/v1658049972/Ecommerce/Images/side%20images/h1-banner-5-ok_r7vjkn.jpg"
+      />
+      <ProductScreen
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946439/Ecommerce/Images/side%20images/h1-banner-7-ok_xob0kn.jpg"
+      />
       <Intersection />
+      <ProductScreen
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946470/Ecommerce/Images/side%20images/h1-banner-6-ok_gss8tt.jpg"
+      />
+      <ProductScreen
+        openModal={openModal}
+        setOpenModal={setOpenModal}
+        img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946498/Ecommerce/Images/side%20images/h1-banner-4-ok_ef3fpz.jpg"
+      />
       <Category />
       <Services />
       <Footer />
@@ -29,6 +57,17 @@ const Home: NextPage = () => {
 };
 
 export default Home;
-export const getStaticProps: GetStaticProps = async (context) => {
-  return { props: { white: false } };
-};
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async (context): Promise<any> => {
+    const token: string = getCookie("token", context.req);
+    await store.dispatch<any>(getAllProducts());
+
+    if (token) {
+      if (jwtDecode<any>(token).exp < Date.now() / 1000) {
+        await store.dispatch<any>(logout());
+      } else {
+        await store.dispatch<any>(getUser(token));
+        const { auth } = await store.getState();
+      }
+    }
+  });

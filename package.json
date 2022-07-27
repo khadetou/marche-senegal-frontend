@@ -9,11 +9,18 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@reduxjs/toolkit": "^1.8.3",
     "@types/aos": "^3.0.4",
+    "@types/js-cookie": "^3.0.2",
     "@types/react-image-gallery": "^1.0.5",
+    "@types/react-redux": "^7.1.24",
     "aos": "^2.3.4",
+    "axios": "^0.27.2",
     "framer-motion": "^6.5.1",
+    "js-cookie": "^3.0.1",
+    "jwt-decode": "^3.1.2",
     "next": "12.2.2",
+    "next-redux-wrapper": "^7.0.5",
     "postcss-import": "^14.1.0",
     "rc-drawer": "^4.4.3",
     "react": "18.2.0",
@@ -21,9 +28,14 @@
     "react-dom": "18.2.0",
     "react-icons": "^4.4.0",
     "react-image-gallery": "^1.2.8",
+    "react-redux": "^8.0.2",
     "react-responsive": "^9.0.0-beta.10",
     "react-select": "^5.4.0",
     "react-star-rate": "^0.2.0",
+    "react-toastify": "^9.0.7",
+    "redux-thunk": "^2.4.1",
+    "sweetalert2": "^11.4.24",
+    "sweetalert2-react-content": "^5.0.2",
     "swiper": "^8.3.1"
   },
   "devDependencies": {

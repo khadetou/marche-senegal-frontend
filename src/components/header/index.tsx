@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { AiOutlineUser, AiOutlineShoppingCart } from "react-icons/ai";
 import { BiSearchAlt } from "react-icons/bi";
 import { FiAlignJustify } from "react-icons/fi";
@@ -10,6 +10,8 @@ import Image from "next/image";
 import Logo from "/public/images/marchelogo.svg";
 import { useRouter } from "next/router";
 import Cartdrawer from "../cart/drawer/cartdrawer";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { logout } from "store/reducers/auth/index";
 
 interface HeaderProps {
   className?: string;
@@ -22,7 +24,6 @@ interface IconProps {
   size?: number | string;
 }
 
-let item = false;
 const Icons: FC<{
   Icon: any;
   className?: string;
@@ -34,6 +35,8 @@ const Icons: FC<{
       setOpen(!open);
     }
   };
+
+  const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
   return (
     <>
@@ -50,7 +53,7 @@ const Icons: FC<{
         {Icon === AiOutlineShoppingCart && (
           <Icon className="text-base text-white" />
         )}
-        {Icon === AiOutlineUser && !item ? (
+        {Icon === AiOutlineUser && !isAuthenticated ? (
           <Icon className="text-base text-white" />
         ) : (
           Icon === AiOutlineUser && <p className="text-sm font-semibold">KD</p>
@@ -88,6 +91,8 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
 
   const [rotate, setRotate] = useState(false);
 
+  const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
   return (
     <header className="relative h-[188px] bg-white">
       <div
@@ -145,6 +150,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
                 <div className="flex justify-between">
                   {[AiOutlineUser, AiOutlineShoppingCart].map((icons, key) => (
                     <div
+                      key={key}
                       className={`mr-2 ${
                         icons === AiOutlineUser ? "sm:w-[171px]" : ""
                       } last:mr-0 flex  cursor-pointer items-center`}
@@ -160,59 +166,91 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
                         Icon={icons}
                         key={key}
                       />
-
                       <div className="relative group flex items-center w-full">
-                        <p className="ml-2 hidden sm:block text-dark-gray text-sm font-semibold">
-                          {icons === AiOutlineUser
-                            ? !item
-                              ? "Se connecter"
-                              : "Utilisateur"
-                            : "Cart"}
-                        </p>
-                        {icons === AiOutlineUser && item && (
-                          <RiArrowDropDownLine
-                            size="27"
-                            className={`${
-                              openProfile && "rotate-180"
-                            } transition-all ease-in-out duration-300 text-dark-gray`}
-                          />
-                        )}
-                        {icons === AiOutlineUser && item && (
-                          <div
-                            className={`absolute !w-[200px] rounded-md top-7 z-10 bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray  
+                        {icons === AiOutlineUser && !isAuthenticated ? (
+                          <Link href="/login">
+                            <div className=" group flex items-center w-full">
+                              <p className="ml-2 hidden sm:block text-dark-gray text-sm font-semibold">
+                                {icons === AiOutlineUser
+                                  ? !isAuthenticated
+                                    ? "Se connecter"
+                                    : "Utilisateur"
+                                  : "Cart"}
+                              </p>
+                              {icons === AiOutlineUser && isAuthenticated && (
+                                <RiArrowDropDownLine
+                                  size="27"
+                                  className={`${
+                                    openProfile && "rotate-180"
+                                  } transition-all ease-in-out duration-300 text-dark-gray`}
+                                />
+                              )}
+                            </div>
+                          </Link>
+                        ) : (
+                          icons === AiOutlineUser &&
+                          isAuthenticated && (
+                            <div className="flex items-center group  w-full">
+                              <p className="ml-2 hidden sm:block text-dark-gray text-sm font-semibold">
+                                {icons === AiOutlineUser
+                                  ? !isAuthenticated
+                                    ? "Se connecter"
+                                    : "Utilisateur"
+                                  : "Cart"}
+                              </p>
+                              {icons === AiOutlineUser && isAuthenticated && (
+                                <RiArrowDropDownLine
+                                  size="27"
+                                  className={`${
+                                    openProfile && "rotate-180"
+                                  } transition-all ease-in-out duration-300 text-dark-gray`}
+                                />
+                              )}
+
+                              <div
+                                className={`absolute !w-[200px] rounded-md top-7 z-10 bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray  
                               ${
                                 openProfile
                                   ? "opacity-100 visible translate-y-[12px] -translate-x-40  lg:translate-x-0"
                                   : "invisible -translate-x-40 translate-y-12 opacity-0"
                               }`}
-                          >
-                            <Link passHref href="/orders/design">
-                              <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                Profile
-                              </a>
-                            </Link>
+                              >
+                                <Link href="/orders/design">
+                                  <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                    Profile
+                                  </a>
+                                </Link>
 
-                            <Link passHref href="/orders/web">
-                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                Utilsateurs
-                              </a>
-                            </Link>
-                            <Link passHref href="/orders/web">
-                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                Produits
-                              </a>
-                            </Link>
-                            <Link passHref href="/orders/web">
-                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                Commandes
-                              </a>
-                            </Link>
-                            <Link passHref href="/orders/web">
-                              <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                Log out
-                              </a>
-                            </Link>
-                          </div>
+                                {user && user.roles.includes("admin") && (
+                                  <Link href="/admin/users">
+                                    <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                      Utilsateurs
+                                    </a>
+                                  </Link>
+                                )}
+                                {user && user.roles.includes("admin") && (
+                                  <Link href="/admin/products">
+                                    <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                      Produits
+                                    </a>
+                                  </Link>
+                                )}
+                                <Link href="/orders/web">
+                                  <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                    Commandes
+                                  </a>
+                                </Link>
+                                <button
+                                  className="w-full"
+                                  onClick={() => dispatch(logout())}
+                                >
+                                  <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-semibold ">
+                                    Se Deconnecter
+                                  </a>
+                                </button>
+                              </div>
+                            </div>
+                          )
                         )}
                       </div>
                     </div>
@@ -241,7 +279,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
               </div>
               <nav className="mx-auto hidden lg:flex nav">
                 {menues.map(({ title, path, className }, key) => (
-                  <Link passHref key={key} href={path}>
+                  <Link key={key} href={path}>
                     <button
                       className={`flex items-center px-1 mx-3 my-1 py-3 xl:px-1 xl:py-3 relative group  font-normal leading-none text-sm  before:contente-[""] before:w-0  hover:before:w-full before:h-[3px] before:transition-all before:left-0 before:bg-secondary before:absolute before:bottom-1  hover:text-secondary before:duration-500 ease-linear ${className} ${
                         pathname.endsWith(path) &&
