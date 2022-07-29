@@ -41,11 +41,11 @@ const Icons: FC<{
 
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
-  const { items } = useCart();
+  const { totalItems } = useCart();
   const [item, setItem] = useState<any>([]);
   useEffect(() => {
-    setItem(items);
-  }, [items]);
+    setItem(totalItems);
+  }, [totalItems]);
 
   return (
     <>
@@ -55,7 +55,7 @@ const Icons: FC<{
       >
         {Icon === AiOutlineShoppingCart && (
           <span className="absolute top-[-20%] right-[-12%] rounded-full bg-secondary py-1 px-2 text-xs">
-            {item.length}
+            {item}
           </span>
         )}
         {/* <Icon className="text-base text-white" /> */}

@@ -123,7 +123,7 @@ const ProductLandingList: FC<ProductListProps> = ({
                         <button
                           className="bg-primary rounded-full flex justify-center items-center w-[127px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
                           onClick={() => {
-                            addItem({ ...product, id: product._id, qty });
+                            addItem({ ...product, id: product._id });
                             setOpen(true);
                           }}
                         >

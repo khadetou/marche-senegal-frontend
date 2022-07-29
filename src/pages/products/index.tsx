@@ -9,10 +9,11 @@ import React, { useState } from "react";
 
 const Products = () => {
   const [openModal, setOpenModal] = useState(true);
+  const [open, setOpen] = useState(false);
   return (
     <Layout openModal={openModal} setOpenModal={setOpenModal}>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <ProductsList openModal={openModal} setOpenModal={setOpenModal} />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

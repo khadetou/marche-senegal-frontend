@@ -4,6 +4,7 @@ import { IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Produit from "/public/images/produit.jpg";
 import { useCart } from "react-use-cart";
+import Link from "next/link";
 
 const Items: FC<{
   setValue?: any;
@@ -71,10 +72,12 @@ const Items: FC<{
           <h3 className="text-dark-gray">SOUS - TOTAL:</h3>
           <h3 className="text-primary">{cartTotal.toFixed(2)} FCFA</h3>
         </div>
-        <div>
-          <p className="text-primary text-[14px] uppercase text-center font-semibold mt-3">
-            Voire panier
-          </p>
+        <div className="cursor-pointer">
+          <Link href="/cart">
+            <p className="text-primary text-[14px] uppercase text-center font-semibold mt-3">
+              Voire panier
+            </p>
+          </Link>
         </div>
         <button className="text-white text-[14px] font-bold bg-primary rounded-full py-3 mt-3 transition-all ease-in duration-300 hover:bg-secondary">
           Valider

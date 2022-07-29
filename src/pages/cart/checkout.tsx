@@ -5,12 +5,13 @@ import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
-import React from "react";
+import React, { useState } from "react";
 
 const Checkout = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <SEO />
       <BannerImg />
       <CheckoutPage />

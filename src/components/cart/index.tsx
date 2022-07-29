@@ -2,11 +2,12 @@ import React, { FC, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaOpencart } from "react-icons/fa";
 import Image from "next/image";
-import Produit from "/public/images/produit.jpg";
+import { useCart } from "react-use-cart";
 
 const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   const [value, setValue] = useState(1);
-  const [isEmpty, setIsEmpty] = useState(true);
+  // const [isEmpty, setIsEmpty] = useState(true);
+  const { items, isEmpty, updateItemQuantity } = useCart();
   return (
     <section className="w-full h-full flex flex-col justify-between mb-28 ">
       <div className="containers">
@@ -14,9 +15,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
           <div className="flex flex-col items-center lg:items-start lg:flex-row justify-center lg:justify-between">
             <div className="w-full flex flex-col items-center">
               <ul className="max-w-[760px] w-full flex justify-between flex-row lg:flex-col mb-4 lg:mb-0">
-                <div className="flex lg:hidden items-center">
-                  <Image src={Produit} width={75} height={75} />
-                </div>
+                {items.map(({ id, image }) => (
+                  <div key={id} className="flex lg:hidden items-center">
+                    <Image src={image[0].url} width={75} height={75} />
+                  </div>
+                ))}
                 <li className="lg:border-b-[0.1px] py-2 lg:py-8 flex flex-col lg:flex-row justify-between px-0 mr-2 lg:mr-0 lg:px-8 border-gray-300  h-[200px] lg:h-[inherit]">
                   <h1 className="text-[14px] font-bold text-dark-gray">
                     Produit
@@ -31,50 +34,65 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                     Total
                   </h1>
                 </li>
-                <li className="flex flex-col lg:flex-row  justify-between group lg:border-b-[0.1px] border-gray-300 relative py-2 lg:py-12 items-center mr-5">
-                  <div className="flex items-center justify-between flex-row-reverse lg:flex-row ">
-                    <div className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5">
-                      <IoIosClose
-                        size="25px"
-                        className="text-[#8f8f8f] hover:text-red-600"
-                      />
-                    </div>
 
-                    <div className="hidden lg:flex items-center">
-                      <Image src={Produit} width={75} height={75} />
-                    </div>
+                {items.map(({ id, image, name, quantity, price }) => (
+                  <div key={id}>
+                    <li className="flex flex-col lg:flex-row  justify-between group lg:border-b-[0.1px] border-gray-300 relative py-2 lg:py-12 items-center mr-5">
+                      <div className="flex items-center justify-between flex-row-reverse lg:flex-row ">
+                        <div className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5">
+                          <IoIosClose
+                            size="25px"
+                            className="text-[#8f8f8f] hover:text-red-600"
+                          />
+                        </div>
 
-                    <p className="text-gray-400 lg:text-dark-gray lg:font-bold ml-0 lg:ml-[30px] text-sm mr-8 lg:mr-0">
-                      Onion
-                    </p>
+                        <div className="hidden lg:flex items-center">
+                          <Image src={image[0].url} width={75} height={75} />
+                        </div>
+
+                        <p className="text-gray-400 lg:text-dark-gray lg:font-bold ml-0 lg:ml-[30px] text-sm mr-8 lg:mr-0">
+                          {name}
+                        </p>
+                      </div>
+                      <h3 className="text-light-gray text-[14px]">
+                        {price} FCFA
+                      </h3>
+                      <div className="flex flex-col justify-center">
+                        <div className="rounded-full w-[120px] border py-0 lg:py-3  flex items-center justify-center border-gray-200">
+                          <span
+                            className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+                            // onClick={substract}
+                            onClick={() => {
+                              updateItemQuantity(id, quantity! - 1);
+                            }}
+                          >
+                            -
+                          </span>
+                          <input
+                            className="w-14 p-0 text-light-gray text-center border-0 text-[14px]"
+                            type="number"
+                            step={1}
+                            min={1}
+                            value={quantity}
+                            onChange={(e: any) => setValue(e.target.value)}
+                          />
+                          <span
+                            className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+                            // onClick={addValue}
+                            onClick={() => {
+                              updateItemQuantity(id, quantity! + 1);
+                            }}
+                          >
+                            +
+                          </span>
+                        </div>
+                      </div>
+                      <h3 className="text-primary font-bold text-[14px]">
+                        {quantity! * price} FCFA
+                      </h3>
+                    </li>
                   </div>
-                  <h3 className="text-light-gray text-[14px]">$75.00</h3>
-                  <div className="flex flex-col justify-center">
-                    <div className="rounded-full w-[120px] border py-0 lg:py-3  flex items-center justify-center border-gray-200">
-                      <span
-                        className=" px-2 text-gray-400 border-light-gray cursor-pointer"
-                        // onClick={substract}
-                      >
-                        -
-                      </span>
-                      <input
-                        className="w-14 p-0 text-light-gray text-center border-0 text-[14px]"
-                        type="number"
-                        step={1}
-                        min={1}
-                        value={value}
-                        onChange={(e: any) => setValue(e.target.value)}
-                      />
-                      <span
-                        className=" px-2 text-gray-400 border-light-gray cursor-pointer"
-                        // onClick={addValue}
-                      >
-                        +
-                      </span>
-                    </div>
-                  </div>
-                  <h3 className="text-primary font-bold text-[14px]">$75.00</h3>
-                </li>
+                ))}
               </ul>
               <button className="text-white text-[14px] self-center w-full max-w-[300px] font-bold bg-primary rounded-full py-3 mt-3 transition-all ease-in duration-300 hover:bg-secondary">
                 Update cart

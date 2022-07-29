@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState, useEffect, FC } from "react";
 import StarsRating from "react-star-rate";
 import ImageGallery from "react-image-gallery";
 import { HiStar } from "react-icons/hi";
@@ -7,31 +7,12 @@ import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { getProductById } from "store/reducers/products/productSlice";
 import Link from "next/link";
+import { useCart } from "react-use-cart";
 
-const ProductDetail = () => {
+const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   const [value, setValue] = useState<number | undefined>(0);
   const [qty, setQty] = useState(1);
   const isLaptop = useMediaQuery({ query: "(min-width:640px)" });
-  const products = [
-    {
-      original:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658244260/Ecommerce/Images/Products/product-14_oaysxe.jpg",
-      thumbnail:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658244260/Ecommerce/Images/Products/product-14_oaysxe.jpg",
-    },
-    {
-      original:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658328125/Ecommerce/Images/Products/product-14-2_mn4tmo.jpg",
-      thumbnail:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658328125/Ecommerce/Images/Products/product-14-2_mn4tmo.jpg",
-    },
-    {
-      original:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658328131/Ecommerce/Images/Products/product-14-1_epzytk.jpg",
-      thumbnail:
-        "https://res.cloudinary.com/didh3wbru/image/upload/v1658328131/Ecommerce/Images/Products/product-14-1_epzytk.jpg",
-    },
-  ];
 
   const {
     query: { id },
@@ -57,6 +38,8 @@ const ProductDetail = () => {
       };
     });
   }
+
+  const { items, addItem } = useCart();
 
   return (
     <section className="h-full">
@@ -105,7 +88,11 @@ const ProductDetail = () => {
               <div className="rounded-full border flex items-center justify-center border-light-gray">
                 <span
                   className=" px-5  cursor-pointer"
-                  // onClick={substract}
+                  onClick={() => {
+                    if (qty > 0) {
+                      setQty(qty - 1);
+                    }
+                  }}
                 >
                   -
                 </span>
@@ -119,12 +106,18 @@ const ProductDetail = () => {
                 />
                 <span
                   className=" px-5 cursor-pointer"
-                  // onClick={addValue}
+                  onClick={() => setQty(qty + 1)}
                 >
                   +
                 </span>
               </div>
-              <button className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4">
+              <button
+                className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4"
+                onClick={() => {
+                  addItem({ ...product, id: product._id }, qty);
+                  setOpen(true);
+                }}
+              >
                 AJOUTER AU PANIER
               </button>
             </div>
