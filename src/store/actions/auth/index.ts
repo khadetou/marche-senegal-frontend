@@ -39,7 +39,7 @@ const logout = () => {
 
 //SET COOKIE
 
-const setCookie = (key: string, value: string) => {
+export const setCookie = (key: string, value: any) => {
   if (typeof window !== "undefined") {
     cookie.set(key, value, {
       expires: 1,

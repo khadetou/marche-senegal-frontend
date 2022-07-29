@@ -16,37 +16,45 @@ import { getCookie } from "store/actions/auth";
 import jwtDecode from "jwt-decode";
 import { wrapper } from "store";
 import { getAllProducts } from "store/reducers/products/productSlice";
-
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
+  const [open, setOpen] = useState(false);
   const dispatch = useAppDispatch();
   const { isError, token } = useAppSelector((state) => state.auth);
 
   return (
     <Layout openModal={openModal} setOpenModal={setOpenModal}>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <Banner />
       <Ads />
       <ProductScreen
         openModal={openModal}
         setOpenModal={setOpenModal}
+        open={open}
+        setOpen={setOpen}
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658049972/Ecommerce/Images/side%20images/h1-banner-5-ok_r7vjkn.jpg"
       />
       <ProductScreen
         openModal={openModal}
         setOpenModal={setOpenModal}
+        open={open}
+        setOpen={setOpen}
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946439/Ecommerce/Images/side%20images/h1-banner-7-ok_xob0kn.jpg"
       />
       <Intersection />
       <ProductScreen
         openModal={openModal}
         setOpenModal={setOpenModal}
+        open={open}
+        setOpen={setOpen}
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946470/Ecommerce/Images/side%20images/h1-banner-6-ok_gss8tt.jpg"
       />
       <ProductScreen
         openModal={openModal}
         setOpenModal={setOpenModal}
+        open={open}
+        setOpen={setOpen}
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946498/Ecommerce/Images/side%20images/h1-banner-4-ok_ef3fpz.jpg"
       />
       <Category />

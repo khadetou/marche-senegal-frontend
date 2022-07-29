@@ -1,10 +1,10 @@
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaOpencart } from "react-icons/fa";
 import Image from "next/image";
 import Produit from "/public/images/produit.jpg";
 
-const CartItems = () => {
+const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   const [value, setValue] = useState(1);
   const [isEmpty, setIsEmpty] = useState(true);
   return (

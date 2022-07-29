@@ -1,6 +1,7 @@
 import { configureStore } from "@reduxjs/toolkit";
 import { HYDRATE, createWrapper } from "next-redux-wrapper";
 import reducers from "./reducers";
+import thunk from "redux-thunk";
 
 const reducer = (state: any, action: any) => {
   const { type, payload } = action;
@@ -17,7 +18,9 @@ const reducer = (state: any, action: any) => {
 
 export const initStore: any = () =>
   configureStore({
-    reducer,
+    reducer: reducer,
+    devTools: process.env.NODE_ENV !== "production",
+    middleware: [thunk],
   });
 
 export type AppDispatch = typeof initStore.dispatch;

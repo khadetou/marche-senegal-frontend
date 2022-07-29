@@ -5,17 +5,24 @@ interface ProductListProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
   img: string;
+  open: any;
+  setOpen: any;
 }
+
 const ProductScreen: FC<ProductListProps> = ({
   openModal,
   setOpenModal,
   img,
+  open,
+  setOpen,
 }) => {
   return (
     <div>
       <ProductLandingList
         openModal={openModal}
         setOpenModal={setOpenModal}
+        open={open}
+        setOpen={setOpen}
         img={img}
       />
     </div>

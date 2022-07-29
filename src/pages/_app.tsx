@@ -9,9 +9,14 @@ import "react-toastify/dist/ReactToastify.css";
 import "react-image-gallery/styles/css/image-gallery.css";
 import type { AppProps } from "next/app";
 import { wrapper } from "../store";
+import { CartProvider } from "react-use-cart";
 
 function MyApp({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />;
+  return (
+    <CartProvider>
+      <Component {...pageProps} />
+    </CartProvider>
+  );
 }
 
 export default wrapper.withRedux(MyApp);

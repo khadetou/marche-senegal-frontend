@@ -12,11 +12,14 @@ import { useRouter } from "next/router";
 import Cartdrawer from "../cart/drawer/cartdrawer";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { logout } from "store/reducers/auth/index";
+import { useCart } from "react-use-cart";
 
 interface HeaderProps {
   className?: string;
   bgClassName?: string;
   buttonClassName?: string;
+  open: any;
+  setOpen: any;
 }
 
 interface IconProps {
@@ -27,7 +30,7 @@ interface IconProps {
 const Icons: FC<{
   Icon: any;
   className?: string;
-  open: boolean;
+  open: any;
   setOpen: any;
 }> = ({ Icon, className, open, setOpen }) => {
   const toggleCart = () => {
@@ -38,6 +41,12 @@ const Icons: FC<{
 
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
+  const { items } = useCart();
+  const [item, setItem] = useState<any>([]);
+  useEffect(() => {
+    setItem(items);
+  }, [items]);
+
   return (
     <>
       <div
@@ -46,7 +55,7 @@ const Icons: FC<{
       >
         {Icon === AiOutlineShoppingCart && (
           <span className="absolute top-[-20%] right-[-12%] rounded-full bg-secondary py-1 px-2 text-xs">
-            3
+            {item.length}
           </span>
         )}
         {/* <Icon className="text-base text-white" /> */}
@@ -63,7 +72,7 @@ const Icons: FC<{
   );
 };
 
-const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
+const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
   const menues = [
     { title: "Accueil", path: "/" },
     { title: "Boutique", path: "/about" },
@@ -75,7 +84,8 @@ const Header: FC<HeaderProps> = ({ className, bgClassName }) => {
     { title: "Pages", path: "/work" },
     { title: "Nous Contacter", path: "/products" },
   ];
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
+
   const [openProfile, setOpenProfile] = useState(false);
 
   const category = [

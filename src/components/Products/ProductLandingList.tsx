@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, useState } from "react";
+import React, { Dispatch, FC, useEffect, useState } from "react";
 import Image from "next/image";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation } from "swiper";
@@ -7,41 +7,9 @@ import { HiStar } from "react-icons/hi";
 import { FaOpencart } from "react-icons/fa";
 import { AiOutlineEye } from "react-icons/ai";
 import ProductItem from "../Modal/productItem";
-import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { useAppSelector } from "@/hooks/index";
 import Link from "next/link";
-
-// const products = [
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049952/Ecommerce/Images/Products/product-3-300x300_atwsjo.jpg",
-//     name: "Egg",
-//     rating: 3,
-//     price: "$35.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049944/Ecommerce/Images/Products/product-10-300x300_tnqcvo.jpg",
-//     name: "Meat",
-//     rating: 4.5,
-//     price: "$105.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049934/Ecommerce/Images/Products/product-22-300x300_1_mwv2n6.jpg",
-//     name: "Onion",
-//     rating: 3.5,
-//     price: "$60.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049924/Ecommerce/Images/Products/product-33-300x300_hkphav.jpg",
-//     name: "Bread",
-//     rating: 5,
-//     price: "$70.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049917/Ecommerce/Images/Products/product-18-300x300_z1w6ym.jpg",
-//     name: "Rustic paper pants",
-//     rating: 5,
-//     price: "$80.00",
-//   },
-// ];
+import { useCart } from "react-use-cart";
 
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
@@ -49,15 +17,23 @@ interface ProductListProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
   img: string;
+  open: any;
+  setOpen: any;
 }
 
 const ProductLandingList: FC<ProductListProps> = ({
   openModal,
   setOpenModal,
   img,
+  open,
+  setOpen,
 }) => {
   const { products } = useAppSelector((state) => state.products);
+
   const [id, setId] = useState("");
+  const [qty, setQty] = useState(1);
+
+  const { addItem } = useCart();
 
   return (
     <section className="mt-4 mb-8">
@@ -144,7 +120,13 @@ const ProductLandingList: FC<ProductListProps> = ({
                         <h2 className="text-center text-[#A8B324] font-bold text-base">
                           {product.price} FCFA
                         </h2>
-                        <button className="bg-primary rounded-full flex justify-center items-center w-[127px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
+                        <button
+                          className="bg-primary rounded-full flex justify-center items-center w-[127px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
+                          onClick={() => {
+                            addItem({ ...product, id: product._id, qty });
+                            setOpen(true);
+                          }}
+                        >
                           <FaOpencart className="mr-1" />
                           Add to cart
                         </button>
