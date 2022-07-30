@@ -28,7 +28,11 @@ const LoginScreen = () => {
       toast.error(message.message);
     }
     if (isSuccess) {
-      router.push("/");
+      if (router.query && router.query.from) {
+        router.push(router.query.from as string);
+      } else {
+        router.push("/");
+      }
     }
     dispatch(reset());
   }, [isError, message, isSuccess, router, dispatch, reset]);

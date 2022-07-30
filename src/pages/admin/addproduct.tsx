@@ -6,7 +6,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import { ToastContainer } from "react-toastify";
 import { GetServerSideProps } from "next";
-import { FC, useEffect } from "react";
+import { FC, useEffect, useState } from "react";
 import jwtDecode from "jwt-decode";
 import { getCookie } from "store/actions/auth";
 import { getUser, reset, logout } from "store/reducers/auth/index";
@@ -33,11 +33,11 @@ const Addproduct: FC<IProps> = (props) => {
       dispatch(reset());
     }
   }, [dispatch, props]);
-
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <AddProductScreen />
       <ToastContainer />

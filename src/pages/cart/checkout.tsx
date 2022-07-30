@@ -4,11 +4,25 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
-import { GetStaticProps } from "next";
-import React, { useState } from "react";
+import jwtDecode from "jwt-decode";
+import { GetServerSideProps, GetStaticProps } from "next";
+import { useAppSelector } from "@/hooks/index";
+import React, { useEffect, useState } from "react";
+import { getCookie } from "store/actions/auth";
+import { useRouter } from "next/router";
 
 const Checkout = () => {
   const [open, setOpen] = useState(false);
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+  const router = useRouter();
+  useEffect(() => {
+    if (!isAuthenticated) {
+      router.push({
+        pathname: "/login",
+        query: { from: router.pathname },
+      });
+    }
+  }, [isAuthenticated]);
   return (
     <Layout>
       <Header open={open} setOpen={setOpen} />
@@ -21,6 +35,25 @@ const Checkout = () => {
 };
 
 export default Checkout;
-export const getStaticProps: GetStaticProps = async (context) => {
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token: string = getCookie("token", context.req);
+
+  if (token) {
+    if (jwtDecode<any>(token).exp < Date.now() / 1000) {
+      return {
+        props: {
+          token,
+          white: true,
+        },
+      };
+    }
+  } else {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
   return { props: { white: true } };
 };

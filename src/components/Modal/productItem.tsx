@@ -1,4 +1,4 @@
-import { Dispatch, FC, useRef, useEffect } from "react";
+import { Dispatch, FC, useRef, useEffect, useState } from "react";
 import { HiStar } from "react-icons/hi";
 import { IoIosClose } from "react-icons/io";
 import StarsRating from "react-star-rate";
@@ -6,13 +6,22 @@ import Modal from "./modal";
 import ImageGallery from "react-image-gallery";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { getProductById } from "store/reducers/products/productSlice";
+import { useCart } from "react-use-cart";
 
 interface ModalsProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+  open: any;
+  setOpen: any;
   id?: string;
 }
-const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal, id }) => {
+const ProductItem: FC<ModalsProps> = ({
+  openModal,
+  setOpenModal,
+  id,
+  open,
+  setOpen,
+}) => {
   const dispatch = useAppDispatch();
   useEffect(() => {
     if (id) {
@@ -33,13 +42,20 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal, id }) => {
   }
 
   const modalRef = useRef<any>();
+
+  const { addItem } = useCart();
+  const [qty, setQty] = useState(1);
+
   return (
     <>
       <Modal openModal={openModal} setOpenModal={setOpenModal} ref={modalRef}>
         <div className="flex flex-col  md:flex-row items-center relative h-full w-full ">
           <IoIosClose
-            className="absolute right-0 top-0 cursor-pointer text-red-600 text-[25px] transition-all ease-linear duration-300 hover:rotate-90"
-            onClick={() => setOpenModal(false)}
+            className="absolute right-0 top-0 cursor-pointer text-red-600 text-[25px] transition-all ease-linear duration-200 hover:rotate-90"
+            onClick={() => {
+              setQty(1);
+              setOpenModal(false);
+            }}
           />
           <div className="w-[50%]  mb-12 md:mb-0">
             {product && array && (
@@ -56,7 +72,7 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal, id }) => {
               {product && product.name}
             </h2>
             <h3 className="text-[28px] font-normal text-[#8f8f8f] mb-[18px]">
-              $50.00
+              {product && product.price} FCFA
             </h3>
             <div className="flex text-[0px] mb-[14px] items-center">
               <StarsRating
@@ -78,26 +94,41 @@ const ProductItem: FC<ModalsProps> = ({ openModal, setOpenModal, id }) => {
               <div className="rounded-full border flex items-center justify-center border-light-gray">
                 <span
                   className=" px-5  cursor-pointer"
-                  // onClick={substract}
+                  onClick={() => {
+                    if (qty > 0) {
+                      setQty(qty - 1);
+                    }
+                  }}
                 >
                   -
                 </span>
                 <input
-                  className="w-[70px] py-3 px-0 text-light-gray focus:ring-0 border-none text-center text-[14px]"
+                  className="w-[70px] py-3 px-0 text-light-gray focus:ring-0 border-none text-center text-[14px] "
                   type="number"
                   step={1}
                   min={1}
-                  // value={qty}
-                  // onChange={(e: any) => setQty(e.target.value)}
+                  value={qty}
+                  onChange={(e: any) => setQty(e.target.value)}
                 />
                 <span
                   className=" px-5 cursor-pointer"
                   // onClick={addValue}
+                  onClick={() => {
+                    setQty(qty + 1);
+                  }}
                 >
                   +
                 </span>
               </div>
-              <button className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4">
+              <button
+                className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4"
+                onClick={() => {
+                  addItem({ ...product, id: product._id }, qty);
+                  setQty(1);
+                  setOpen(true);
+                  setOpenModal(false);
+                }}
+              >
                 AJOUTER AU PANIER
               </button>
             </div>

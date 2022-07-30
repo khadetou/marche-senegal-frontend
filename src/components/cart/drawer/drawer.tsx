@@ -1,4 +1,4 @@
-import { FC } from "react";
+import { FC, useEffect, useState } from "react";
 import RcDrawer from "rc-drawer";
 import Link from "next/link";
 import Image from "next/image";
@@ -35,7 +35,11 @@ const Drawer: FC<DrawerProps> = ({
   closeBtnStyle,
   props,
 }) => {
-  const { items } = useCart();
+  const { totalItems } = useCart();
+  const [totalItem, setTotalItem] = useState(0);
+  useEffect(() => {
+    setTotalItem(totalItems);
+  }, [totalItems]);
 
   return (
     <>
@@ -59,7 +63,7 @@ const Drawer: FC<DrawerProps> = ({
               <p className="font-medium text-[13px] text-dark-gray uppercase pt-8 ">
                 Shopping cart{" "}
                 <span className="text-white sm ml-3 bg-primary rounded-full px-[5px] py-[0.7px]">
-                  {items.length}
+                  {totalItem}
                 </span>
               </p>
             </div>

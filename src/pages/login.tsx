@@ -6,15 +6,16 @@ import LoginScreen from "@/components/Login";
 import SEO from "@/components/Seo";
 import { GetServerSideProps } from "next";
 import { ToastContainer } from "react-toastify";
-import React from "react";
+import React, { useState } from "react";
 import { getCookie } from "store/actions/auth";
 import jwtDecode from "jwt-decode";
 
 const Login = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <LoginScreen />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

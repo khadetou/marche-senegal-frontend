@@ -42,9 +42,9 @@ const Icons: FC<{
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
   const { totalItems } = useCart();
-  const [item, setItem] = useState<any>([]);
+  const [total, setTotal] = useState(0);
   useEffect(() => {
-    setItem(totalItems);
+    setTotal(totalItems);
   }, [totalItems]);
 
   return (
@@ -55,7 +55,7 @@ const Icons: FC<{
       >
         {Icon === AiOutlineShoppingCart && (
           <span className="absolute top-[-20%] right-[-12%] rounded-full bg-secondary py-1 px-2 text-xs">
-            {item}
+            {total}
           </span>
         )}
         {/* <Icon className="text-base text-white" /> */}
@@ -312,13 +312,13 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                       )}
                       {title.toLocaleLowerCase() === "boutique" && (
                         <div className="absolute !w-[200px] rounded-md top-7  bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray  invisible translate-x-3 translate-y-12 opacity-0  group-hover:visible group-hover:opacity-100 group-hover:translate-y-[21px] group-hover:translate-x-0">
-                          <Link passHref href="/orders/design">
+                          <Link passHref href="/cart">
                             <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
                               Panier
                             </a>
                           </Link>
 
-                          <Link passHref href="/orders/web">
+                          <Link passHref href="/cart/checkout">
                             <a className="!text-[14px] inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
                               Paiement
                             </a>

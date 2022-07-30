@@ -10,6 +10,7 @@ import ProductItem from "../Modal/productItem";
 import { useAppSelector } from "@/hooks/index";
 import Link from "next/link";
 import { useCart } from "react-use-cart";
+import { RiLuggageCartFill } from "react-icons/ri";
 
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
@@ -33,12 +34,23 @@ const ProductLandingList: FC<ProductListProps> = ({
   const [id, setId] = useState("");
   const [qty, setQty] = useState(1);
 
-  const { addItem } = useCart();
+  const { addItem, inCart } = useCart();
+  const [inCarts, setInCarts] = useState<any>({
+    value: (id: any) => false,
+  });
+
+  useEffect(() => {
+    setInCarts({
+      value: inCart,
+    });
+  }, [inCart]);
 
   return (
     <section className="mt-4 mb-8">
       <div className="containers">
         <ProductItem
+          open={open}
+          setOpen={setOpen}
           openModal={openModal}
           setOpenModal={setOpenModal}
           id={id}
@@ -121,15 +133,23 @@ const ProductLandingList: FC<ProductListProps> = ({
                           {product.price} FCFA
                         </h2>
                         <button
-                          className="bg-primary rounded-full flex justify-center items-center w-[127px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
+                          className="bg-primary rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
                           onClick={() => {
                             addItem({ ...product, id: product._id });
                             setOpen(true);
                           }}
                         >
                           <FaOpencart className="mr-1" />
-                          Add to cart
+                          Ajouter au panier
                         </button>
+                        {inCarts.value(product._id) && (
+                          <Link href="/cart">
+                            <button className="bg-primary  rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
+                              <RiLuggageCartFill className="mr-1" />
+                              Voire le panier
+                            </button>
+                          </Link>
+                        )}
                       </div>
                     </div>
                   </SwiperSlide>

@@ -39,7 +39,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
     });
   }
 
-  const { items, addItem } = useCart();
+  const { addItem } = useCart();
 
   return (
     <section className="h-full">

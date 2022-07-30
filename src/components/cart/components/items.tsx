@@ -1,21 +1,28 @@
-import React, { FC } from "react";
+import React, { FC, useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { IoIosClose } from "react-icons/io";
 import Image from "next/image";
 import Produit from "/public/images/produit.jpg";
-import { useCart } from "react-use-cart";
+import { Item, useCart } from "react-use-cart";
 import Link from "next/link";
 
 const Items: FC<{
   setValue?: any;
 }> = ({ setValue }) => {
   const { items, updateItemQuantity, removeItem, cartTotal } = useCart();
+  const [Item, setItem] = useState<Item[]>([]);
+  const [total, setTotal] = useState(0);
+
+  useEffect(() => {
+    setTotal(cartTotal);
+    setItem(items);
+  }, [cartTotal, items]);
 
   return (
     <div className="w-full h-full flex flex-col justify-between ">
       <Scrollbars autoHide>
         <ul>
-          {items.map(({ image, name, price, id, quantity }, idx) => (
+          {Item.map(({ image, name, price, id, quantity }, idx) => (
             <li
               key={id}
               className="flex justify-between group relative items-center mr-5"
@@ -70,7 +77,7 @@ const Items: FC<{
       <div className="border-t-[0.5px] w-full flex flex-col border-light-gray">
         <div className="flex justify-between items-center text-[14px] font-bold h-[4px] mt-6">
           <h3 className="text-dark-gray">SOUS - TOTAL:</h3>
-          <h3 className="text-primary">{cartTotal.toFixed(2)} FCFA</h3>
+          <h3 className="text-primary">{total.toFixed(2)} FCFA</h3>
         </div>
         <div className="cursor-pointer">
           <Link href="/cart">

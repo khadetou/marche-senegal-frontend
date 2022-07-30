@@ -1,21 +1,48 @@
-import React, { FC, useState } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { IoIosClose } from "react-icons/io";
 import { FaOpencart } from "react-icons/fa";
 import Image from "next/image";
-import { useCart } from "react-use-cart";
+import { Item, useCart } from "react-use-cart";
+import { useRouter } from "next/router";
+import Link from "next/link";
+import { useAppSelector } from "@/hooks/index";
 
 const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   const [value, setValue] = useState(1);
-  // const [isEmpty, setIsEmpty] = useState(true);
-  const { items, isEmpty, updateItemQuantity } = useCart();
+  const [qty, setQty] = useState(1);
+  const { items, isEmpty, removeItem, updateItemQuantity, cartTotal } =
+    useCart();
+  const [empty, setEmpty] = useState(false);
+  const [total, setTotal] = useState(0);
+  const [Items, setItems] = useState<Item[]>([]);
+  useEffect(() => {
+    setEmpty(isEmpty);
+    setTotal(cartTotal);
+    setItems(items);
+  }, [cartTotal, isEmpty, items]);
+
+  const router = useRouter();
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
   return (
     <section className="w-full h-full flex flex-col justify-between mb-28 ">
       <div className="containers">
-        {!isEmpty ? (
+        {empty ? (
+          <div>
+            <div className="text-white mb-1 flex items-center bg-primary p-3 w-full">
+              <FaOpencart className="mr-4" /> <p>Votre panier est vide</p>
+            </div>
+            <Link href="/">
+              <button className="text-white rounded-full bg-primary px-14 py-3 mt-9 hover:bg-secondary">
+                Retourner
+              </button>
+            </Link>
+          </div>
+        ) : (
           <div className="flex flex-col items-center lg:items-start lg:flex-row justify-center lg:justify-between">
             <div className="w-full flex flex-col items-center">
               <ul className="max-w-[760px] w-full flex justify-between flex-row lg:flex-col mb-4 lg:mb-0">
-                {items.map(({ id, image }) => (
+                {Items.map(({ id, image }) => (
                   <div key={id} className="flex lg:hidden items-center">
                     <Image src={image[0].url} width={75} height={75} />
                   </div>
@@ -35,11 +62,14 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   </h1>
                 </li>
 
-                {items.map(({ id, image, name, quantity, price }) => (
+                {Items.map(({ id, image, name, quantity, price }) => (
                   <div key={id}>
                     <li className="flex flex-col lg:flex-row  justify-between group lg:border-b-[0.1px] border-gray-300 relative py-2 lg:py-12 items-center mr-5">
                       <div className="flex items-center justify-between flex-row-reverse lg:flex-row ">
-                        <div className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5">
+                        <div
+                          className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5"
+                          onClick={() => removeItem(id)}
+                        >
                           <IoIosClose
                             size="25px"
                             className="text-[#8f8f8f] hover:text-red-600"
@@ -61,7 +91,6 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                         <div className="rounded-full w-[120px] border py-0 lg:py-3  flex items-center justify-center border-gray-200">
                           <span
                             className=" px-2 text-gray-400 border-light-gray cursor-pointer"
-                            // onClick={substract}
                             onClick={() => {
                               updateItemQuantity(id, quantity! - 1);
                             }}
@@ -74,11 +103,13 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                             step={1}
                             min={1}
                             value={quantity}
-                            onChange={(e: any) => setValue(e.target.value)}
+                            onChange={(e: any) => {
+                              setQty(e.target.value);
+                              updateItemQuantity(id, quantity! + qty);
+                            }}
                           />
                           <span
                             className=" px-2 text-gray-400 border-light-gray cursor-pointer"
-                            // onClick={addValue}
                             onClick={() => {
                               updateItemQuantity(id, quantity! + 1);
                             }}
@@ -107,7 +138,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Subtotal
                 </h1>
                 <p className="text-primary py-[10px] text-sm font-normal">
-                  $250.00
+                  {total} FCFA
                 </p>
               </div>
               <div className=" flex items-center justify-between">
@@ -115,22 +146,22 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Total
                 </h1>
                 <h1 className="text-primary text-sm font-semibold pb-[10px] pt-[20px]">
-                  $250.00
+                  {total} FCFA
                 </h1>
               </div>
-              <button className="text-white text-sm font-semibold rounded-full mt-5 py-4 bg-primary hover:bg-secondary">
-                PASSER A LA CAISSE
-              </button>
+              <Link
+                href={{
+                  pathname: isAuthenticated ? "/cart/checkout" : "/login",
+                  query: !isAuthenticated
+                    ? { from: `${router.pathname}/checkout` }
+                    : "",
+                }}
+              >
+                <button className="text-white text-sm font-semibold rounded-full mt-5 py-4 bg-primary hover:bg-secondary">
+                  PASSER A LA CAISSE
+                </button>
+              </Link>
             </div>
-          </div>
-        ) : (
-          <div>
-            <div className="text-white mb-1 flex items-center bg-primary p-3 w-full">
-              <FaOpencart className="mr-4" /> <p>Votre panier est vide</p>
-            </div>
-            <button className="text-white rounded-full bg-primary px-14 py-3 mt-9 hover:bg-secondary">
-              Retourner
-            </button>
           </div>
         )}
       </div>
