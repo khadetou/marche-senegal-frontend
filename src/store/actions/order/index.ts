@@ -30,9 +30,25 @@ export const getOrderById = async (token: any, id: string) => {
   return data;
 };
 
+// GET MY ORDERS
+export const getMyOrders = async (token: any) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const { data } = await axios.get(
+    "http://localhost:5000/order/myorders",
+    config
+  );
+  return data;
+};
+
 const orderService = {
   createOrder,
   getOrderById,
+  getMyOrders,
 };
 
 export default orderService;

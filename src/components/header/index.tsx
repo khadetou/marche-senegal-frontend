@@ -225,7 +225,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                                   : "invisible -translate-x-40 translate-y-12 opacity-0"
                               }`}
                               >
-                                <Link href="/orders/design">
+                                <Link href="/profile">
                                   <a className="!text-[14px] px-5 inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal ">
                                     Profile
                                   </a>
@@ -245,11 +245,13 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                                     </a>
                                   </Link>
                                 )}
-                                <Link href="/orders/web">
-                                  <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
-                                    Commandes
-                                  </a>
-                                </Link>
+                                {user && user.roles.includes("admin") && (
+                                  <Link href="/admin/orders">
+                                    <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
+                                      Commandes
+                                    </a>
+                                  </Link>
+                                )}
                                 <button
                                   className="w-full"
                                   onClick={() => dispatch(logout())}

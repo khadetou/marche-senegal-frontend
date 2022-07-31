@@ -1,19 +1,14 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import { BsCheck } from "react-icons/bs";
-
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { getMyOrders } from "store/reducers/order/index";
 import { IoClose } from "react-icons/io5";
+import { toast } from "react-toastify";
+import Link from "next/link";
 
 const ProfileScreen = () => {
-  const theader = [
-    "ID",
-    "Image",
-    "Date",
-    "Totale",
-    "Payé",
-    "Delivré",
-    "Action",
-  ];
+  const theader = ["ID", "Image", "Date", "Totale", "Payé", "Livré", "Action"];
 
   const users = [
     {
@@ -38,6 +33,15 @@ const ProfileScreen = () => {
     },
   ];
 
+  const dispatch = useAppDispatch();
+  const { isError, message, orders } = useAppSelector((store) => store.orders);
+  useEffect(() => {
+    dispatch(getMyOrders());
+    if (isError) {
+      toast.error(message);
+    }
+  }, [dispatch]);
+
   return (
     <section className="mb-28">
       <div className="containers">
@@ -61,44 +65,69 @@ const ProfileScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map(({ date, total }) => (
-                <tr className="bg-white border-b border-gray-200 even:bg-gray-50">
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>#idsfzefzefzef</div>
-                  </td>
+              {orders &&
+                orders.map((order: any) => (
+                  <tr
+                    key={order._id}
+                    className="bg-white border-b border-gray-200 even:bg-gray-50"
+                  >
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order._id}</div>
+                    </td>
 
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div className="text-xs py-2 text-white w-[46px]">
-                      <Image
-                        src="https://res.cloudinary.com/didh3wbru/image/upload/v1658328125/Ecommerce/Images/Products/product-14-2_mn4tmo.jpg"
-                        width={42}
-                        height={42}
-                      />
-                    </div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>{date}</div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>{total}</div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  ">
-                    <div className="flex justify-center items-center">
-                      <IoClose className="!text-white bg-red-600  text-[25px] rounded-md" />
-                    </div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div className="flex justify-center items-center">
-                      <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
-                    </div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div className="w-full h-full flex justify-around items-center bg-white shadow-md text-dark-gray text-md py-2 font-bold">
-                      Détails
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    <td className="p-4 min-w-[94px] text-center text-sm flex  text-[#8f8f8f]">
+                      {order.orderItems.map((item: any) => (
+                        <div
+                          key={item._id}
+                          className="text-xs py-2 mx-auto text-white w-[46px]"
+                        >
+                          <Image
+                            src={item.image[0].url}
+                            width="100%"
+                            height="100%"
+                            layout="responsive"
+                            objectFit="contain"
+                          />
+                        </div>
+                      ))}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order.createdAt}</div>
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order.totalPrice} FCFA</div>
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  ">
+                      {!order.isPaid ? (
+                        <div className="flex justify-center items-center">
+                          <IoClose className="!text-white bg-red-600  text-[25px] rounded-md" />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center items-center">
+                          <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      {order.isShipped ? (
+                        <div className="flex justify-center items-center">
+                          <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center items-center">
+                          <IoClose className="!text-white bg-red-600  text-[25px] rounded-md" />
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <Link href={`/order/${order._id}`}>
+                        <button className="w-full h-full flex justify-around items-center bg-white shadow-md text-dark-gray text-md py-2 cursor-pointer font-bold">
+                          Détails
+                        </button>
+                      </Link>
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>
