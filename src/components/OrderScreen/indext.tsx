@@ -1,54 +1,60 @@
-import React from "react";
+import React, { useEffect } from "react";
 import Image from "next/image";
 import Link from "next/link";
+import { reset, getOrderById } from "store/reducers/order/index";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
 
 const OrderScreen = () => {
   const router = useRouter();
+  const dispatch = useAppDispatch();
+  const { isSuccess, isLoading, isError, message, order } = useAppSelector(
+    (state) => state.orders
+  );
+  useEffect(() => {
+    dispatch(getOrderById(router.query.id as string));
+    if (isError) {
+      toast.error(message);
+      dispatch(reset());
+    }
+  }, [dispatch, isError]);
   return (
     <section className="mb-10 mt-3">
       <div className="containers">
-        <div className="flex my-3 justify-around border-b pb-3">
-          <Link href="/login">
-            <button
-              className={`${
-                router.pathname === "/order/placeorder"
-                  ? "!text-dark-gray"
-                  : "text-gray-400"
-              } text-normal `}
-            >
-              Se Connecter
-            </button>
-          </Link>
-          <Link href="/cart/shipping">
-            <button
-              className={`${
-                router.pathname === "/order/placeorder"
-                  ? "!text-dark-gray"
-                  : "text-gray-400"
-              } text-normal `}
-            >
-              Livraison
-            </button>
-          </Link>
-          <Link href="/order/placeorder">
-            <button
-              className={`${
-                router.pathname === "/order/placeorder"
-                  ? "!text-dark-gray"
-                  : "text-gray-400"
-              } text-normal `}
-            >
-              Finalisez La Commande
-            </button>
-          </Link>
-        </div>
         <h1 className="text-[25px] font-normal mb-12 uppercase ">
           COMMANDE N°:{" "}
-          <span className="text-primary">#fzaifjazefpofeafefef</span>
+          <span className="text-primary">{order && order._id}</span>
         </h1>
+
         <div className="flex justify-between  flex-col md:flex-row">
-          <div className="max-w-[970px] mr-3 w-full">
+          <div className="max-w-[970px] mr-5 w-full">
+            <div className="mb flex flex-col mb-4">
+              <div className="border border-gray-300 rounded p-5">
+                <h1 className="text-sm font-medium text-dark-gray mb-2">
+                  Point de retrait Castor Marché Sénégal Dakar (orange money,
+                  free money, wave)
+                </h1>
+                <h2 className="text-sm font-medium text-dark-gray mb-2">
+                  Proche de:
+                </h2>
+                <p className="text-gray-500 text-sm mb-2">
+                  Keur Baye Niass, Marché Castor
+                </p>
+                <h2 className="text-sm font-medium text-dark-gray mb-2">
+                  Address:
+                </h2>
+                <p className="text-gray-500 text-sm mb-2">
+                  Castor Villa numéro 32
+                </p>
+                <h2 className="text-md font-medium text-dark-gray mb-2">
+                  Coordonné du point de relai:
+                </h2>
+                <p className="text-gray-500 text-sm mb-2">
+                  Castor Rue A, Marché Castor 78 600 45 64
+                </p>
+              </div>
+            </div>
             <div className="w-full">
               <h1 className="text-xl font-normal text-black mb-4 uppercase">
                 Livraison
@@ -56,38 +62,67 @@ const OrderScreen = () => {
               <div className="w-full overflow-auto">
                 <table className="w-full">
                   <thead>
-                    <tr className="border-b border-gray-300 pb-6">
-                      <th className="text-sm pb-8 font-semibold">Nom</th>
-                      <th className="text-sm pb-8 font-semibold">Email</th>
-                      <th className="text-sm pb-8 font-semibold">Ville</th>
-                      <th className="text-sm pb-8 font-semibold">Address</th>
-                      <th className="text-sm pb-8 font-semibold">Livré</th>
-                      <th className="text-sm pb-8 font-semibold">Payé</th>
+                    <tr className="border-b border-gray-300 ">
+                      <th className="text-sm py-8 font-semibold">Email</th>
+                      <th className="text-sm py-8 font-semibold">Nom</th>
+                      <th className="text-sm py-8 font-semibold">Ville</th>
+                      <th className="text-sm py-8 font-semibold">Address</th>
+                      <th className="text-sm py-8 font-semibold">
+                        Numéro Tél.
+                      </th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr className="border-b border-gray-200 pb-4">
+                      <td className="text-sm py-8 px-1 min-w-[164px] text-dark-gray">
+                        {order && order.user.firstname}{" "}
+                        {order && order.user.lastname}
+                      </td>
+                      <td className="text-sm min-w-[185px] py-8 px-1 text-dark-gray">
+                        {order && order.user.email}
+                      </td>
+                      <td className="text-sm  py-8 px-1 text-center text-dark-gray">
+                        {order && order.shippingAddress.city}
+                      </td>
+                      <td className="text-sm py-8 text-center min-w-[189px] px-1 text-dark-gray">
+                        {order && order.shippingAddress.address}
+                      </td>
+                      <td className="w-5 py-8 px-1 text-primary text-sm font-medium min-w-[102px]">
+                        {order && order.shippingAddress.phone}
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+                <table className="w-full">
+                  <thead>
+                    <tr className="border-b border-gray-300 py-6">
+                      <th className="text-sm py-8 font-semibold">Livré</th>
+                      <th className="text-sm py-8 font-semibold">Payé</th>
                     </tr>
                   </thead>
                   <tbody>
                     <tr className="border-b border-gray-200">
-                      <td className="text-sm py-8 px-1 min-w-[164px] text-dark-gray">
-                        Khadetou Dianifabé
-                      </td>
-                      <td className="text-sm min-w-[185px] py-8 px-1 text-dark-gray">
-                        khadetou96@gmail.com
-                      </td>
-                      <td className="text-sm  py-8 px-1 text-center text-dark-gray">
-                        Castor
-                      </td>
-                      <td className="text-sm py-8 min-w-[189px] px-1 text-dark-gray">
-                        39 Castors Dakar Derklé
+                      <td className="w-5 py-8 px-1">
+                        {order && order.isShipped ? (
+                          <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
+                            Livré
+                          </div>
+                        ) : (
+                          <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
+                            Non Livré
+                          </div>
+                        )}
                       </td>
                       <td className="w-5 py-8 px-1">
-                        <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
-                          Livré
-                        </div>
-                      </td>
-                      <td className="w-5 py-8 px-1">
-                        <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
-                          Non Payé
-                        </div>
+                        {order && order.isPaid ? (
+                          <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
+                            Payé
+                          </div>
+                        ) : (
+                          <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
+                            Non Payé
+                          </div>
+                        )}
                       </td>
                     </tr>
                   </tbody>
@@ -110,31 +145,37 @@ const OrderScreen = () => {
                     </tr>
                   </thead>
                   <tbody>
-                    <tr className="border-b border-gray-200">
-                      <td className="text-sm  px-2  text-dark-gray">
-                        <div className="w-24 mx-auto">
-                          <Image
-                            src="https://res.cloudinary.com/didh3wbru/image/upload/v1658244260/Ecommerce/Images/Products/product-14_oaysxe.jpg"
-                            layout="responsive"
-                            width="100%"
-                            height="100%"
-                            objectFit="contain"
-                          />
-                        </div>
-                      </td>
-                      <td className="text-sm font-medium text-center px-2 text-dark-gray">
-                        Pomme
-                      </td>
-                      <td className="text-sm font-medium text-center  px-2 text-dark-gray">
-                        3 x $50.00
-                      </td>
-                    </tr>
+                    {order &&
+                      order.orderItems.map((orderItem: any) => (
+                        <tr
+                          key={orderItem._id}
+                          className="border-b border-gray-200"
+                        >
+                          <td className="text-sm  px-2  text-dark-gray">
+                            <div className="w-24 mx-auto">
+                              <Image
+                                src={orderItem.image[0].url}
+                                layout="responsive"
+                                width="100%"
+                                height="100%"
+                                objectFit="contain"
+                              />
+                            </div>
+                          </td>
+                          <td className="text-sm font-medium text-center px-2 text-dark-gray">
+                            {orderItem.name}
+                          </td>
+                          <td className="text-sm font-medium text-center  px-2 text-dark-gray">
+                            {orderItem.qty} x {orderItem.price} FCFA
+                          </td>
+                        </tr>
+                      ))}
                   </tbody>
                 </table>
               </div>
             </div>
           </div>
-          <div className="w-full max-w-[350px] p-5 bg-gray-100 flex flex-col ">
+          <div className="w-full max-w-[350px] p-5 bg-gray-100 flex flex-col h-[650px] ">
             <div className="flex border-b pb-4 justify-between">
               <h1 className="uppercase text-dark-gray  text-base font-bold">
                 Produit
@@ -144,17 +185,30 @@ const OrderScreen = () => {
                 Sous-total
               </h1>
             </div>
-            <div className="flex py-4 border-b justify-between">
-              <p className="text-sm text-gray-500">Broccoli x 1</p>
-              <p className="text-sm text-gray-500">$32.00</p>
-            </div>
+            {order &&
+              order.orderItems.map((orderItem: any) => (
+                <div className="flex py-4 border-b justify-between">
+                  <p className="text-sm text-gray-500">
+                    {orderItem.name} x{" "}
+                    <span className="text-black">{orderItem.qty}</span>
+                  </p>
+                  <p className="text-sm text-gray-500">
+                    {orderItem.price} FCFA
+                  </p>
+                </div>
+              ))}
             <div className="flex py-4 border-b justify-between">
               <p className="text-sm text-gray-500">Livraison</p>
-              <p className="text-sm text-gray-500">$32.00</p>
+              <p className="text-sm text-gray-500">
+                {order && order.shippingPrice} FCFA
+              </p>
             </div>
+
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
-              <h1 className="text-lg font-semibold text-primary">$32.00</h1>
+              <h1 className="text-lg font-semibold text-primary">
+                {order && order.totalPrice}
+              </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">
               <p className="text-white text-sm leading-[1.6]">
@@ -166,7 +220,7 @@ const OrderScreen = () => {
             </div>
 
             <button className="text-white font-bold uppercase bg-primary text-xs py-4 rounded-full my-7 hover:bg-secondary">
-              Faite votre commande
+              Commande Reçue
             </button>
           </div>
         </div>

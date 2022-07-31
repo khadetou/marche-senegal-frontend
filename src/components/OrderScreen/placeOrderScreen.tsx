@@ -1,9 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Image from "next/image";
 import { Item, Metadata, useCart } from "react-use-cart";
-import { useAppSelector } from "@/hooks/index";
+import { useAppSelector, useAppDispatch } from "@/hooks/index";
+import { createOrder, reset } from "store/reducers/order/index";
 import Link from "next/link";
 import { useRouter } from "next/router";
+import { toast } from "react-toastify";
+import Loading from "../Loading";
 
 const PlaceOrderScreen = () => {
   const { items, metadata, cartTotal } = useCart();
@@ -11,6 +14,14 @@ const PlaceOrderScreen = () => {
   const [metadatas, setMetadatas] = useState<Metadata>({});
   const [item, setItem] = useState<Item[]>([]);
   const router = useRouter();
+
+  const { user } = useAppSelector((state) => state.auth);
+  const dispatch = useAppDispatch();
+
+  const { isSuccess, isError, message, isLoading, order } = useAppSelector(
+    (state) => state.orders
+  );
+
   useEffect(() => {
     if (metadata) {
       setMetadatas(metadata!);
@@ -21,10 +32,46 @@ const PlaceOrderScreen = () => {
     if (cartTotal) {
       setTotal(cartTotal);
     }
-  }, [metadata, items, cartTotal]);
+    if (isSuccess) {
+      toast.success("Order created successfully");
+      router.push(`/order/${order._id}`);
+      dispatch(reset());
+    }
 
-  const { user } = useAppSelector((state) => state.auth);
-  console.log(router.pathname);
+    if (isError) {
+      toast.error(message.message);
+      dispatch(reset());
+    }
+  }, [metadata, items, cartTotal, isSuccess, isError]);
+
+  let cartItems: any[] = [];
+
+  const onSubmit = () => {
+    items.map(({ id, price, quantity, name, image }) => {
+      cartItems.push({
+        name,
+        qty: quantity,
+        image,
+        price,
+        product: id,
+      });
+    });
+
+    const cart = {
+      orderItems: cartItems,
+      shippingAddress: {
+        address: metadata!.address,
+        city: metadata!.ville,
+        phone: metadata!.phone,
+        region: metadata!.region,
+      },
+      itemsPrice: cartTotal,
+      shippingPrice: metadata!.shipping ? metadata!.price : 0,
+      totalPrice: cartTotal + (metadata!.shipping ? metadata!.price : 0),
+    };
+
+    dispatch(createOrder(cart));
+  };
 
   return (
     <section className="mb-10 mt-3">
@@ -222,7 +269,12 @@ const PlaceOrderScreen = () => {
               </p>
             </div>
 
-            <button className="text-white font-bold uppercase bg-primary text-xs py-4 rounded-full my-7 hover:bg-secondary">
+            <button
+              className="text-white font-bold flex items-center px-3 justify-center uppercase bg-primary text-xs py-4 rounded-full my-7 hover:bg-secondary"
+              onClick={onSubmit}
+              disabled={isLoading}
+            >
+              {isLoading && <Loading />}
               Confirmez votre commande
             </button>
           </div>

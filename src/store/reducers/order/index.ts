@@ -24,8 +24,27 @@ export const createOrder = createAsyncThunk(
   "create/order",
   async (orderData: any, thunkAPI: any) => {
     try {
-      const token = thunkAPI.getState().auth.token.accessToken;
+      const token = thunkAPI.getState().auth.token;
       return await orderService.createOrder(token, orderData);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
+// GET ORDER BY ID
+export const getOrderById = createAsyncThunk(
+  "orders/getbyId",
+  async (id: string, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await orderService.getOrderById(token, id);
     } catch (error: any) {
       const message =
         (error.response &&
@@ -50,11 +69,24 @@ export const orderSlice = createSlice({
         state.isLoading = true;
       })
       .addCase(createOrder.fulfilled, (state: OrderState, action: any) => {
-        state.isLoading = true;
+        state.isLoading = false;
         state.isSuccess = true;
         state.order = action.payload;
       })
       .addCase(createOrder.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(getOrderById.pending, (state: OrderState, action: any) => {
+        state.isLoading = true;
+      })
+      .addCase(getOrderById.fulfilled, (state: OrderState, action: any) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.order = action.payload;
+      })
+      .addCase(getOrderById.rejected, (state: OrderState, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

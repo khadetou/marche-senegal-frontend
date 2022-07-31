@@ -17,7 +17,7 @@ import { getUser, logout } from "store/reducers/auth";
 const Shipping = () => {
   const [open, setOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
-  console.log(isAuthenticated);
+
   const router = useRouter();
   useEffect(() => {
     if (!isAuthenticated) {

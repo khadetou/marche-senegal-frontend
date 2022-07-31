@@ -52,7 +52,12 @@ const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
   const [open, setOpen] = useState(false);
   return (
     <section className="mt-4 pb-8">
-      <ProductItem setOpenModal={setOpenModal} openModal={openModal} />
+      <ProductItem
+        setOpenModal={setOpenModal}
+        openModal={openModal}
+        open={open}
+        setOpen={setOpen}
+      />
       <div className="containers flex flex-col items-center md:items-start md:flex-row">
         <ProductDrawer open={open} setOpen={setOpen} />
 

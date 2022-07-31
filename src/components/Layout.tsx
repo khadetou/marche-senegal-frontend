@@ -20,8 +20,6 @@ const Layout: FC<LayoutProp> = ({ children, openModal, setOpenModal, bg }) => {
       : (document.querySelector("html")!.style.overflow = "auto");
   }, [openModal]);
 
-  const router = useRouter();
-  console.log(router.pathname);
   return (
     <>
       {openModal && (
