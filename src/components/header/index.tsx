@@ -318,7 +318,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                             </a>
                           </Link>
 
-                          <Link passHref href="/cart/checkout">
+                          <Link passHref href="/cart/shipping">
                             <a className="!text-[14px] inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal ">
                               Paiement
                             </a>

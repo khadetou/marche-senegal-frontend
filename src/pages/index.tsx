@@ -23,7 +23,7 @@ const Home: NextPage = () => {
   const { isError, token } = useAppSelector((state) => state.auth);
 
   return (
-    <Layout openModal={openModal} setOpenModal={setOpenModal}>
+    <Layout openModal={openModal} setOpenModal={setOpenModal} bg="bg-bg-color">
       <SEO />
       <Header open={open} setOpen={setOpen} />
       <Banner />

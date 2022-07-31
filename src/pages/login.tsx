@@ -6,14 +6,18 @@ import LoginScreen from "@/components/Login";
 import SEO from "@/components/Seo";
 import { GetServerSideProps } from "next";
 import { ToastContainer } from "react-toastify";
-import React, { useState } from "react";
+import React, { FC, useState } from "react";
 import { getCookie } from "store/actions/auth";
 import jwtDecode from "jwt-decode";
 
-const Login = () => {
+interface LoginProps {
+  white: any;
+}
+const Login: FC<LoginProps> = ({ white }) => {
+  // console.log(white);
   const [open, setOpen] = useState(false);
   return (
-    <Layout>
+    <Layout bg="bg-white">
       <SEO />
       <Header open={open} setOpen={setOpen} />
       <BannerImg />
@@ -38,5 +42,9 @@ export const getServerSideProps: GetServerSideProps = async (context) => {
       };
     }
   }
-  return { props: {} };
+  return {
+    props: {
+      white: true,
+    },
+  };
 };

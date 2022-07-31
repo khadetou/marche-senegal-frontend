@@ -4,8 +4,10 @@ import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
-import { GetStaticProps } from "next/types";
+import jwtDecode from "jwt-decode";
+import { GetServerSideProps, GetStaticProps } from "next/types";
 import React, { useState } from "react";
+import { getCookie } from "store/actions/auth";
 
 const Cart = () => {
   const [open, setOpen] = useState(false);
@@ -21,6 +23,24 @@ const Cart = () => {
 };
 
 export default Cart;
-export const getStaticProps: GetStaticProps = async (context) => {
-  return { props: { white: true } };
+export const getServerSideProps: GetServerSideProps = async (context) => {
+  const token: string = getCookie("token", context.req);
+
+  if (token) {
+    if (jwtDecode<any>(token).exp < Date.now() / 1000) {
+      return {
+        props: {
+          token,
+        },
+      };
+    }
+  } else {
+    return {
+      redirect: {
+        destination: "/login",
+        permanent: false,
+      },
+    };
+  }
+  return { props: {} };
 };

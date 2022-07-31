@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import OrderScreen from "@/components/OrderScreen/indext";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
@@ -8,10 +8,11 @@ import BannerImg from "@/components/Banner/BannerImg";
 import { GetServerSideProps } from "next";
 
 const Order = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <OrderScreen />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

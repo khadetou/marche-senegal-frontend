@@ -1,16 +1,54 @@
 import React from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { useRouter } from "next/router";
 
 const OrderScreen = () => {
+  const router = useRouter();
   return (
     <section className="mb-10 mt-3">
       <div className="containers">
+        <div className="flex my-3 justify-around border-b pb-3">
+          <Link href="/login">
+            <button
+              className={`${
+                router.pathname === "/order/placeorder"
+                  ? "!text-dark-gray"
+                  : "text-gray-400"
+              } text-normal `}
+            >
+              Se Connecter
+            </button>
+          </Link>
+          <Link href="/cart/shipping">
+            <button
+              className={`${
+                router.pathname === "/order/placeorder"
+                  ? "!text-dark-gray"
+                  : "text-gray-400"
+              } text-normal `}
+            >
+              Livraison
+            </button>
+          </Link>
+          <Link href="/order/placeorder">
+            <button
+              className={`${
+                router.pathname === "/order/placeorder"
+                  ? "!text-dark-gray"
+                  : "text-gray-400"
+              } text-normal `}
+            >
+              Finalisez La Commande
+            </button>
+          </Link>
+        </div>
         <h1 className="text-[25px] font-normal mb-12 uppercase ">
           COMMANDE N°:{" "}
           <span className="text-primary">#fzaifjazefpofeafefef</span>
         </h1>
         <div className="flex justify-between  flex-col md:flex-row">
-          <div className="max-w-[790px] w-full">
+          <div className="max-w-[970px] mr-3 w-full">
             <div className="w-full">
               <h1 className="text-xl font-normal text-black mb-4 uppercase">
                 Livraison
@@ -21,6 +59,7 @@ const OrderScreen = () => {
                     <tr className="border-b border-gray-300 pb-6">
                       <th className="text-sm pb-8 font-semibold">Nom</th>
                       <th className="text-sm pb-8 font-semibold">Email</th>
+                      <th className="text-sm pb-8 font-semibold">Ville</th>
                       <th className="text-sm pb-8 font-semibold">Address</th>
                       <th className="text-sm pb-8 font-semibold">Livré</th>
                       <th className="text-sm pb-8 font-semibold">Payé</th>
@@ -28,21 +67,24 @@ const OrderScreen = () => {
                   </thead>
                   <tbody>
                     <tr className="border-b border-gray-200">
-                      <td className="text-sm py-8 px-2 text-dark-gray">
+                      <td className="text-sm py-8 px-1 min-w-[164px] text-dark-gray">
                         Khadetou Dianifabé
                       </td>
-                      <td className="text-sm min-w-[185px] py-8 px-2 text-dark-gray">
+                      <td className="text-sm min-w-[185px] py-8 px-1 text-dark-gray">
                         khadetou96@gmail.com
                       </td>
-                      <td className="text-sm py-8 min-w-[189px] px-2 text-dark-gray">
+                      <td className="text-sm  py-8 px-1 text-center text-dark-gray">
+                        Castor
+                      </td>
+                      <td className="text-sm py-8 min-w-[189px] px-1 text-dark-gray">
                         39 Castors Dakar Derklé
                       </td>
-                      <td className="w-5 py-8 px-2">
+                      <td className="w-5 py-8 px-1">
                         <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
                           Livré
                         </div>
                       </td>
-                      <td className="w-5 py-8 px-2">
+                      <td className="w-5 py-8 px-1">
                         <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
                           Non Payé
                         </div>

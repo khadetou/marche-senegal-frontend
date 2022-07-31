@@ -1,5 +1,5 @@
 import BannerImg from "@/components/Banner/BannerImg";
-import CheckoutPage from "@/components/checkout";
+import ShippingScreen from "@/components/shipping";
 import Footer from "@/components/footer";
 import Header from "@/components/header";
 import Layout from "@/components/Layout";
@@ -10,10 +10,14 @@ import { useAppSelector } from "@/hooks/index";
 import React, { useEffect, useState } from "react";
 import { getCookie } from "store/actions/auth";
 import { useRouter } from "next/router";
+import { ToastContainer } from "react-toastify";
+import { wrapper } from "store";
+import { getUser, logout } from "store/reducers/auth";
 
-const Checkout = () => {
+const Shipping = () => {
   const [open, setOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
+  console.log(isAuthenticated);
   const router = useRouter();
   useEffect(() => {
     if (!isAuthenticated) {
@@ -28,32 +32,30 @@ const Checkout = () => {
       <Header open={open} setOpen={setOpen} />
       <SEO />
       <BannerImg />
-      <CheckoutPage />
+      <ShippingScreen />
+      <ToastContainer />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>
   );
 };
 
-export default Checkout;
-export const getServerSideProps: GetServerSideProps = async (context) => {
-  const token: string = getCookie("token", context.req);
+export default Shipping;
+export const getServerSideProps: GetServerSideProps =
+  wrapper.getServerSideProps((store) => async (context): Promise<any> => {
+    const token: string = getCookie("token", context.req);
 
-  if (token) {
-    if (jwtDecode<any>(token).exp < Date.now() / 1000) {
+    if (token) {
+      if (jwtDecode<any>(token).exp < Date.now() / 1000) {
+        await store.dispatch<any>(logout());
+      } else {
+        await store.dispatch<any>(getUser(token));
+      }
+    } else {
       return {
-        props: {
-          token,
-          white: true,
+        redirect: {
+          destination: "/login",
+          permanent: false,
         },
       };
     }
-  } else {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
-  return { props: { white: true } };
-};
+  });
