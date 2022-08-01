@@ -5,28 +5,44 @@ import { HiStar } from "react-icons/hi";
 import { useMediaQuery } from "react-responsive";
 import { useRouter } from "next/router";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
-import { getProductById } from "store/reducers/products/productSlice";
+import {
+  getProductById,
+  createReviews,
+  reset,
+} from "store/reducers/products/productSlice";
 import Link from "next/link";
 import { useCart } from "react-use-cart";
+import { toast } from "react-toastify";
 
 const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
-  const [value, setValue] = useState<number | undefined>(0);
   const [qty, setQty] = useState(1);
   const isLaptop = useMediaQuery({ query: "(min-width:640px)" });
-
+  const [rating, setRating] = useState<number | undefined>(0);
+  const [comment, setComment] = useState("");
   const {
     query: { id },
   } = useRouter();
 
   const dispatch = useAppDispatch();
 
+  const { product, isError, message, isSuccess } = useAppSelector(
+    (state) => state.products
+  );
+  const { isAuthenticated } = useAppSelector((state) => state.auth);
+
   useEffect(() => {
     if (id) {
       dispatch(getProductById(id as string));
     }
-  }, [dispatch, id]);
-
-  const { product } = useAppSelector((state) => state.products);
+    if (isError) {
+      toast.error(message);
+      dispatch(reset());
+    }
+    if (isSuccess) {
+      toast.success("Merci d'avoir noté le produit.");
+      dispatch(reset());
+    }
+  }, [dispatch, id, isError, message, isSuccess]);
 
   let array: any[] = [];
 
@@ -40,6 +56,19 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   }
 
   const { addItem } = useCart();
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    const data = {
+      rating,
+      comment,
+    };
+    const reviewData = {
+      data,
+      id,
+    };
+    dispatch(createReviews(reviewData));
+  };
 
   return (
     <section className="h-full">
@@ -133,87 +162,87 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
           <div>
             <h1 className="text-lg py-[15px] text-[#2b2b2b]">Description</h1>
             <p className="textb-base text-[#8f8f8f]">
-              Qui qui possimus optio quo enim assumenda aut qui. Consequatur
-              temporibus quidem adipisci at in. Vitae et perferendis magni ut.
-              Est a explicabo consectetur ea. Corporis voluptatibus perspiciatis
-              assumenda. Voluptas delectus accusantium facere consequatur quo
-              quas. Laboriosam aspernatur laborum quisquam hic voluptas amet.
+              {product && product.description}
             </p>
           </div>
-          <div>
-            <h1 className="text-lg py-[15px] text-[#2b2b2b]">Reviews (1)</h1>
-            <div className="py-8 border-b  flex px-0 sm:px-24 ">
-              <h1 className="bg-[#2b2b2b] rounded-full text-base font-bold text-white p-4 max-w-[56px] max-h-[56px]">
-                KD
-              </h1>
-              <div className="ml-5 px-0 sm:px-3">
-                <h1 className="text-sm font-semibold text-[#2b2b2b]  ">
-                  Khadetetou D.
+          {product &&
+            product.reviews.map((review: any) => (
+              <div key={review._id}>
+                <h1 className="text-lg py-[15px] text-[#2b2b2b]">
+                  Reviews ({product.reviews.length})
                 </h1>
-                <div>
-                  <div className="flex items-center -ml-1 my-4">
-                    <StarsRating
-                      value={4.5}
-                      disabled
-                      symbol={<HiStar size="25px" />}
-                      classNamePrefix="stars"
-                    />
-                    <p className="text-xs text-[#8b8b8b] text-normal ml-4">
-                      5 months
-                    </p>
+                <div className="py-8 border-b  flex px-0 sm:px-24 ">
+                  <h1 className="bg-[#2b2b2b] rounded-full text-base font-bold text-white p-4 max-w-[56px] uppercase max-h-[56px]">
+                    {review.name.split(" ")[0][0]}
+                    {review.name.split(" ")[1][0]}
+                  </h1>
+                  <div className="ml-5 px-0 sm:px-3">
+                    <h1 className="text-sm font-semibold capitalize text-[#2b2b2b]  ">
+                      {review.name.split(" ")[0]} {review.name.split(" ")[1][0]}
+                      .
+                    </h1>
+                    <div>
+                      <div className="flex items-center -ml-1 my-4">
+                        <StarsRating
+                          value={review.rating}
+                          disabled
+                          symbol={<HiStar size="25px" />}
+                          classNamePrefix="stars"
+                        />
+                        <p className="text-xs text-[#8b8b8b] text-normal ml-4">
+                          5 months
+                        </p>
+                      </div>
+                      <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-[300px]  sm:max-w-[70%]">
+                        {review.comment}
+                      </p>
+                    </div>
                   </div>
-                  <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full  sm:max-w-[70%]">
-                    Lorem ipsum dolor sit amet consectetur adipisicing elit.
-                    Culpa officia atque at modi accusantium explicabo voluptatum
-                    tempora deserunt consectetur autem quod aliquid mollitia
-                    earum, vitae cupiditate a ratione inventore repudiandae
-                    perspiciatis est error eos cum nisi eveniet? Corporis
-                    veritatis, tempora est quia sunt quidem doloribus iste.
-                    Delectus est aliquam repudiandae.
-                  </p>
                 </div>
               </div>
-            </div>
-          </div>
-          <div>
+            ))}
+          {isAuthenticated && (
             <div>
-              <h2 className="text-lg py-[15px] text-[#2b2b2b]">
-                Give a review
-              </h2>
-              <div className="my-3 -ml-2">
-                <StarsRating
-                  value={value}
-                  onChange={(e) => setValue(e)}
-                  symbol={<HiStar size="35px" />}
-                  classNamePrefix="stars"
-                />
-              </div>
-              <form>
-                <div className="flex flex-col">
-                  <label
-                    htmlFor="review"
-                    className="text-sm text-[#8b8b8b] py-2"
-                  >
-                    Commentaire
-                  </label>
-                  <textarea
-                    id="review"
-                    name="review"
-                    cols={30}
-                    rows={10}
-                    className="border-gray-300 border-[0.1px] focus:ring-1
-                  focus:ring-gray-200 focus:border-none"
-                  ></textarea>
-                  <button
-                    type="submit"
-                    className="text-white text-sm font-bold bg-primary rounded-full mt-6 py-3 max-w-[170px]"
-                  >
-                    Envoyer
-                  </button>
+              <div>
+                <h2 className="text-lg py-[15px] text-[#2b2b2b]">
+                  Give a review
+                </h2>
+                <div className="my-3 -ml-2">
+                  <StarsRating
+                    value={rating}
+                    onChange={(e) => setRating(e)}
+                    symbol={<HiStar size="35px" />}
+                    classNamePrefix="stars"
+                  />
                 </div>
-              </form>
+                <form onSubmit={onSubmit}>
+                  <div className="flex flex-col">
+                    <label
+                      htmlFor="review"
+                      className="text-sm text-[#8b8b8b] py-2"
+                    >
+                      Commentaire
+                    </label>
+                    <textarea
+                      id="review"
+                      name="review"
+                      cols={30}
+                      rows={10}
+                      onChange={(e) => setComment(e.target.value)}
+                      className="border-gray-300 border-[0.1px] focus:ring-1
+                  focus:ring-gray-200 focus:border-none"
+                    ></textarea>
+                    <button
+                      type="submit"
+                      className="text-white text-sm font-bold bg-primary rounded-full mt-6 py-3 max-w-[170px]"
+                    >
+                      Envoyer
+                    </button>
+                  </div>
+                </form>
+              </div>
             </div>
-          </div>
+          )}
         </div>
       </div>
     </section>

@@ -60,11 +60,30 @@ const deleteProduct = async (id: string, token: any) => {
   return data;
 };
 
+export const createReview = async (
+  id: string,
+  reviewData: any,
+  token: string
+) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  const { data } = await axios.post(
+    `http://localhost:5000/products/${id}/reviews`,
+    reviewData,
+    config
+  );
+  return data;
+};
+
 const productsService = {
   createProducts,
   getAllProducts,
   getProductById,
   updateProduct,
   deleteProduct,
+  createReview,
 };
 export default productsService;

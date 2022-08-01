@@ -19,8 +19,6 @@ import { getAllProducts } from "store/reducers/products/productSlice";
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [open, setOpen] = useState(false);
-  const dispatch = useAppDispatch();
-  const { isError, token } = useAppSelector((state) => state.auth);
 
   return (
     <Layout openModal={openModal} setOpenModal={setOpenModal} bg="bg-bg-color">
@@ -75,7 +73,6 @@ export const getServerSideProps: GetServerSideProps =
         await store.dispatch<any>(logout());
       } else {
         await store.dispatch<any>(getUser(token));
-        const { auth } = await store.getState();
       }
     }
   });

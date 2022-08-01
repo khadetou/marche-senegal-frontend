@@ -120,6 +120,29 @@ export const updateProduct = createAsyncThunk(
     }
   }
 );
+// CREATE REVIEWS
+export const createReviews = createAsyncThunk(
+  "create/review",
+  async (productsData: any, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await productsService.createReview(
+        productsData.id,
+        productsData.data,
+        token
+      );
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue(message);
+    }
+  }
+);
 export const productSlice = createSlice({
   name: "products",
   initialState,
@@ -189,6 +212,19 @@ export const productSlice = createSlice({
         state.products = state.products.filter(
           (product: any) => product._id !== action.payload.id
         );
+      })
+      .addCase(createReviews.rejected, (state: any, action: any) => {
+        state.isError = true;
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(createReviews.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(createReviews.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.product = action.payload;
       });
   },
 });
