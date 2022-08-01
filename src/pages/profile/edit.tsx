@@ -5,13 +5,14 @@ import Layout from "@/components/Layout";
 import EditScreen from "@/components/Profile/EditScreen";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
-import React from "react";
+import React, { useState } from "react";
 
 const Edit = () => {
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <EditScreen />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

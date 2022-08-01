@@ -13,6 +13,7 @@ const Card: FC<CardProps> = ({ img, title }) => {
       <div className="pt-[7%] pl-[10%]  pb-[12%] pr-[10%] w-full h-[280px] relative">
         <div className="w-full h-full ">
           <Image
+            alt="Ads"
             src={img}
             layout="fill"
             objectFit="cover"

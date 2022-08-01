@@ -67,6 +67,7 @@ const Footer: FC<FooterProps> = ({ bgColor, textColor }) => {
           <div className="p-[10px] flex flex-col items-center md:flex-row ">
             <div className="w-[302px] relative h-[21px]">
               <Image
+                alt="image"
                 src="https://res.cloudinary.com/didh3wbru/image/upload/v1658142430/Ecommerce/Images/icons/payment_1_nunp5t.png"
                 layout="fill"
               />
@@ -76,7 +77,7 @@ const Footer: FC<FooterProps> = ({ bgColor, textColor }) => {
         <div className="pt-10 pb-9 border-b">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
             <div className="p-[10px]">
-              <Image src={Logo} width={178} />
+              <Image alt="logo" src={Logo} width={178} />
             </div>
             <div className="pl-[10px] pr-[60px] border-r">
               <h2

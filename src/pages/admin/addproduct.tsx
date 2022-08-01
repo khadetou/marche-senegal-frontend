@@ -32,7 +32,7 @@ const Addproduct: FC<IProps> = (props) => {
     if (isError) {
       dispatch(reset());
     }
-  }, [dispatch, props]);
+  }, [dispatch, props, isError, token, router]);
   const [open, setOpen] = useState(false);
   return (
     <Layout>

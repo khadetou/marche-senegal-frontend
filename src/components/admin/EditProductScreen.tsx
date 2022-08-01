@@ -86,7 +86,7 @@ const EditProductScreen = () => {
       toast.success("Produit créé avec succées!");
       dispatch(reset());
     }
-  }, [isError, reset, dispatch, message, isSuccess, id, product]);
+  }, [isError, dispatch, message, isSuccess, id, product]);
 
   const { brand, category, countInStock, description, name, price, rating } =
     values;
@@ -191,7 +191,7 @@ const EditProductScreen = () => {
           </div>
           <div className="flex flex-col mb-4 relative">
             <label htmlFor="" className="text-base text-dark-gray">
-              Nombres d'elements <span className="text-red-600">*</span>
+              Nombres d &lsquo; elements <span className="text-red-600">*</span>
             </label>
             <input
               type="number"

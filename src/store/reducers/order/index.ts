@@ -1,5 +1,6 @@
+import Orders from "@/pages/admin/orders";
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
-import orderService from "store/actions/order";
+import orderService, { updatePaid } from "store/actions/order";
 
 interface OrderState {
   orders: any;
@@ -19,6 +20,24 @@ const initialState: OrderState = {
   message: "",
 };
 
+// GET ALL ORDERS
+export const getAllOrders = createAsyncThunk(
+  "get/allorders",
+  async (_, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await orderService.getAllOrders(token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
 // CREATE ORDER
 export const createOrder = createAsyncThunk(
   "create/order",
@@ -60,10 +79,50 @@ export const getMyOrders = createAsyncThunk(
 export const getOrderById = createAsyncThunk(
   "orders/getbyId",
   async (id: string, thunkAPI: any) => {
+    console.log(id);
     try {
       const token = thunkAPI.getState().auth.token;
       return await orderService.getOrderById(token, id);
     } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
+// DELETE ORDER BY ID
+export const deleteOrder = createAsyncThunk(
+  "delete/order",
+  async (id: string, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await orderService.deleteOrder(id, token);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
+// UPDATE TO PAID
+export const orderPaid = createAsyncThunk(
+  "paid/order",
+  async (id: string, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await orderService.updatePaid(id, token);
+    } catch (error: any) {
+      console.log({ error });
       const message =
         (error.response &&
           error.response.data &&
@@ -118,6 +177,44 @@ export const orderSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(getMyOrders.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(deleteOrder.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.orders = state.orders.filter(
+          (order: any) => order._id !== action.payload._id
+        );
+      })
+      .addCase(deleteOrder.rejected, (state: any, action: any) => {
+        state.isError = false;
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(getAllOrders.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(getAllOrders.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.orders = [...action.payload];
+        state.isSuccess = true;
+      })
+      .addCase(getAllOrders.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(orderPaid.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(orderPaid.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.order = action.payload;
+        state.isSuccess = true;
+      })
+      .addCase(orderPaid.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;

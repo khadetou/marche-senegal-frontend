@@ -35,7 +35,7 @@ const LoginScreen = () => {
       }
     }
     dispatch(reset());
-  }, [isError, message, isSuccess, router, dispatch, reset]);
+  }, [isError, message, isSuccess, router, dispatch]);
 
   const onSubmit = (e: any) => {
     e.preventDefault();

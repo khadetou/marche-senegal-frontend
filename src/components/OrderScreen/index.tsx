@@ -18,7 +18,7 @@ const OrderScreen = () => {
       toast.error(message);
       dispatch(reset());
     }
-  }, [dispatch, isError]);
+  }, [dispatch, isError, router, message]);
   return (
     <section className="mb-10 mt-3">
       <div className="containers">
@@ -155,6 +155,7 @@ const OrderScreen = () => {
                             <div className="w-24 mx-auto">
                               <Image
                                 src={orderItem.image[0].url}
+                                alt="images"
                                 layout="responsive"
                                 width="100%"
                                 height="100%"
@@ -187,7 +188,10 @@ const OrderScreen = () => {
             </div>
             {order &&
               order.orderItems.map((orderItem: any) => (
-                <div className="flex py-4 border-b justify-between">
+                <div
+                  key={orderItem._id}
+                  className="flex py-4 border-b justify-between"
+                >
                   <p className="text-sm text-gray-500">
                     {orderItem.name} x{" "}
                     <span className="text-black">{orderItem.qty}</span>

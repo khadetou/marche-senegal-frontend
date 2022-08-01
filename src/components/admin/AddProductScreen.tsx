@@ -65,7 +65,7 @@ const AddProductScreen = () => {
       dispatch(reset());
     }
     dispatch(reset());
-  }, [isError, reset, dispatch, message, isSuccess]);
+  }, [isError, dispatch, message, isSuccess]);
 
   const onSubmit = (e: any) => {
     e.preventDefault();
@@ -162,7 +162,7 @@ const AddProductScreen = () => {
           </div>
           <div className="flex flex-col mb-4 relative">
             <label htmlFor="" className="text-base text-dark-gray">
-              Nombres d'elements <span className="text-red-600">*</span>
+              Nombres d &lsquo; elements <span className="text-red-600">*</span>
             </label>
             <input
               type="number"

@@ -56,8 +56,11 @@ const UsersScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {users.map(({ email, firstName, lastName, phone }) => (
-                <tr className="bg-white border-b border-gray-200 even:bg-gray-50">
+              {users.map(({ email, firstName, lastName, phone }, idx) => (
+                <tr
+                  key={idx}
+                  className="bg-white border-b border-gray-200 even:bg-gray-50"
+                >
                   <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
                     <div>#idsfzefzefzef</div>
                   </td>

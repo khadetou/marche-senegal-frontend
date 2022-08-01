@@ -8,6 +8,7 @@ const ContactScreen = () => {
         <div className="max-w-[400px] w-full h-[857px] flex items-center p-[10px]">
           <Image
             src="https://res.cloudinary.com/didh3wbru/image/upload/v1658414821/Ecommerce/Images/Banner%20Images/contact-ok_qjgwv9.jpg"
+            alt="image"
             width={402}
             height={708}
             className="mb-5"
@@ -57,6 +58,7 @@ const ContactScreen = () => {
                 <div className="absolute -bottom-12 -right-2 mb-5 rounded-md hidden lg:block ">
                   <Image
                     src="https://res.cloudinary.com/didh3wbru/image/upload/v1658418611/Ecommerce/Images/Banner%20Images/la-about-2_zzjff6.png"
+                    alt="image"
                     width={166}
                     height={126}
                   />

@@ -69,5 +69,5 @@ const Modal: FC<ModalInterface> = forwardRef(
     );
   }
 );
-
+Modal.displayName = "Modal";
 export default Modal;

@@ -5,14 +5,16 @@ import Layout from "@/components/Layout";
 import ResetScreen from "@/components/password/ResetScreen";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
-import React from "react";
+import React, { useState } from "react";
 
 const Reset = () => {
+  const [open, setOpen] = useState(false);
+  <BannerImg />;
   return (
     <Layout>
       <SEO />
-      <Header />
-      <BannerImg />
+      <Header open={open} setOpen={setOpen} />
+
       <ResetScreen />
       <Footer />
     </Layout>

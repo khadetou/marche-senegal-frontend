@@ -42,7 +42,18 @@ const PlaceOrderScreen = () => {
       toast.error(message.message);
       dispatch(reset());
     }
-  }, [metadata, items, cartTotal, isSuccess, isError]);
+  }, [
+    metadata,
+    items,
+    cartTotal,
+    isSuccess,
+    isError,
+    dispatch,
+    order,
+    router,
+    message,
+    message.message,
+  ]);
 
   let cartItems: any[] = [];
 
@@ -209,6 +220,7 @@ const PlaceOrderScreen = () => {
                         <td className="text-sm  px-2  text-dark-gray">
                           <div className="w-24 mx-auto">
                             <Image
+                              alt="image"
                               src={image[0].url}
                               layout="responsive"
                               width="100%"

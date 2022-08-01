@@ -44,7 +44,12 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
               <ul className="max-w-[760px] w-full flex justify-between flex-row lg:flex-col mb-4 lg:mb-0">
                 {Items.map(({ id, image }) => (
                   <div key={id} className="flex lg:hidden items-center">
-                    <Image src={image[0].url} width={75} height={75} />
+                    <Image
+                      alt="product"
+                      src={image[0].url}
+                      width={75}
+                      height={75}
+                    />
                   </div>
                 ))}
                 <li className="lg:border-b-[0.1px] py-2 lg:py-8 flex flex-col lg:flex-row justify-between px-0 mr-2 lg:mr-0 lg:px-8 border-gray-300  h-[200px] lg:h-[inherit]">
@@ -77,7 +82,12 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                         </div>
 
                         <div className="hidden lg:flex items-center">
-                          <Image src={image[0].url} width={75} height={75} />
+                          <Image
+                            alt="product"
+                            src={image[0].url}
+                            width={75}
+                            height={75}
+                          />
                         </div>
 
                         <p className="text-gray-400 lg:text-dark-gray lg:font-bold ml-0 lg:ml-[30px] text-sm mr-8 lg:mr-0">
@@ -151,9 +161,9 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
               </div>
               <Link
                 href={{
-                  pathname: isAuthenticated ? "/cart/checkout" : "/login",
+                  pathname: isAuthenticated ? "/cart/shipping" : "/login",
                   query: !isAuthenticated
-                    ? { from: `${router.pathname}/checkout` }
+                    ? { from: `${router.pathname}/shipping` }
                     : "",
                 }}
               >

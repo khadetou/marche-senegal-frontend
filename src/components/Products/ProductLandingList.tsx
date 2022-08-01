@@ -64,7 +64,12 @@ const ProductLandingList: FC<ProductListProps> = ({
               </h2>
             </div>
             <div className="w-[179px] xs:w-[244px] h-[318px] relative">
-              <Image src={img} layout="fill" className="rounded-md" />
+              <Image
+                alt="image"
+                src={img}
+                layout="fill"
+                className="rounded-md"
+              />
             </div>
           </div>
           <div className="flex flex-col self-end w-full max-w-[670px] xl:max-w-[709px] 2xl:max-w-[900px] box-content p-[10px] h-[494px]">
@@ -112,7 +117,11 @@ const ProductLandingList: FC<ProductListProps> = ({
                       </span>
                       <Link href={`/products/${product._id}`}>
                         <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
-                          <Image src={product.image[0].url} layout="fill" />
+                          <Image
+                            alt="image"
+                            src={product.image[0].url}
+                            layout="fill"
+                          />
                         </div>
                       </Link>
                       <div className="flex flex-col justify-center  px-[15px]">

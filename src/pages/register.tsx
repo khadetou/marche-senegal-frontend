@@ -6,16 +6,17 @@ import RegisterScreen from "@/components/Register";
 import SEO from "@/components/Seo";
 import { GetServerSideProps } from "next";
 import { ToastContainer } from "react-toastify";
-import React from "react";
+import React, { useState } from "react";
 import jwtDecode from "jwt-decode";
 import { getCookie } from "store/actions/auth";
 
 const Register = () => {
+  const [open, setOpen] = useState(false);
+  <BannerImg />;
   return (
     <Layout>
       <SEO />
-      <Header />
-      <BannerImg />
+      <Header open={open} setOpen={setOpen} />
       <RegisterScreen />
       <ToastContainer />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

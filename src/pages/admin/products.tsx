@@ -6,7 +6,7 @@ import SEO from "@/components/Seo";
 import ProductScreen from "@/components/admin/ProdutScreen";
 import { getAllProducts } from "store/reducers/products/productSlice";
 import { GetServerSideProps } from "next";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import { getUser, reset, logout } from "store/reducers/auth/index";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
@@ -30,11 +30,12 @@ const Products: FC<IProducts> = (props) => {
     if (isError) {
       dispatch(reset());
     }
-  }, [dispatch]);
+  }, [dispatch, isError, router, token]);
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <BannerImg />
       <ProductScreen />
       <ToastContainer />
@@ -64,17 +65,6 @@ export const getServerSideProps: GetServerSideProps =
             },
           };
         }
-
-        return {
-          props: {
-            white: true,
-          },
-        };
       }
     }
-    return {
-      props: {
-        white: true,
-      },
-    };
   });

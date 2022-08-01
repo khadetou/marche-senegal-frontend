@@ -35,7 +35,7 @@ const RegisterScreen = () => {
       router.push("/login");
     }
     dispatch(reset());
-  }, [isError, isSuccess, message, reset, dispatch, router]);
+  }, [isError, isSuccess, message, dispatch, router, token]);
 
   const onChange = (e: any) => {
     setFormData({ ...formeData, [e.target.name]: e.target.value });
@@ -160,7 +160,7 @@ const RegisterScreen = () => {
             </button>
             <Link href="/login">
               <button className="text-sm flex flex-col items-center ">
-                <span className="mr-3">Vous n'avez pas de compte</span>
+                <span className="mr-3">Vous n &apos; avez pas de compte</span>
                 <span className="underline text-primary">Inscrivez vous</span>
               </button>
             </Link>

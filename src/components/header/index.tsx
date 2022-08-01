@@ -41,7 +41,7 @@ const Icons: FC<{
 
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
-  const { totalItems } = useCart();
+  const { totalItems, clearCartMetadata, emptyCart } = useCart();
   const [total, setTotal] = useState(0);
   useEffect(() => {
     setTotal(totalItems);
@@ -103,6 +103,9 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
 
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
   const dispatch = useAppDispatch();
+
+  const { totalItems, clearCartMetadata, emptyCart } = useCart();
+
   return (
     <header className="relative h-[188px] bg-white">
       <div
@@ -254,7 +257,11 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                                 )}
                                 <button
                                   className="w-full"
-                                  onClick={() => dispatch(logout())}
+                                  onClick={() => {
+                                    emptyCart();
+                                    clearCartMetadata();
+                                    dispatch(logout());
+                                  }}
                                 >
                                   <a className="!text-[14px] px-5 inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-semibold ">
                                     Se Deconnecter

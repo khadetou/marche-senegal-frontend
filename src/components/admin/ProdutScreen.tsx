@@ -139,6 +139,7 @@ const ProductScreen = () => {
                     <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
                       <div className="text-xs flex items-center justify-center w-full h-full text-white">
                         <Image
+                          alt="images"
                           src={products && product.image[0].url}
                           width={42}
                           height={42}

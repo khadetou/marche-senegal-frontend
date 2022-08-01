@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import OrderScreen from "@/components/OrderScreen/indext";
+import OrderScreen from "@/components/OrderScreen";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import Header from "@/components/header";
@@ -24,7 +24,7 @@ const Order = () => {
         query: { from: router.pathname },
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router]);
   return (
     <Layout>
       <SEO />

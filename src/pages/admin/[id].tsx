@@ -5,7 +5,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import { GetServerSideProps } from "next";
 import { ToastContainer } from "react-toastify";
-import React, { FC, useEffect } from "react";
+import React, { FC, useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import jwtDecode from "jwt-decode";
 import { getUser, logout } from "store/reducers/auth/index";
@@ -23,11 +23,11 @@ const EditProduct = () => {
       router.push("/");
     }
   }, [token, router]);
-
+  const [open, setOpen] = useState(false);
   return (
     <Layout>
       <SEO />
-      <Header />
+      <Header open={open} setOpen={setOpen} />
       <EditProductScreen />
       <ToastContainer />
       <Footer bgColor="!bg-primary" textColor="!text-white" />

@@ -9,6 +9,7 @@ const Intersection = () => {
         <div className="h-[270px]  w-full relative max-w-[710px] mb-5 md:mb-0 ">
           <div className="relative w-full h-full">
             <Image
+              alt="image"
               src="https://res.cloudinary.com/didh3wbru/image/upload/v1657993550/Ecommerce/Images/Banner%20Images/h1-banner-8-ok1_egztvk.jpg"
               layout="fill"
             />
@@ -25,6 +26,7 @@ const Intersection = () => {
         <div className="h-[270px] w-full relative max-w-[464px]">
           <div className="relative w-full h-full">
             <Image
+              alt="image"
               src="https://res.cloudinary.com/didh3wbru/image/upload/v1658088150/Ecommerce/Images/Banner%20Images/h1-banner-9-ok_1_rdu4sp.jpg"
               layout="fill"
             />

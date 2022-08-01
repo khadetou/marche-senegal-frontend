@@ -31,7 +31,7 @@ const Services = () => {
           {icons.map(({ img, title, p }, idx) => (
             <div key={idx} className="flex items-center p-[10px]">
               <div className="w-[71px] h-[77px] relative mr-2">
-                <Image src={img} layout="fill" />
+                <Image alt="image" src={img} layout="fill" />
               </div>
               <div className="w-[173px]">
                 <h2 className="text-base text-primary font-semibold">

@@ -26,7 +26,7 @@ const Shipping = () => {
         query: { from: router.pathname },
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router]);
   return (
     <Layout>
       <Header open={open} setOpen={setOpen} />

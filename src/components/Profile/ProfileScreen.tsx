@@ -40,7 +40,7 @@ const ProfileScreen = () => {
     if (isError) {
       toast.error(message);
     }
-  }, [dispatch]);
+  }, [dispatch, isError, message]);
 
   return (
     <section className="mb-28">
@@ -82,6 +82,7 @@ const ProfileScreen = () => {
                           className="text-xs py-2 mx-auto text-white w-[46px]"
                         >
                           <Image
+                            alt="image"
                             src={item.image[0].url}
                             width="100%"
                             height="100%"

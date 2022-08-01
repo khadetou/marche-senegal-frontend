@@ -14,7 +14,7 @@ import { wrapper } from "store";
 import { getCookie } from "store/actions/auth";
 import { getUser, logout } from "store/reducers/auth";
 
-const placeorder = () => {
+const Placeorder = () => {
   const [open, setOpen] = useState(false);
   const { isAuthenticated } = useAppSelector((state) => state.auth);
   const router = useRouter();
@@ -25,7 +25,7 @@ const placeorder = () => {
         query: { from: router.pathname },
       });
     }
-  }, [isAuthenticated]);
+  }, [isAuthenticated, router]);
   return (
     <Layout>
       <SEO />
@@ -38,7 +38,7 @@ const placeorder = () => {
   );
 };
 
-export default placeorder;
+export default Placeorder;
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context): Promise<any> => {
     const token: string = getCookie("token", context.req);

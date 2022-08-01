@@ -66,8 +66,11 @@ const MyOrdersScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map(({ Date, total, user }) => (
-                <tr className="bg-white border-b border-gray-200 even:bg-gray-50">
+              {orders.map(({ Date, total, user }, idx) => (
+                <tr
+                  key={idx}
+                  className="bg-white border-b border-gray-200 even:bg-gray-50"
+                >
                   <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
                     <div>#idsfzefzefzef</div>
                   </td>

@@ -107,7 +107,7 @@ const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
                   <AiOutlineEye />
                 </span>
                 <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
-                  <Image src={img} layout="fill" />
+                  <Image alt="image" src={img} layout="fill" />
                 </div>
                 <div className="flex flex-col justify-center mb-[30px] px-[15px]">
                   <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">

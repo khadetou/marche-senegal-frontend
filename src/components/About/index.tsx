@@ -69,6 +69,7 @@ const AboutScreen = () => {
               <div className="relative w-full transition-all duration-300 ease-in hover:scale-90">
                 <Image
                   src={src}
+                  alt="images"
                   layout="responsive"
                   width="100%"
                   height="100%"
@@ -101,7 +102,12 @@ const AboutScreen = () => {
                   className="w-full flex  items-center  max-w-[400px]"
                 >
                   <div className="w-32 h-28 mr-1  p-[10px]">
-                    <Image src={src} width={120} height={118} />
+                    <Image
+                      alt="images image"
+                      src={src}
+                      width={120}
+                      height={118}
+                    />
                   </div>
                   <div>
                     <h3 className="text-base text-primary mb-1 font-semibold">
@@ -114,6 +120,7 @@ const AboutScreen = () => {
             </div>
             <div className="w-full flex justify-center items-center max-w-[400px]">
               <Image
+                alt="images"
                 src="https://res.cloudinary.com/didh3wbru/image/upload/v1658434076/Ecommerce/Images/About/layer-40-370x257-1_hhxex9.png"
                 width={370}
                 height={257}
@@ -126,7 +133,7 @@ const AboutScreen = () => {
                   className="w-full flex  items-center max-w-[400px]"
                 >
                   <div className="w-32 h-28 mr-1 p-[10px]">
-                    <Image src={src} width={120} height={118} />
+                    <Image alt="images" src={src} width={120} height={118} />
                   </div>
                   <div>
                     <h3 className="text-base text-primary mb-1 font-semibold">
@@ -148,6 +155,7 @@ const AboutScreen = () => {
           </p>
           <div className="w-[60px] h-[60px] mb-5 relative">
             <Image
+              alt="images"
               src="https://res.cloudinary.com/didh3wbru/image/upload/v1658434102/Ecommerce/Images/About/testimonial-2_qwk3c0.png"
               layout="fill"
             />
@@ -172,6 +180,7 @@ const AboutScreen = () => {
             <div key={idx} className="max-w-[280px] justify-self-center">
               <div className="w-[280px] mt-7 h-[336px] relative ">
                 <Image
+                  alt="image"
                   src={src}
                   layout="fill"
                   objectFit="cover"
