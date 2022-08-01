@@ -89,6 +89,22 @@ export const updatePaid = async (id: string, token: string) => {
 
   return data;
 };
+// UPDATE INTO PAID
+export const updateDelivered = async (id: string, token: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const { data } = await axios.put(
+    `http://localhost:5000/order/${id}/delivered`,
+    {},
+    config
+  );
+
+  return data;
+};
 
 const orderService = {
   createOrder,
@@ -97,6 +113,7 @@ const orderService = {
   getAllOrders,
   deleteOrder,
   updatePaid,
+  updateDelivered,
 };
 
 export default orderService;

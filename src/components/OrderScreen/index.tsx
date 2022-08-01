@@ -1,10 +1,11 @@
 import React, { useEffect } from "react";
 import Image from "next/image";
-import Link from "next/link";
+import { orderDelivered } from "store/reducers/order";
 import { reset, getOrderById } from "store/reducers/order/index";
 import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
+import Loading from "../Loading";
 
 const OrderScreen = () => {
   const router = useRouter();
@@ -15,7 +16,7 @@ const OrderScreen = () => {
   useEffect(() => {
     dispatch(getOrderById(router.query.id as string));
     if (isError) {
-      toast.error(message);
+      toast.error(message.message);
       dispatch(reset());
     }
   }, [dispatch, isError, router, message]);
@@ -223,8 +224,13 @@ const OrderScreen = () => {
               </p>
             </div>
 
-            <button className="text-white font-bold uppercase bg-primary text-xs py-4 rounded-full my-7 hover:bg-secondary">
-              Commande Reçue
+            <button
+              className="text-white font-bold uppercase bg-primary text-xs py-4 rounded-full my-7 hover:bg-secondary flex items-center justify-center"
+              onClick={() =>
+                dispatch(orderDelivered(router.query.id as string))
+              }
+            >
+              {isLoading && <Loading />} Commande Reçue
             </button>
           </div>
         </div>

@@ -86,7 +86,7 @@ const LoginScreen = () => {
           </div>
           <div className="flex justify-between">
             <button className="text-white bg-primary rounded-full text-sm font-medium py-3 px-7">
-              Register
+              Se Connecter
             </button>
             <Link href="/register">
               <button className="text-sm flex flex-col items-center ">

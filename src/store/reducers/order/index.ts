@@ -133,6 +133,25 @@ export const orderPaid = createAsyncThunk(
     }
   }
 );
+// UPDATE TO PAID
+export const orderDelivered = createAsyncThunk(
+  "delivered/order",
+  async (id: string, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+      return await orderService.updateDelivered(id, token);
+    } catch (error: any) {
+      console.log({ error });
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
 
 export const orderSlice = createSlice({
   name: "order",
@@ -215,6 +234,19 @@ export const orderSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(orderPaid.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.message = action.payload;
+      })
+      .addCase(orderDelivered.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(orderDelivered.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.order = action.payload;
+        state.isSuccess = true;
+      })
+      .addCase(orderDelivered.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.message = action.payload;
