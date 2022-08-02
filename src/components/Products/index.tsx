@@ -1,4 +1,4 @@
-import React, { Dispatch, FC, useRef, useState } from "react";
+import React, { Dispatch, FC, useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import { FiFilter } from "react-icons/fi";
 import StarsRating from "react-star-rate";
@@ -8,48 +8,73 @@ import { AiOutlineEye } from "react-icons/ai";
 import ProductDrawer from "./drawer/productDrawer";
 
 import ProductItem from "../Modal/productItem";
+import { useCart } from "react-use-cart";
+import Link from "next/link";
+import { RiLuggageCartFill } from "react-icons/ri";
 
-const products = [
-  {
-    img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049952/Ecommerce/Images/Products/product-3-300x300_atwsjo.jpg",
-    name: "Egg",
-    rating: 3,
-    price: "$35.00",
-  },
-  {
-    img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049944/Ecommerce/Images/Products/product-10-300x300_tnqcvo.jpg",
-    name: "Meat",
-    rating: 4.5,
-    price: "$105.00",
-  },
-  {
-    img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049934/Ecommerce/Images/Products/product-22-300x300_1_mwv2n6.jpg",
-    name: "Onion",
-    rating: 3.5,
-    price: "$60.00",
-  },
-  {
-    img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049924/Ecommerce/Images/Products/product-33-300x300_hkphav.jpg",
-    name: "Bread",
-    rating: 5,
-    price: "$70.00",
-  },
-  {
-    img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049917/Ecommerce/Images/Products/product-18-300x300_z1w6ym.jpg",
-    name: "Rustic paper pants",
-    rating: 5,
-    price: "$80.00",
-  },
-];
+// const products = [
+//   {
+//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049952/Ecommerce/Images/Products/product-3-300x300_atwsjo.jpg",
+//     name: "Egg",
+//     rating: 3,
+//     price: "$35.00",
+//   },
+//   {
+//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049944/Ecommerce/Images/Products/product-10-300x300_tnqcvo.jpg",
+//     name: "Meat",
+//     rating: 4.5,
+//     price: "$105.00",
+//   },
+//   {
+//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049934/Ecommerce/Images/Products/product-22-300x300_1_mwv2n6.jpg",
+//     name: "Onion",
+//     rating: 3.5,
+//     price: "$60.00",
+//   },
+//   {
+//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049924/Ecommerce/Images/Products/product-33-300x300_hkphav.jpg",
+//     name: "Bread",
+//     rating: 5,
+//     price: "$70.00",
+//   },
+//   {
+//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049917/Ecommerce/Images/Products/product-18-300x300_z1w6ym.jpg",
+//     name: "Rustic paper pants",
+//     rating: 5,
+//     price: "$80.00",
+//   },
+// ];
 
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
 interface ProductListProps {
   openModal: boolean;
   setOpenModal: Dispatch<React.SetStateAction<boolean>>;
+  products: any;
+  open: any;
+  setOpen: any;
 }
-const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
-  const [open, setOpen] = useState(false);
+
+const ProductsList: FC<ProductListProps> = ({
+  openModal,
+  setOpenModal,
+  products,
+  open,
+  setOpen,
+}) => {
+  const [openFilter, setOpenFilter] = useState(false);
+  const [id, setId] = useState("");
+  const { inCart, addItem } = useCart();
+  const [inCarts, setInCarts] = useState<any>({
+    value: (id: any) => false,
+  });
+
+  useEffect(() => {
+    setInCarts({
+      value: inCart,
+    });
+  }, [inCart]);
+
   return (
     <section className="mt-4 pb-8">
       <ProductItem
@@ -57,9 +82,10 @@ const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
         openModal={openModal}
         open={open}
         setOpen={setOpen}
+        id={id}
       />
       <div className="containers flex flex-col items-center md:items-start md:flex-row">
-        <ProductDrawer open={open} setOpen={setOpen} />
+        <ProductDrawer open={openFilter} setOpen={setOpenFilter} />
 
         <button
           className="flex md:hidden justify-center items-center rounded-md border border-primary hover:bg-primary hover:text-white transition-all ease-in duration-300 text-base w-24 h-9 font-bold"
@@ -97,41 +123,63 @@ const ProductsList: FC<ProductListProps> = ({ openModal, setOpenModal }) => {
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ml-0 md:ml-[30px] w-full">
-          {products.map(({ img, name, price, rating }, idx) => (
-            <div key={idx} className="w-full h-full">
-              <div className="w-full group h-full mx-auto max-w-[216px] relative">
-                <span
-                  className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible"
-                  onClick={() => setOpenModal(true)}
-                >
-                  <AiOutlineEye />
-                </span>
-                <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
-                  <Image alt="image" src={img} layout="fill" />
-                </div>
-                <div className="flex flex-col justify-center mb-[30px] px-[15px]">
-                  <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
-                    {name}
-                  </h2>
-                  <div className="flex justify-center stars ">
-                    <StarsRating
-                      value={rating}
-                      disabled
-                      symbol={<HiStar size="25px" />}
-                      classNamePrefix="stars"
+          {products &&
+            products.map((product: any) => (
+              <div key={product._id} className="w-full h-full">
+                <div className="w-full group h-full mx-auto max-w-[216px] relative">
+                  <span
+                    className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible"
+                    onClick={() => {
+                      setOpenModal(true);
+                      setId(product._id);
+                    }}
+                  >
+                    <AiOutlineEye />
+                  </span>
+                  <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
+                    <Image
+                      alt="image"
+                      src={product.image[0].url}
+                      layout="fill"
                     />
                   </div>
-                  <h2 className="text-center text-[#A8B324] font-bold text-base">
-                    {price}
-                  </h2>
-                  <button className="bg-primary rounded-full flex justify-center items-center w-[127px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
-                    <FaOpencart className="mr-1" />
-                    Add to cart
-                  </button>
+                  <div className="flex flex-col justify-center mb-[30px] px-[15px]">
+                    <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
+                      {product.name}
+                    </h2>
+                    <div className="flex justify-center stars ">
+                      <StarsRating
+                        value={product.rating}
+                        disabled
+                        symbol={<HiStar size="25px" />}
+                        classNamePrefix="stars"
+                      />
+                    </div>
+                    <h2 className="text-center text-[#A8B324] font-bold text-base">
+                      {product.price}
+                    </h2>
+                    <button
+                      className="bg-primary rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
+                      onClick={() => {
+                        addItem({ ...product, id: product._id });
+                        setOpen(true);
+                      }}
+                    >
+                      <FaOpencart className="mr-1" />
+                      Ajouter au panier
+                    </button>
+                    {inCarts.value(product._id) && (
+                      <Link href="/cart">
+                        <button className="bg-primary  rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
+                          <RiLuggageCartFill className="mr-1" />
+                          Voire le panier
+                        </button>
+                      </Link>
+                    )}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            ))}
         </div>
         <div></div>
       </div>
