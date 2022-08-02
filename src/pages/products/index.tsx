@@ -39,7 +39,12 @@ export default Products;
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context): Promise<any> => {
     const token: string = getCookie("token", context.req);
-    await store.dispatch<any>(getAllProducts());
+    const data = {
+      req: context.req,
+      keyword: context.query.keyword,
+      pageNumber: context.query.pageNumber,
+    };
+    await store.dispatch<any>(getAllProducts(data));
     if (token) {
       if (jwtDecode<any>(token).exp < Date.now() / 1000) {
         await store.dispatch<any>(logout());

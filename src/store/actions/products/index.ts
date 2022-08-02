@@ -1,4 +1,5 @@
 import axios from "axios";
+import absoluteUrl from "next-absolute-url";
 
 // CREATE PRODUCTS
 const createProducts = async (productData: any, token: string) => {
@@ -17,9 +18,17 @@ const createProducts = async (productData: any, token: string) => {
 
 // GET ALL PRODUCTS
 
-const getAllProducts = async () => {
-  const { data } = await axios.get("http://localhost:5000/products");
+const getAllProducts = async (
+  req?: any,
+  keyword: string = "",
+  pageNumber = ""
+) => {
+  // const { origin } = absoluteUrl(req);
+  // console.log(origin);
 
+  const { data } = await axios.get(
+    `http://localhost:5000/products?keyword=${keyword}&pageNumber=${pageNumber}`
+  );
   return data;
 };
 

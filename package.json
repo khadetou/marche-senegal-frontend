@@ -21,6 +21,7 @@
     "jwt-decode": "^3.1.2",
     "moment": "^2.29.4",
     "next": "12.2.2",
+    "next-absolute-url": "^1.2.2",
     "next-redux-wrapper": "^7.0.5",
     "postcss-import": "^14.1.0",
     "rc-drawer": "^4.4.3",

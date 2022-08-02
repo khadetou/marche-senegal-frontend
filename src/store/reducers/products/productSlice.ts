@@ -45,9 +45,14 @@ export const createProducts = createAsyncThunk(
 // GET ALL PRODUCTS
 export const getAllProducts = createAsyncThunk(
   "products/getAll",
-  async (_, thunkAPI: any) => {
+  async (data: any, thunkAPI: any) => {
+    console.log(data);
     try {
-      return await productsService.getAllProducts();
+      return await productsService.getAllProducts(
+        data.req,
+        data.keyword,
+        data.pageNumber
+      );
     } catch (error: any) {
       const message =
         (error.response &&

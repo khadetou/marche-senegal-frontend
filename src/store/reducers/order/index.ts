@@ -122,7 +122,6 @@ export const orderPaid = createAsyncThunk(
       const token = thunkAPI.getState().auth.token;
       return await orderService.updatePaid(id, token);
     } catch (error: any) {
-      console.log({ error });
       const message =
         (error.response &&
           error.response.data &&

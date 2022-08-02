@@ -97,14 +97,56 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
     "Céréales",
     "Viandes",
   ];
-  const { pathname } = useRouter();
+  const { pathname, push } = useRouter();
 
   const [rotate, setRotate] = useState(false);
 
   const { isAuthenticated, user } = useAppSelector((state) => state.auth);
+  const { products } = useAppSelector((state) => state.products);
   const dispatch = useAppDispatch();
 
-  const { totalItems, clearCartMetadata, emptyCart } = useCart();
+  const { clearCartMetadata, emptyCart } = useCart();
+  const [filterData, setFilterData] = useState([]);
+  const [wordEntered, setWordEntered] = useState("");
+  const [focused, setFocused] = useState(false);
+
+  const handleFilter = (e: any) => {
+    const searchWord = e.target.value;
+    setWordEntered(searchWord);
+    const keyword = products.filter((product: any) => {
+      return product.name
+        .toLowerCase()
+        .includes(searchWord.toLocaleLowerCase());
+    });
+
+    if (searchWord === "") {
+      setFilterData([]);
+    } else {
+      setFilterData(keyword);
+    }
+  };
+
+  const clearInput = () => {
+    setFilterData([]);
+    setWordEntered("");
+  };
+
+  const clearFilteredData = () => {
+    setFilterData([]);
+  };
+
+  const onSubmit = (keyword?: string) => {
+    if (keyword!.trim()) {
+      push(`/products?keyword=${keyword}`);
+    }
+  };
+
+  const onSearch = (e: any) => {
+    e.preventDefault();
+    if (wordEntered.trim()) {
+      push(`/products?keyword=${wordEntered}`);
+    }
+  };
 
   return (
     <header className="relative h-[188px] bg-white">
@@ -125,22 +167,50 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                 </Link>
               </div>
               <div className=" lg:static absolute lg:w-[397px] left-0  w-full top-[100%]  ">
-                <div className="h-[50px] w-full max-w-[397px] mx-auto mt-2 lg:mt-0 relative group">
+                <form
+                  onSubmit={onSearch}
+                  className="h-[50px] w-full max-w-[397px] mx-auto mt-2 lg:mt-0 relative group"
+                >
                   <input
                     type="text"
-                    onFocus={() => setRotate(true)}
-                    onBlur={() => setRotate(false)}
+                    onFocus={() => {
+                      setFocused(true);
+                      setRotate(true);
+                    }}
+                    value={wordEntered}
+                    onChange={handleFilter}
+                    onBlur={() => {
+                      setRotate(false);
+                      setFocused(false);
+                    }}
                     className="w-full h-full group focus:ring-1 focus:ring-gray-200 border-0 text-sm py-[1px] pl-5 pr-[50px] h-full-400 bg-gray-100 rounded-full text-gray-600 "
                     placeholder="Search products..."
                   />
                   <button
+                    type="submit"
                     className={`absolute p-4 right-0 bottom-0 top-0 transition-all duration-300 ease-linear group-hover:rotate-[110deg] ${
                       rotate && "rotate-[110deg]"
                     }`}
                   >
                     <BiSearchAlt size="23px" className="text-gray-700" />
                   </button>
-                </div>
+
+                  {filterData.length != 0 && (
+                    <div
+                      className={`shadow-lg p-2 bg-white rounded-md z-10 absolute w-full `}
+                    >
+                      {filterData.slice(0, 15).map((data: any) => (
+                        <button
+                          key={data._id}
+                          className="text-dark-gray text-sm font-semibold w-full text-start p-2 hover:bg-gray-200 transition-all duration-150 ease-in-out cursor-pointer z-50 rounded-sm"
+                          onClick={() => onSubmit(data.name)}
+                        >
+                          <p>{data.name}</p>
+                        </button>
+                      ))}
+                    </div>
+                  )}
+                </form>
               </div>
             </div>
             <div>
