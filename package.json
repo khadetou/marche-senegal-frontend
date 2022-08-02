@@ -19,6 +19,7 @@
     "framer-motion": "^6.5.1",
     "js-cookie": "^3.0.1",
     "jwt-decode": "^3.1.2",
+    "moment": "^2.29.4",
     "next": "12.2.2",
     "next-redux-wrapper": "^7.0.5",
     "postcss-import": "^14.1.0",

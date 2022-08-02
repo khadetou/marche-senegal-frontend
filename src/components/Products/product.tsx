@@ -13,7 +13,10 @@ import {
 import Link from "next/link";
 import { useCart } from "react-use-cart";
 import { toast } from "react-toastify";
+import "moment/locale/fr";
+import moment from "moment";
 
+moment.locale("fr");
 const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
   const [qty, setQty] = useState(1);
   const isLaptop = useMediaQuery({ query: "(min-width:640px)" });
@@ -36,10 +39,14 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
     }
     if (isError) {
       toast.error(message);
+      setComment("");
+      setRating(0);
       dispatch(reset());
     }
     if (isSuccess) {
       toast.success("Merci d'avoir noté le produit.");
+      setComment("");
+      setRating(0);
       dispatch(reset());
     }
   }, [dispatch, id, isError, message, isSuccess]);
@@ -165,13 +172,16 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
               {product && product.description}
             </p>
           </div>
-          {product &&
-            product.reviews.map((review: any) => (
-              <div key={review._id}>
-                <h1 className="text-lg py-[15px] text-[#2b2b2b]">
-                  Reviews ({product.reviews.length})
-                </h1>
-                <div className="py-8 border-b  flex px-0 sm:px-24 ">
+          <div>
+            <h1 className="text-lg py-[15px] text-[#2b2b2b]">
+              Reviews ({product && product.numbReviews})
+            </h1>
+            {product &&
+              product.reviews.map((review: any) => (
+                <div
+                  key={review._id}
+                  className="py-8 border-b  flex px-0 sm:px-24 "
+                >
                   <h1 className="bg-[#2b2b2b] rounded-full text-base font-bold text-white p-4 max-w-[56px] uppercase max-h-[56px]">
                     {review.name.split(" ")[0][0]}
                     {review.name.split(" ")[1][0]}
@@ -190,7 +200,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                           classNamePrefix="stars"
                         />
                         <p className="text-xs text-[#8b8b8b] text-normal ml-4">
-                          5 months
+                          {moment(review.createdAt).fromNow()}
                         </p>
                       </div>
                       <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-[300px]  sm:max-w-[70%]">
@@ -199,8 +209,8 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                     </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+          </div>
           {isAuthenticated && (
             <div>
               <div>
@@ -228,6 +238,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       name="review"
                       cols={30}
                       rows={10}
+                      value={comment}
                       onChange={(e) => setComment(e.target.value)}
                       className="border-gray-300 border-[0.1px] focus:ring-1
                   focus:ring-gray-200 focus:border-none"
