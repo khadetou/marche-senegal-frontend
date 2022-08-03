@@ -12,11 +12,23 @@ import { wrapper } from "store";
 import { getCookie } from "store/actions/auth";
 import { logout, getUser } from "store/reducers/auth";
 import { getAllProducts } from "store/reducers/products/productSlice";
+import ReactPaginate from "react-paginate";
+import { useRouter } from "next/router";
 
 const Products = () => {
   const [openModal, setOpenModal] = useState(false);
   const [open, setOpen] = useState(false);
-  const { products } = useAppSelector((state) => state.products);
+  const [pageNumber, setPageNumber] = useState(1);
+  const { products, pages, page } = useAppSelector((state) => state.products);
+
+  const router = useRouter();
+
+  const onPageChange = (selected: any) => {
+    setPageNumber(selected.selected);
+    if (pageNumber) {
+      router.push(`/products?pageNumber=${pageNumber}`);
+    }
+  };
 
   return (
     <Layout openModal={openModal} setOpenModal={setOpenModal}>
@@ -29,6 +41,24 @@ const Products = () => {
         setOpenModal={setOpenModal}
         open={open}
         setOpen={setOpen}
+      />
+      <ReactPaginate
+        previousLabel={"PRECEDANT"}
+        nextLabel={"SUIVANT"}
+        containerClassName={
+          "paginationBttns containers flex justify-center mb-5 py-2"
+        }
+        onPageChange={onPageChange}
+        previousLinkClassName={
+          "previousBttn m-[8px] !bg-white text-[#8f8f8f] hover:text-secondary !text-sm font-semibold"
+        }
+        nextLinkClassName={
+          "nextBttn m-[8px] rounded-full text-[#8f8f8f] !bg-white hover:text-secondary !text-sm font-semibold"
+        }
+        disabledClassName={"paginationDisabled hidden"}
+        activeClassName={"paginationEnabled"}
+        pageCount={pages}
+        selectedPageRel={page}
       />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>

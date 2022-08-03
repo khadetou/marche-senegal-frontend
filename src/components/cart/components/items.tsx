@@ -2,7 +2,6 @@ import React, { FC, useEffect, useState } from "react";
 import Scrollbars from "react-custom-scrollbars-2";
 import { IoIosClose } from "react-icons/io";
 import Image from "next/image";
-import Produit from "/public/images/produit.jpg";
 import { Item, useCart } from "react-use-cart";
 import Link from "next/link";
 

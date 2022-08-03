@@ -68,13 +68,55 @@ const ProductsList: FC<ProductListProps> = ({
   const [inCarts, setInCarts] = useState<any>({
     value: (id: any) => false,
   });
+  const [categories, setCategories] = useState(products);
+  const [prices, setPricces] = useState([]);
+  let sets = new Set();
+  products.forEach((item: any) => {
+    return sets.add(item.category);
+  });
+  const category = Array.from(sets);
+
+  const filterByCategory = (category: string) => {
+    const filetered = products.filter((item: any) => {
+      return item.category === category;
+    });
+    if (category === "") {
+      setCategories(products);
+    } else {
+      setCategories(filetered);
+    }
+  };
+
+  const filterByPrice = (e: any) => {
+    if (e.target.checked) {
+      let filtered: any[] = [];
+      const priceArr = e.target.name.split("-");
+      products.map((product: any) => {
+        if (
+          product.price >= Number(priceArr[0]) &&
+          product.price <= Number(priceArr[1])
+        ) {
+          return filtered.push(product);
+        }
+      });
+
+      if (filtered) {
+        setCategories(filtered);
+      } else {
+        setCategories(products);
+      }
+    } else {
+      setCategories(products);
+    }
+  };
+
+  console.log(categories);
 
   useEffect(() => {
     setInCarts({
       value: inCart,
     });
   }, [inCart]);
-
   return (
     <section className="mt-4 pb-8">
       <ProductItem
@@ -98,12 +140,12 @@ const ProductsList: FC<ProductListProps> = ({
           <div className="mb-10 ">
             <h2 className="mb-5 text-lg text-[#2b2b2b]">Catégories</h2>
             <ul>
-              {categories.map((item, idx) => (
+              {category.map((item: any, idx: any) => (
                 <li
                   className="text-sm text-[#8b8b8b] h-[36px] flex items-center w-full"
                   key={idx}
                 >
-                  {item}
+                  <button onClick={() => filterByCategory(item)}>{item}</button>
                 </li>
               ))}
             </ul>
@@ -113,6 +155,8 @@ const ProductsList: FC<ProductListProps> = ({
             <div className="flex items-center">
               <input
                 type="checkbox"
+                name="0 - 6000"
+                onChange={filterByPrice}
                 className="rounded border-gray-300 text-secondary shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 
                 w-[20px]
                 h-[20px]
@@ -123,63 +167,58 @@ const ProductsList: FC<ProductListProps> = ({
           </div>
         </div>
         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 ml-0 md:ml-[30px] w-full">
-          {products &&
-            products.map((product: any) => (
-              <div key={product._id} className="w-full h-full">
-                <div className="w-full group h-full mx-auto max-w-[216px] relative">
-                  <span
-                    className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible"
-                    onClick={() => {
-                      setOpenModal(true);
-                      setId(product._id);
-                    }}
-                  >
-                    <AiOutlineEye />
-                  </span>
-                  <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
-                    <Image
-                      alt="image"
-                      src={product.image[0].url}
-                      layout="fill"
+          {categories.map((product: any) => (
+            <div key={product._id} className="w-full h-full">
+              <div className="w-full group h-full mx-auto max-w-[216px] relative">
+                <span
+                  className="cursor-pointer p-3 rounded-sm right-0 absolute bg-white z-50 shadow-lg text-[#8f8f8f8f] hover:bg-secondary hover:text-white -translate-y-[150%] group-hover:translate-y-[0%] group-hover:visible group-hover:opacity-100 opacity-0 transition-all ease-linear duration-300 invisible"
+                  onClick={() => {
+                    setOpenModal(true);
+                    setId(product._id);
+                  }}
+                >
+                  <AiOutlineEye />
+                </span>
+                <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
+                  <Image alt="image" src={product.image[0].url} layout="fill" />
+                </div>
+                <div className="flex flex-col justify-center mb-[30px] px-[15px]">
+                  <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
+                    {product.name}
+                  </h2>
+                  <div className="flex justify-center stars ">
+                    <StarsRating
+                      value={product.rating}
+                      disabled
+                      symbol={<HiStar size="25px" />}
+                      classNamePrefix="stars"
                     />
                   </div>
-                  <div className="flex flex-col justify-center mb-[30px] px-[15px]">
-                    <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
-                      {product.name}
-                    </h2>
-                    <div className="flex justify-center stars ">
-                      <StarsRating
-                        value={product.rating}
-                        disabled
-                        symbol={<HiStar size="25px" />}
-                        classNamePrefix="stars"
-                      />
-                    </div>
-                    <h2 className="text-center text-[#A8B324] font-bold text-base">
-                      {product.price}
-                    </h2>
-                    <button
-                      className="bg-primary rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
-                      onClick={() => {
-                        addItem({ ...product, id: product._id });
-                        setOpen(true);
-                      }}
-                    >
-                      <FaOpencart className="mr-1" />
-                      Ajouter au panier
-                    </button>
-                    {inCarts.value(product._id) && (
-                      <Link href="/cart">
-                        <button className="bg-primary  rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
-                          <RiLuggageCartFill className="mr-1" />
-                          Voire le panier
-                        </button>
-                      </Link>
-                    )}
-                  </div>
+                  <h2 className="text-center text-[#A8B324] font-bold text-base">
+                    {product.price}
+                  </h2>
+                  <button
+                    className="bg-primary rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"
+                    onClick={() => {
+                      addItem({ ...product, id: product._id });
+                      setOpen(true);
+                    }}
+                  >
+                    <FaOpencart className="mr-1" />
+                    Ajouter au panier
+                  </button>
+                  {inCarts.value(product._id) && (
+                    <Link href="/cart">
+                      <button className="bg-primary  rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal">
+                        <RiLuggageCartFill className="mr-1" />
+                        Voire le panier
+                      </button>
+                    </Link>
+                  )}
                 </div>
               </div>
-            ))}
+            </div>
+          ))}
         </div>
         <div></div>
       </div>

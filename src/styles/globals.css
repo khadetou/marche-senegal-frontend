@@ -116,6 +116,18 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+.paginationBttns {
+  a {
+    @apply p-[10px] m-2 text-sm font-semibold min-w-[29px] h-[29px] flex items-center justify-center text-[#8f8f8f];
+  }
+}
+
+.paginationEnabled {
+  a {
+    @apply !text-white bg-primary rounded-full;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
