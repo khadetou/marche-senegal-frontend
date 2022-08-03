@@ -26,21 +26,5 @@ export default Cart;
 export const getServerSideProps: GetServerSideProps = async (context) => {
   const token: string = getCookie("token", context.req);
 
-  if (token) {
-    if (jwtDecode<any>(token).exp < Date.now() / 1000) {
-      return {
-        props: {
-          token,
-        },
-      };
-    }
-  } else {
-    return {
-      redirect: {
-        destination: "/login",
-        permanent: false,
-      },
-    };
-  }
   return { props: {} };
 };
