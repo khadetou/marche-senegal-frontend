@@ -67,11 +67,6 @@ export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context): Promise<any> => {
     const token: string = getCookie("token", context.req);
 
-    console.log(context.query);
-    console.log(context.params);
-    console.log(
-      "------------------------------------------------------------------------------------------"
-    );
     const data = {
       req: context.req,
       keyword: context.query.keyword,

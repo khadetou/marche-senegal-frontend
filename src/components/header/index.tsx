@@ -161,9 +161,21 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
               <div className="flex items-center">
                 <MobileDrawer />
                 <Link passHref href="/">
-                  <button className="flex items-center">
-                    <Image src={Logo} alt="logo" width={178} />
-                  </button>
+                  <div className="flex items-center cursor-pointer ">
+                    <button className="w-[78px] h-[86px]">
+                      <Image
+                        src={Logo}
+                        alt="logo"
+                        layout="responsive"
+                        width="100%"
+                        height="100%"
+                        objectFit="contain"
+                      />
+                    </button>
+                    <h1 className="text-primary font-light text-base lg:text-xl font-Playfair">
+                      Marché Sénégal
+                    </h1>
+                  </div>
                 </Link>
               </div>
               <div className=" lg:static absolute lg:w-[397px] left-0  w-full top-[100%]  ">

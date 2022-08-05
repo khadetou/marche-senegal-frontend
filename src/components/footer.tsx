@@ -76,8 +76,20 @@ const Footer: FC<FooterProps> = ({ bgColor, textColor }) => {
         </div>
         <div className="pt-10 pb-9 border-b">
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-5">
-            <div className="p-[10px]">
-              <Image alt="logo" src={Logo} width={178} />
+            <div className="flex items-center cursor-pointer ">
+              <button className="w-[78px] h-[86px]">
+                <Image
+                  src={Logo}
+                  alt="logo"
+                  layout="responsive"
+                  width="100%"
+                  height="100%"
+                  objectFit="contain"
+                />
+              </button>
+              <h1 className="text-primary font-light text-xl font-Playfair">
+                Marché Sénégal
+              </h1>
             </div>
             <div className="pl-[10px] pr-[60px] border-r">
               <h2
