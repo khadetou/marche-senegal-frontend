@@ -82,14 +82,14 @@ const Icons: FC<{
 const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
   const menues = [
     { title: "Accueil", path: "/" },
-    { title: "Boutique", path: "/about" },
+    { title: "Boutique", path: "/products" },
     {
       title: "Blog",
       path: "/services",
       className: "relative group",
     },
     { title: "Pages", path: "/work" },
-    { title: "Nous Contacter", path: "/products" },
+    { title: "Nous Contacter", path: "/contact" },
   ];
   // const [open, setOpen] = useState(false);
 
@@ -392,7 +392,28 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                       className={`flex items-center px-1 mx-3 my-1 py-3 xl:px-1 xl:py-3 relative group  font-normal leading-none text-sm  before:contente-[""] before:w-0  hover:before:w-full before:h-[3px] before:transition-all before:left-0 before:bg-secondary before:absolute before:bottom-1  hover:text-secondary before:duration-500 ease-linear ${className} ${
                         pathname.endsWith(path) &&
                         "before:!bg-secondary before:!w-full !text-secondary"
-                      }`}
+                      }
+                      ${
+                        title === "Boutique" &&
+                        pathname.endsWith("cart") &&
+                        "before:!bg-secondary before:!w-full !text-secondary"
+                      }
+                      ${
+                        title === "Boutique" &&
+                        pathname.endsWith("shipping") &&
+                        "before:!bg-secondary before:!w-full !text-secondary"
+                      }
+                      ${
+                        title === "Pages" &&
+                        pathname.endsWith("about") &&
+                        "before:!bg-secondary before:!w-full !text-secondary"
+                      }
+                      ${
+                        title === "Pages" &&
+                        pathname.endsWith("faq") &&
+                        "before:!bg-secondary before:!w-full !text-secondary"
+                      }
+                      `}
                       type="button"
                     >
                       {title}
@@ -425,13 +446,13 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                       )}
                       {title.toLocaleLowerCase() === "pages" && (
                         <div className="absolute !w-[200px] rounded-md top-7  bg-white transition-transform ease-linear duration-100 shadow-lg  text-dark-gray invisible translate-x-3 translate-y-12 opacity-0  group-hover:visible group-hover:opacity-100 group-hover:translate-y-[21px] group-hover:translate-x-0">
-                          <Link passHref href="/orders/design">
+                          <Link passHref href="/about">
                             <a className="!text-[14px] inline-block w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal">
                               A propos
                             </a>
                           </Link>
 
-                          <Link passHref href="/orders/web">
+                          <Link passHref href="/faq">
                             <a className="!text-[14px] inline-block w-full py-4  hover:text-secondary hover:bg-gray-100 !font-normal">
                               Faqs
                             </a>
