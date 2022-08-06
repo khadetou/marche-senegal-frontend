@@ -4,15 +4,14 @@ import { GiShoppingCart } from "react-icons/gi";
 import { IoIosClose } from "react-icons/io";
 import { FC, useState } from "react";
 import Drawer from "./drawer";
-import Scrollbars from "react-custom-scrollbars-2";
-import Produit from "/public/images/produit.jpg";
-import Image from "next/image";
 
-const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
-const ProductDrawer: FC<{ open: boolean; setOpen: any }> = ({
-  open,
-  setOpen,
-}) => {
+const ProductDrawer: FC<{
+  open: boolean;
+  setOpen: any;
+  category: any;
+  filterByPrice: any;
+  filterByCategory: any;
+}> = ({ open, setOpen, category, filterByPrice, filterByCategory }) => {
   return (
     <Drawer
       drawerHandler={
@@ -29,12 +28,19 @@ const ProductDrawer: FC<{ open: boolean; setOpen: any }> = ({
       <div className=" p-10">
         <h2 className="mb-5 text-lg text-[#2b2b2b]">Catégories</h2>
         <ul className="mb-10">
-          {categories.map((item, idx) => (
+          {category.map((item: any, idx: any) => (
             <li
               className="text-sm text-[#8b8b8b] h-[36px] flex items-center w-full"
               key={idx}
             >
-              {item}
+              <button
+                onClick={() => {
+                  filterByCategory(item);
+                  setOpen(false);
+                }}
+              >
+                {item}
+              </button>
             </li>
           ))}
         </ul>
@@ -43,6 +49,8 @@ const ProductDrawer: FC<{ open: boolean; setOpen: any }> = ({
           <div className="flex items-center">
             <input
               type="checkbox"
+              name="0 - 6000"
+              onChange={filterByPrice}
               className="rounded border-gray-300 text-secondary shadow-sm focus:border-indigo-300 focus:ring focus:ring-offset-0 focus:ring-indigo-200 
                 w-[20px]
                 h-[20px]

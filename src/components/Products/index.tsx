@@ -12,39 +12,6 @@ import { useCart } from "react-use-cart";
 import Link from "next/link";
 import { RiLuggageCartFill } from "react-icons/ri";
 
-// const products = [
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049952/Ecommerce/Images/Products/product-3-300x300_atwsjo.jpg",
-//     name: "Egg",
-//     rating: 3,
-//     price: "$35.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049944/Ecommerce/Images/Products/product-10-300x300_tnqcvo.jpg",
-//     name: "Meat",
-//     rating: 4.5,
-//     price: "$105.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049934/Ecommerce/Images/Products/product-22-300x300_1_mwv2n6.jpg",
-//     name: "Onion",
-//     rating: 3.5,
-//     price: "$60.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049924/Ecommerce/Images/Products/product-33-300x300_hkphav.jpg",
-//     name: "Bread",
-//     rating: 5,
-//     price: "$70.00",
-//   },
-//   {
-//     img: "https://res.cloudinary.com/didh3wbru/image/upload/v1658049917/Ecommerce/Images/Products/product-18-300x300_z1w6ym.jpg",
-//     name: "Rustic paper pants",
-//     rating: 5,
-//     price: "$80.00",
-//   },
-// ];
-
 const categories = ["Nut & seed", "Oil", "Fruits", "Tomato", "Soup"];
 
 interface ProductListProps {
@@ -69,7 +36,7 @@ const ProductsList: FC<ProductListProps> = ({
     value: (id: any) => false,
   });
   const [categories, setCategories] = useState(products);
-  const [prices, setPricces] = useState([]);
+
   let sets = new Set();
   products.forEach((item: any) => {
     return sets.add(item.category);
@@ -110,13 +77,12 @@ const ProductsList: FC<ProductListProps> = ({
     }
   };
 
-  console.log(categories);
-
   useEffect(() => {
     setInCarts({
       value: inCart,
     });
   }, [inCart]);
+
   return (
     <section className="mt-4 pb-8">
       <ProductItem
@@ -127,11 +93,17 @@ const ProductsList: FC<ProductListProps> = ({
         id={id}
       />
       <div className="containers flex flex-col items-center md:items-start md:flex-row">
-        <ProductDrawer open={openFilter} setOpen={setOpenFilter} />
+        <ProductDrawer
+          filterByPrice={filterByPrice}
+          open={openFilter}
+          setOpen={setOpenFilter}
+          category={category}
+          filterByCategory={filterByCategory}
+        />
 
         <button
-          className="flex md:hidden justify-center items-center rounded-md border border-primary hover:bg-primary hover:text-white transition-all ease-in duration-300 text-base w-24 h-9 font-bold"
-          onClick={() => setOpen(true)}
+          className="flex md:hidden justify-center items-center rounded-md border border-primary hover:bg-primary hover:text-white transition-all ease-in duration-300 text-base w-24 h-9 font-bold mb-7"
+          onClick={() => setOpenFilter(true)}
         >
           <FiFilter className="mr-1" />
           Filter
