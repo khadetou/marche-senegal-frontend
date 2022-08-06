@@ -145,8 +145,8 @@ const ShippingScreen = () => {
     };
   };
 
-  const [checkShip, setCheckShip] = useState(true);
-  const [checkAgence, setCheckAgence] = useState(false);
+  const [checkShip, setCheckShip] = useState<boolean>(true);
+  const [checkAgence, setCheckAgence] = useState<boolean>(false);
   const [shippingPrice, setChippingPrice] = useState(1200);
   const [total, setTotal] = useState(0);
   const [item, setItem] = useState<Item[]>([]);
@@ -161,7 +161,7 @@ const ShippingScreen = () => {
     setTotal(cartTotal);
     setItem(items);
     setMetadatas(metadata!);
-    if (metadatas) {
+    if (Object.keys(metadata!).length !== 0) {
       setRegion(metadatas.region);
       setVille(metadatas.ville);
       setCheckShip(metadatas.shipping);
@@ -229,7 +229,7 @@ const ShippingScreen = () => {
         <h1 className="text-[25px] font-normal mb-12 uppercase ">
           LIVRAISON:{" "}
         </h1>
-        <div className="flex justify-between items-center flex-col md:flex-row">
+        <div className="flex justify-between  flex-col md:flex-row">
           <form className="max-w-[730px] mb-7 md:mb-0 px-[20px] px- w-full">
             <div className="mb-3 flex flex-col">
               <label className="text-sm text-dark-gray mb-2" htmlFor="">
@@ -253,7 +253,6 @@ const ShippingScreen = () => {
                 instanceId="region"
               />
             </div>
-
             <div className="mb-3 flex flex-col">
               <div className="text-sm text-dark-gray mb-2">
                 Livraison <span className="text-red-700">*</span>
@@ -299,7 +298,6 @@ const ShippingScreen = () => {
                 </div>
               </div>
             </div>
-
             {checkAgence && (
               <div className="mb flex flex-col mb-4">
                 <div className="border border-gray-300 rounded p-5">
@@ -355,7 +353,6 @@ const ShippingScreen = () => {
                 />
               </div>
             )}
-
             <div className="flex flex-col w-full">
               <label htmlFor="" className="text-sm text-dark-gray mb-2">
                 Address <span className="text-red-700">*</span>
@@ -377,7 +374,6 @@ const ShippingScreen = () => {
                 }`}
               />
             </div>
-
             <div className="flex flex-col mt-4 w-full">
               <label htmlFor="" className="text-sm text-dark-gray mb-2">
                 Numero de tel. <span className="text-red-700">*</span>

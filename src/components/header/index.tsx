@@ -48,7 +48,7 @@ const Icons: FC<{
 
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
-  const { totalItems, clearCartMetadata, emptyCart } = useCart();
+  const { totalItems } = useCart();
   const [total, setTotal] = useState(0);
   useEffect(() => {
     setTotal(totalItems);
