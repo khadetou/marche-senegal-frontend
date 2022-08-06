@@ -38,6 +38,13 @@ const Icons: FC<{
       setOpen(!open);
     }
   };
+  useEffect(() => {
+    if (open) {
+      document.querySelector("html")!.style.overflow = "hidden";
+    } else {
+      document.querySelector("html")!.style.overflow = "auto";
+    }
+  }, [open]);
 
   const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
 
