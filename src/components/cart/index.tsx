@@ -40,37 +40,33 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
           </div>
         ) : (
           <div className="flex flex-col items-center lg:items-start lg:flex-row justify-center lg:justify-between">
-            <div className="w-full flex flex-col items-center">
-              <ul className="max-w-[760px] w-full flex justify-between flex-row lg:flex-col mb-4 lg:mb-0">
-                {Items.map(({ id, image }) => (
-                  <div key={id} className="flex lg:hidden items-center">
-                    <Image
-                      alt="product"
-                      src={image[0].url}
-                      width={75}
-                      height={75}
-                    />
-                  </div>
-                ))}
-                <li className="lg:border-b-[0.1px] py-2 lg:py-8 flex flex-col lg:flex-row justify-between px-0 mr-2 lg:mr-0 lg:px-8 border-gray-300  h-[200px] lg:h-[inherit]">
-                  <h1 className="text-[14px] font-bold text-dark-gray">
+            {/* computer screen */}
+            <div className="w-full hidden lg:flex flex-col items-center">
+              <table>
+                <thead>
+                  <th className="w-10 border-b border-[#ddd] py-[30px] text-dark-gray">
+                    &nbsp;
+                  </th>
+                  <th className="w-[70px] min-w-[70px] border-b border-[#ddd]  py-[30px] text-dark-gray">
+                    &nbsp;
+                  </th>
+                  <th className="px-5 font-semibold min-w-[137px] border-b border-[#ddd] py-[30px] text-dark-gray text-sm text-start">
                     Produit
-                  </h1>
-                  <h1 className="text-[14px] font-bold text-dark-gray ml-0 lg:ml-20">
+                  </th>
+                  <th className="px-5 border-b border-[#ddd] py-[30px] text-dark-gray min-w-[143px] text-start font-semibold text-sm">
                     Prix
-                  </h1>
-                  <h1 className="text-[14px] font-bold text-dark-gray">
+                  </th>
+                  <th className="px-5  border-b min-w-[228px] border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm text-center">
                     Quantité
-                  </h1>
-                  <h1 className="text-[14px] font-bold text-dark-gray">
-                    Total
-                  </h1>
-                </li>
-
-                {Items.map(({ id, image, name, quantity, price }) => (
-                  <div key={id}>
-                    <li className="flex flex-col lg:flex-row  justify-between group lg:border-b-[0.1px] border-gray-300 relative py-2 lg:py-12 items-center mr-5">
-                      <div className="flex items-center justify-between flex-row-reverse lg:flex-row ">
+                  </th>
+                  <th className=" min-w-[143px] text-end border-b border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm">
+                    Sous Total
+                  </th>
+                </thead>
+                <tbody>
+                  {Items.map(({ id, price, image, name, quantity }) => (
+                    <tr key={id}>
+                      <td className="py-[30px] pb-[40px] border-b border-[#ddd]">
                         <div
                           className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5"
                           onClick={() => removeItem(id)}
@@ -80,27 +76,31 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                             className="text-[#8f8f8f] hover:text-red-600"
                           />
                         </div>
-
-                        <div className="hidden lg:flex items-center">
+                      </td>
+                      <td className="py-[30px] pb-[40px] border-b border-[#ddd]">
+                        <div className="flex items-center">
                           <Image
                             alt="product"
-                            src={image[0].url}
+                            src={image[1].url}
                             width={75}
                             height={75}
                           />
                         </div>
-
-                        <p className="text-gray-400 lg:text-dark-gray lg:font-bold ml-0 lg:ml-[30px] text-sm mr-8 lg:mr-0">
+                      </td>
+                      <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
+                        <p className="text-gray-400 lg:text-dark-gray font-semibold text-sm hover:text-secondary">
                           {name}
                         </p>
-                      </div>
-                      <h3 className="text-light-gray text-[14px]">
-                        {price} FCFA
-                      </h3>
-                      <div className="flex flex-col justify-center">
-                        <div className="rounded-full w-[120px] border py-0 lg:py-3  flex items-center justify-center border-gray-200">
+                      </td>
+                      <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
+                        <h3 className="text-light-gray text-[14px]">
+                          {price} FCFA
+                        </h3>
+                      </td>
+                      <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
+                        <div className="rounded-full w-[120px] border py-0 lg:py-3 items-center mx-auto border-gray-200">
                           <span
-                            className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+                            className=" px-2 text-gray-500 border-light-gray cursor-pointer"
                             onClick={() => {
                               updateItemQuantity(id, quantity! - 1);
                             }}
@@ -108,7 +108,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                             -
                           </span>
                           <input
-                            className="w-14 p-0 text-light-gray text-center border-0 text-[14px]"
+                            className="w-14 p-0 text-dark-gray text-center border-0 text-[14px]"
                             type="number"
                             step={1}
                             min={1}
@@ -119,7 +119,79 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                             }}
                           />
                           <span
-                            className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+                            className=" px-2 text-gray-500 border-light-gray cursor-pointer"
+                            onClick={() => {
+                              updateItemQuantity(id, quantity! + 1);
+                            }}
+                          >
+                            +
+                          </span>
+                        </div>
+                      </td>
+                      <td className="py-[30px] pb-[40px] text-end border-b border-[#ddd] cursor-pointer">
+                        <h3 className="text-primary font-medium text-[14px]">
+                          {quantity! * price} FCFA
+                        </h3>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
+            {/* mobile screen */}
+            <div className="w-full lg:hidden">
+              {Items.map(({ id, image, quantity, name, price }) => (
+                <div key={id} className="border-b border-[#ddd] w-full">
+                  <div className="flex w-full">
+                    <div className="mr-2">
+                      <Image
+                        alt="product"
+                        src={image[1].url}
+                        width={75}
+                        height={75}
+                      />
+                    </div>
+                    <div className="flex flex-col w-full">
+                      <div className="flex justify-between border-dashed border-b py-3 border-[#ddd] ">
+                        <h3 className="text-sm text-dark-gray font-bold ">
+                          {name}
+                        </h3>
+                        <div onClick={() => removeItem(id)}>
+                          <IoIosClose size="25px" className=" text-red-600" />
+                        </div>
+                      </div>
+                      <div className="flex justify-between py-3 text-sm  border-dashed border-b border-[#ddd] ">
+                        <h3 className="text-sm">price</h3>
+                        <div>
+                          <p>{price} FCFA </p>
+                        </div>
+                      </div>
+                      <div className="flex justify-between text-sm py-3 border-dashed border-b border-[#ddd] ">
+                        <h3 className="text-sm flex items-center mr-3">
+                          Quantité
+                        </h3>
+                        <div className="rounded-full w-[110px] border py-1 items-center border-gray-200">
+                          <span
+                            className=" px-2 text-gray-500 border-light-gray cursor-pointer"
+                            onClick={() => {
+                              updateItemQuantity(id, quantity! - 1);
+                            }}
+                          >
+                            -
+                          </span>
+                          <input
+                            className="w-14 p-0 text-dark-gray text-center border-0 text-[14px]"
+                            type="number"
+                            step={1}
+                            min={1}
+                            value={quantity}
+                            onChange={(e: any) => {
+                              setQty(e.target.value);
+                              updateItemQuantity(id, quantity! + qty);
+                            }}
+                          />
+                          <span
+                            className=" px-2 text-gray-500 border-light-gray cursor-pointer"
                             onClick={() => {
                               updateItemQuantity(id, quantity! + 1);
                             }}
@@ -128,18 +200,19 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                           </span>
                         </div>
                       </div>
-                      <h3 className="text-primary font-bold text-[14px]">
-                        {quantity! * price} FCFA
-                      </h3>
-                    </li>
+                      <div className="flex justify-between py-3">
+                        <h3 className="text-sm">Sous Total</h3>
+                        <div>
+                          <p className="text-sm">{quantity! * price} FCFA</p>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                ))}
-              </ul>
-              <button className="text-white text-[14px] self-center w-full max-w-[300px] font-bold bg-primary rounded-full py-3 mt-3 transition-all ease-in duration-300 hover:bg-secondary">
-                Update cart
-              </button>
+                </div>
+              ))}
             </div>
-            <div className="max-w-[369px] mt-5 lg:mt-0 w-full h-[284px] border border-gray-300 px-[20px] py-[20px] flex flex-col">
+            {/* cart total */}
+            <div className="max-w-[369px] mt-10 lg:mt-0 w-full h-[284px] border border-gray-300 px-[20px] py-[20px] flex flex-col">
               <h1 className="text-[24px] font-normal text-dark-gray my-[15px]">
                 Cart totals
               </h1>
@@ -180,3 +253,100 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
 };
 
 export default CartItems;
+
+// function element() {
+//   return (
+//     <>
+
+//       <ul className="max-w-[760px] w-full flex justify-between flex-row lg:flex-col mb-4 lg:mb-0">
+//         {Items.map(({ id, image }) => (
+//           <div key={id} className="hidden items-center">
+//             <Image alt="product" src={image[0].url} width={75} height={75} />
+//           </div>
+//         ))}
+//         <li className="lg:border-b-[0.1px] py-2 lg:py-8 hidden lg:flex flex-col lg:flex-row justify-between px-0 mr-2 lg:mr-0 lg:px-8 border-gray-300 h-[200px] lg:h-[inherit]">
+//           <h1 className="text-[14px] font-bold text-dark-gray">Produit</h1>
+//           <h1 className="text-[14px] font-bold text-dark-gray ml-0 lg:ml-20">
+//             Prix
+//           </h1>
+//           <h1 className="text-[14px] font-bold text-dark-gray">Quantité</h1>
+//           <h1 className="text-[14px] font-bold text-dark-gray">Total</h1>
+//         </li>
+
+//         {Items.map(({ id, image, name, quantity, price }) => (
+//           <div key={id}>
+//             <li className="flex flex-col lg:flex-row  justify-between group lg:border-b-[0.1px] border-gray-300 relative py-2 lg:py-12 items-center mr-5">
+//               <div key={id} className="items-center lg:hidden">
+//                 <Image
+//                   alt="product"
+//                   src={image[0].url}
+//                   width={75}
+//                   height={75}
+//                 />
+//               </div>
+//               <div className="flex items-center justify-between flex-row-reverse lg:flex-row ">
+//                 <div
+//                   className="  transition-all duration-300 ease-out cursor-pointer mr-0 lg:mr-5"
+//                   onClick={() => removeItem(id)}
+//                 >
+//                   <IoIosClose
+//                     size="25px"
+//                     className="text-[#8f8f8f] hover:text-red-600"
+//                   />
+//                 </div>
+
+//                 <div className="hidden lg:flex items-center">
+//                   <Image
+//                     alt="product"
+//                     src={image[0].url}
+//                     width={75}
+//                     height={75}
+//                   />
+//                 </div>
+
+//                 <p className="text-gray-400 lg:text-dark-gray lg:font-bold ml-0 lg:ml-[30px] text-sm mr-8 lg:mr-0">
+//                   {name}
+//                 </p>
+//               </div>
+//               <h3 className="text-light-gray text-[14px]">{price} FCFA</h3>
+//               <div className="flex flex-col justify-center">
+//                 <div className="rounded-full w-[120px] border py-0 lg:py-3  flex items-center justify-center border-gray-200">
+//                   <span
+//                     className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+//                     onClick={() => {
+//                       updateItemQuantity(id, quantity! - 1);
+//                     }}
+//                   >
+//                     -
+//                   </span>
+//                   <input
+//                     className="w-14 p-0 text-light-gray text-center border-0 text-[14px]"
+//                     type="number"
+//                     step={1}
+//                     min={1}
+//                     value={quantity}
+//                     onChange={(e: any) => {
+//                       setQty(e.target.value);
+//                       updateItemQuantity(id, quantity! + qty);
+//                     }}
+//                   />
+//                   <span
+//                     className=" px-2 text-gray-400 border-light-gray cursor-pointer"
+//                     onClick={() => {
+//                       updateItemQuantity(id, quantity! + 1);
+//                     }}
+//                   >
+//                     +
+//                   </span>
+//                 </div>
+//               </div>
+//               <h3 className="text-primary font-bold text-[14px]">
+//                 {quantity! * price} FCFA
+//               </h3>
+//             </li>
+//           </div>
+//         ))}
+//       </ul>
+//     </>
+//   );
+// }
