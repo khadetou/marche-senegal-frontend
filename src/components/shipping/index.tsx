@@ -155,7 +155,7 @@ const ShippingScreen = () => {
   const [address, setAddress] = useState("");
   const [phone, setPhone] = useState("");
   const { items, cartTotal, setCartMetadata, metadata } = useCart();
-  const [metadatas, setMetadatas] = useState<Metadata | any>(null);
+  const [metadatas, setMetadatas] = useState<Metadata>({});
   const router = useRouter();
   useEffect(() => {
     setTotal(cartTotal);

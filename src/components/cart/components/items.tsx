@@ -85,7 +85,7 @@ const Items: FC<{
             </p>
           </Link>
         </div>
-        <Link href="/cart/checkout">
+        <Link href="/cart/shipping">
           <button className="text-white text-[14px] font-bold bg-primary rounded-full py-3 mt-3 transition-all ease-in duration-300 hover:bg-secondary">
             Validation
           </button>
