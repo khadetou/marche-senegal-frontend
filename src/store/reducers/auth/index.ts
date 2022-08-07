@@ -89,6 +89,47 @@ export const getUser = createAsyncThunk(
   }
 );
 
+// FORGOT PASSWORD
+export const forgotPass = createAsyncThunk(
+  "auth/forgot",
+  async (email: string, thunkAPI: any) => {
+    try {
+      return await authService.forgotPassword(email);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
+// RESET PASSWORD
+export const resetPass = createAsyncThunk(
+  "auth/reset",
+  async (resetData: any, thunkAPI: any) => {
+    try {
+      return await authService.resetPassword(
+        resetData.token,
+        resetData.password
+      );
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -147,6 +188,19 @@ export const authSlice = createSlice({
         state.isLoading = false;
       })
       .addCase(getUser.rejected, (state: UserState, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isAuthenticated = false;
+        state.message = action.payload;
+      })
+      .addCase(forgotPass.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(forgotPass.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.message = action.payload;
+      })
+      .addCase(forgotPass.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.isAuthenticated = false;

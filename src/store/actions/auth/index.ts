@@ -37,6 +37,24 @@ const logout = () => {
   localStorage.removeItem("token");
 };
 
+// FORGOT PASSWORD
+const forgotPassword = async (email: string) => {
+  const { data } = await axios.post(
+    "http://localhost:5000/auth/forgot-password",
+    email
+  );
+  return data;
+};
+
+// RESET PASSWORD
+const resetPassword = async (token: string, password: string) => {
+  const { data } = await axios.put(
+    `http://localhost:5000/auth/confirm-email/${token}`,
+    password
+  );
+  return data;
+};
+
 //SET COOKIE
 
 export const setCookie = (key: string, value: any) => {
@@ -89,6 +107,8 @@ const authService = {
   getCookie,
   removeCookie,
   setCookie,
+  forgotPassword,
+  resetPassword,
 };
 
 export default authService;

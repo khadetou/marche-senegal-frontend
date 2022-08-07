@@ -10,12 +10,12 @@ import Services from "@/components/Services";
 import type { GetServerSideProps, NextPage } from "next";
 import { useState } from "react";
 import ProductScreen from "screen/ProductScreen";
-import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import { getUser, logout } from "store/reducers/auth/index";
 import { getCookie } from "store/actions/auth";
 import jwtDecode from "jwt-decode";
 import { wrapper } from "store";
 import { getAllProducts } from "store/reducers/products/productSlice";
+
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
   const [open, setOpen] = useState(false);

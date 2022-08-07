@@ -2,6 +2,7 @@ import React from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination, Autoplay } from "swiper";
 import Image from "next/image";
+import Link from "next/link";
 
 const images = [
   {
@@ -57,9 +58,11 @@ const Banner = () => (
                 <h1 className=" text-[50px] md:text-[60px] lg:text-[80px] mb-[40px] text-primary font-CaveatBrush leading-[1.2]">
                   {h1}
                 </h1>
-                <button className="text-sm rounded-full py-[10px] px-[30px] text-white bg-primary transition-all duration-200 ease-out hover:bg-white hover:text-primary leading-[1.4]">
-                  {button}
-                </button>
+                <Link href="/products">
+                  <button className="text-sm rounded-full py-[10px] px-[30px] text-white bg-primary transition-all duration-200 ease-out hover:bg-white hover:text-primary leading-[1.4]">
+                    {button}
+                  </button>
+                </Link>
               </div>
             </div>
           </SwiperSlide>
