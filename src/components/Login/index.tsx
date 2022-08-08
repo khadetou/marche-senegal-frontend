@@ -90,7 +90,7 @@ const LoginScreen = () => {
             </button>
             <Link href="/register">
               <button className="text-sm flex flex-col items-center ">
-                <span className="mr-3">Vous n'avez de compte ?</span>
+                <span className="mr-3">Vous n &apos; avez de compte ?</span>
                 <span className="underline text-primary">Inscrivez vous</span>
               </button>
             </Link>

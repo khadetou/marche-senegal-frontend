@@ -78,10 +78,11 @@ const ProductsList: FC<ProductListProps> = ({
   };
 
   useEffect(() => {
+    setCategories(products);
     setInCarts({
       value: inCart,
     });
-  }, [inCart]);
+  }, [inCart, products]);
 
   return (
     <section className="mt-4 pb-8">

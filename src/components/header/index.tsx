@@ -91,7 +91,6 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
     { title: "Pages", path: "/work" },
     { title: "Nous Contacter", path: "/contact" },
   ];
-  // const [open, setOpen] = useState(false);
 
   const [openProfile, setOpenProfile] = useState(false);
 
@@ -219,13 +218,17 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                       className={`shadow-lg p-2 bg-white rounded-md z-10 absolute w-full `}
                     >
                       {filterData.slice(0, 15).map((data: any) => (
-                        <button
+                        <Link
                           key={data._id}
-                          className="text-dark-gray text-sm font-semibold w-full text-start p-2 hover:bg-gray-200 transition-all duration-150 ease-in-out cursor-pointer z-50 rounded-sm"
-                          onClick={() => onSubmit(data.name)}
+                          href={`/products?keyword=${data.name}`}
                         >
-                          <p>{data.name}</p>
-                        </button>
+                          <button
+                            className="text-dark-gray text-sm font-semibold w-full text-start p-2 hover:bg-gray-200 transition-all duration-150 ease-in-out cursor-pointer z-50 rounded-sm"
+                            onClick={() => onSubmit(data.name)}
+                          >
+                            <p>{data.name}</p>
+                          </button>
+                        </Link>
                       ))}
                     </div>
                   )}

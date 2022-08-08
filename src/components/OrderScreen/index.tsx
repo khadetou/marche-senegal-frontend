@@ -20,6 +20,7 @@ const OrderScreen = () => {
       dispatch(reset());
     }
   }, [dispatch, isError, router, message]);
+
   return (
     <section className="mb-10 mt-3">
       <div className="containers">
