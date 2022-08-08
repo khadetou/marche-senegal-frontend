@@ -61,7 +61,6 @@ const sendMessage = async (messageData: any) => {
     "http://localhost:5000/auth/send-message",
     messageData
   );
-  console.log(data);
   return data;
 };
 
