@@ -130,6 +130,25 @@ export const resetPass = createAsyncThunk(
   }
 );
 
+// SEND MESSAGE
+export const sendMess = createAsyncThunk(
+  "auth/sendMess",
+  async (messageData: any, thunkAPI: any) => {
+    try {
+      return await authService.sendMessage(messageData);
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -216,6 +235,20 @@ export const authSlice = createSlice({
         state.isSuccess = true;
       })
       .addCase(resetPass.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isAuthenticated = false;
+        state.message = action.payload;
+      })
+      .addCase(sendMess.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(sendMess.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.message = action.payload;
+      })
+      .addCase(sendMess.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.isAuthenticated = false;

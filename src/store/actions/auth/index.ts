@@ -55,6 +55,16 @@ const resetPassword = async (token: string, password: string) => {
   return data;
 };
 
+// SEND MESSAGE
+const sendMessage = async (messageData: any) => {
+  const { data } = await axios.post(
+    "http://localhost:5000/auth/send-message",
+    messageData
+  );
+  console.log(data);
+  return data;
+};
+
 //SET COOKIE
 
 export const setCookie = (key: string, value: any) => {
@@ -109,6 +119,7 @@ const authService = {
   setCookie,
   forgotPassword,
   resetPassword,
+  sendMessage,
 };
 
 export default authService;

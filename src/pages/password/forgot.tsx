@@ -4,7 +4,6 @@ import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import ForgotScreen from "@/components/password/ForgotScreen";
 import SEO from "@/components/Seo";
-import { GetStaticProps } from "next";
 import React, { useState } from "react";
 import { ToastContainer } from "react-toastify";
 

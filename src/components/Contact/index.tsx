@@ -1,7 +1,44 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import Image from "next/image";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
+import { sendMess, reset } from "store/reducers/auth/index";
+import { toast } from "react-toastify";
 
 const ContactScreen = () => {
+  const [messages, setMessages] = useState("");
+  const [subject, setSubject] = useState("");
+  const [email, setEmail] = useState("");
+  const [name, setName] = useState("");
+
+  const dispatch = useAppDispatch();
+  const { message, isError, isSuccess } = useAppSelector((state) => state.auth);
+
+  useEffect(() => {
+    if (isError) {
+      toast.error(message.message);
+      dispatch(reset());
+    }
+    if (isSuccess) {
+      toast.success("Message Envoyé !");
+      dispatch(reset());
+      setMessages("");
+      setSubject("");
+      setEmail("");
+      setName("");
+    }
+  }, [isError, isSuccess, dispatch, message]);
+
+  const onSubmit = (e: any) => {
+    e.preventDefault();
+    const messageData = {
+      messages,
+      email,
+      subject,
+      name,
+    };
+    dispatch(sendMess(messageData));
+  };
+
   return (
     <section className="mt-[30px]">
       <div className="containers flex flex-col md:flex-row">
@@ -66,28 +103,36 @@ const ContactScreen = () => {
               </div>
             </div>
           </div>
-          <form>
+          <form onSubmit={onSubmit}>
             <h1 className="text-[30px] mb-8 font-semibold text-primary capitalize">
               Laissez un message
             </h1>
             <input
               type="text"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               placeholder="Prenom et Nom"
               className="w-full border-gray-200 mb-5 px-5 text-sm placeholder:text-gray-400 rounded-md h-[50px] focus:border-gray-200 focus:ring-0"
             />
             <input
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
+              value={email}
               placeholder="Email"
               className="w-full border-gray-200 mb-5 px-5 text-sm placeholder:text-gray-400 rounded-md h-[50px] focus:border-gray-200 focus:ring-0"
             />
             <input
               type="text"
+              onChange={(e) => setSubject(e.target.value)}
+              value={subject}
               placeholder="Sujet"
               className="w-full border-gray-200 mb-5 px-5 text-sm placeholder:text-gray-400 rounded-md h-[50px] focus:border-gray-200 focus:ring-0"
             />
             <textarea
-              name=""
-              id=""
+              name="message"
+              id="message"
+              onChange={(e) => setMessages(e.target.value)}
+              value={messages}
               placeholder="Message"
               cols={30}
               rows={8}

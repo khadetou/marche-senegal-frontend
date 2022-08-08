@@ -6,6 +6,7 @@ import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
 import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 const Contact = () => {
   const [open, setOpen] = useState(false);
@@ -15,6 +16,7 @@ const Contact = () => {
       <SEO />
       <BannerImg />
       <ContactScreen />
+      <ToastContainer />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>
   );
