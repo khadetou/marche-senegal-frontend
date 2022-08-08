@@ -165,9 +165,11 @@ const RegisterScreen = () => {
               </button>
             </Link>
           </div>
-          <p className="text-center text-sm hover:text-secondary cursor-pointer mt-5">
-            Mot de pass oublier
-          </p>
+          <Link href="/password/forgot">
+            <p className="text-center text-sm hover:text-secondary cursor-pointer mt-5">
+              Mot de pass oublier
+            </p>
+          </Link>
         </form>
       </div>
     </section>

@@ -6,6 +6,7 @@ import ResetScreen from "@/components/password/ResetScreen";
 import SEO from "@/components/Seo";
 import { GetStaticProps } from "next";
 import React, { useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 const Reset = () => {
   const [open, setOpen] = useState(false);
@@ -14,14 +15,11 @@ const Reset = () => {
     <Layout>
       <SEO />
       <Header open={open} setOpen={setOpen} />
-
       <ResetScreen />
+      <ToastContainer />
       <Footer />
     </Layout>
   );
 };
 
 export default Reset;
-export const getStaticProps: GetStaticProps = async (context) => {
-  return { props: { white: true } };
-};

@@ -41,7 +41,7 @@ const logout = () => {
 const forgotPassword = async (email: string) => {
   const { data } = await axios.post(
     "http://localhost:5000/auth/forgot-password",
-    email
+    { email }
   );
   return data;
 };
@@ -50,7 +50,7 @@ const forgotPassword = async (email: string) => {
 const resetPassword = async (token: string, password: string) => {
   const { data } = await axios.put(
     `http://localhost:5000/auth/confirm-email/${token}`,
-    password
+    { password }
   );
   return data;
 };

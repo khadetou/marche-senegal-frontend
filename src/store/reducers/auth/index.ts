@@ -198,9 +198,24 @@ export const authSlice = createSlice({
       })
       .addCase(forgotPass.fulfilled, (state: any, action: any) => {
         state.isLoading = false;
+        state.isSuccess = true;
         state.message = action.payload;
       })
       .addCase(forgotPass.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isAuthenticated = false;
+        state.message = action.payload;
+      })
+      .addCase(resetPass.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(resetPass.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.user = action.payload;
+        state.isSuccess = true;
+      })
+      .addCase(resetPass.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.isAuthenticated = false;
