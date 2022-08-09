@@ -178,7 +178,7 @@ const ShippingScreen = () => {
       setCartMetadata({
         shipping: checkShip,
         agence: checkAgence,
-        price: shippingPrice,
+        price: checkShip ? shippingPrice : 0,
         region,
         ville: checkShip && ville,
         address,
@@ -417,7 +417,7 @@ const ShippingScreen = () => {
             <div className="flex py-4 border-b justify-between">
               <p className="text-[15px] text-[#2b2b2b]">Montant Livraison</p>
               <p className="text-sm text-primary text-normal">
-                {checkShip ? "1 200" : "0"} FCFA
+                {checkShip ? shippingPrice : "0"} FCFA
               </p>
             </div>
             <div className="flex py-4 border-b justify-between">

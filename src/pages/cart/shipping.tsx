@@ -5,7 +5,7 @@ import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import SEO from "@/components/Seo";
 import jwtDecode from "jwt-decode";
-import { GetServerSideProps, GetStaticProps } from "next";
+import { GetServerSideProps } from "next";
 import { useAppSelector } from "@/hooks/index";
 import React, { useEffect, useState } from "react";
 import { getCookie } from "store/actions/auth";

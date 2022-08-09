@@ -67,7 +67,9 @@ const OrderScreen = () => {
                     <tr className="border-b border-gray-300 ">
                       <th className="text-sm py-8 font-semibold">Email</th>
                       <th className="text-sm py-8 font-semibold">Nom</th>
-                      <th className="text-sm py-8 font-semibold">Ville</th>
+                      {order && order.shippingAddress.city !== "false" && (
+                        <th className="text-sm py-8 font-semibold">Ville</th>
+                      )}
                       <th className="text-sm py-8 font-semibold">Address</th>
                       <th className="text-sm py-8 font-semibold">
                         Numéro Tél.
@@ -83,9 +85,11 @@ const OrderScreen = () => {
                       <td className="text-sm min-w-[185px] py-8 px-1 text-dark-gray">
                         {order && order.user.email}
                       </td>
-                      <td className="text-sm  py-8 px-1 text-center text-dark-gray">
-                        {order && order.shippingAddress.city}
-                      </td>
+                      {order && order.shippingAddress.city !== "false" && (
+                        <td className="text-sm  py-8 px-1 text-center text-dark-gray">
+                          {order && order.shippingAddress.city}
+                        </td>
+                      )}
                       <td className="text-sm py-8 text-center min-w-[189px] px-1 text-dark-gray">
                         {order && order.shippingAddress.address}
                       </td>
@@ -98,7 +102,11 @@ const OrderScreen = () => {
                 <table className="w-full">
                   <thead>
                     <tr className="border-b border-gray-300 py-6">
-                      <th className="text-sm py-8 font-semibold">Livré</th>
+                      <th className="text-sm py-8 font-semibold">
+                        {order && order.shippingAddress.city === "false"
+                          ? "Retrait"
+                          : "Livré"}
+                      </th>
                       <th className="text-sm py-8 font-semibold">Payé</th>
                     </tr>
                   </thead>
@@ -107,11 +115,15 @@ const OrderScreen = () => {
                       <td className="w-5 py-8 px-1">
                         {order && order.isShipped ? (
                           <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
-                            Livré
+                            {order.shippingAddress.city === "false"
+                              ? "Retiré"
+                              : "Livré"}
                           </div>
                         ) : (
                           <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
-                            Non Livré
+                            {order.shippingAddress.city === "false"
+                              ? "Non Retiré"
+                              : "Non Livré"}
                           </div>
                         )}
                       </td>

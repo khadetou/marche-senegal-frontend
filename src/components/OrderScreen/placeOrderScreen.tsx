@@ -269,7 +269,7 @@ const PlaceOrderScreen = () => {
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
-                {metadatas.price + total} FCFA
+                {metadatas.shipping ? metadatas.price + total : total} FCFA
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">
