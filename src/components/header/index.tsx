@@ -378,7 +378,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                 <div className="absolute !w-[245px] rounded-md top-7  bg-white transition-transform ease-linear duration-300 shadow-xl  text-dark   invisible translate-x-3 text-dark-gray translate-y-12 opacity-0  group-hover:visible group-hover:opacity-100 group-hover:translate-y-[35px] group-hover:translate-x-[-30px]">
                   {category.map((item, idx) => (
                     <div key={idx}>
-                      <Link passHref href="/orders/design">
+                      <Link passHref href={`/products?keyword=${item}`}>
                         <a className="!text-base inline-block px-3 w-full py-4 hover:text-secondary hover:bg-gray-100 !font-normal  ">
                           {item}
                         </a>

@@ -121,7 +121,7 @@ const OrderScreen = () => {
                           </div>
                         ) : (
                           <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
-                            {order.shippingAddress.city === "false"
+                            {order && order.shippingAddress.city === "false"
                               ? "Non Retiré"
                               : "Non Livré"}
                           </div>
