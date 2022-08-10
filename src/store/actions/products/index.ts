@@ -1,6 +1,5 @@
 import axios from "axios";
-import absoluteUrl from "next-absolute-url";
-
+import { API_URL } from "@/utils/index";
 // CREATE PRODUCTS
 const createProducts = async (productData: any, token: string) => {
   const config = {
@@ -8,11 +7,7 @@ const createProducts = async (productData: any, token: string) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data } = await axios.post(
-    "http://localhost:5000/products",
-    productData,
-    config
-  );
+  const { data } = await axios.post(`${API_URL}/products`, productData, config);
   return data;
 };
 
@@ -27,7 +22,7 @@ const getAllProducts = async (
   // console.log(origin);
 
   const { data } = await axios.get(
-    `http://localhost:5000/products?keyword=${keyword}&pageNumber=${pageNumber}`
+    `${API_URL}/products?keyword=${keyword}&pageNumber=${pageNumber}`
   );
   return data;
 };
@@ -41,7 +36,7 @@ const updateProduct = async (productData: any, token: any, id: string) => {
   };
 
   const { data } = await axios.put(
-    `http://localhost:5000/products/${id}`,
+    `${API_URL}/products/${id}`,
     productData,
     config
   );
@@ -51,7 +46,7 @@ const updateProduct = async (productData: any, token: any, id: string) => {
 
 // GET PRODUCT BY ID
 const getProductById = async (id: string) => {
-  const { data } = await axios.get(`http://localhost:5000/products/${id}`);
+  const { data } = await axios.get(`${API_URL}/products/${id}`);
   return data;
 };
 
@@ -62,10 +57,7 @@ const deleteProduct = async (id: string, token: any) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data } = await axios.delete(
-    `http://localhost:5000/products/${id}`,
-    config
-  );
+  const { data } = await axios.delete(`${API_URL}/products/${id}`, config);
   return data;
 };
 
@@ -80,7 +72,7 @@ export const createReview = async (
     },
   };
   const { data } = await axios.post(
-    `http://localhost:5000/products/${id}/reviews`,
+    `${API_URL}/products/${id}/reviews`,
     reviewData,
     config
   );

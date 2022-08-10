@@ -1,5 +1,6 @@
 import axios from "axios";
 import cookie from "js-cookie";
+import { API_URL } from "@/utils/index";
 
 const getUser = async (token: string) => {
   const config = {
@@ -7,23 +8,17 @@ const getUser = async (token: string) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data } = await axios.get("http://localhost:5000/auth/user", config);
+  const { data } = await axios.get(`${API_URL}/auth/user`, config);
   return { data, token };
 };
 
 const register = async (userData: any) => {
-  const { data } = await axios.post(
-    "http://localhost:5000/auth/signup",
-    userData
-  );
+  const { data } = await axios.post(`${API_URL}/auth/signup`, userData);
   return data;
 };
 
 const login = async (userData: any) => {
-  const { data } = await axios.post(
-    "http://localhost:5000/auth/signin",
-    userData
-  );
+  const { data } = await axios.post(`${API_URL}/auth/signin`, userData);
   if (data) {
     setCookie("token", data.accessToken);
     localStorage.setItem("token", JSON.stringify(data));
@@ -39,26 +34,24 @@ const logout = () => {
 
 // FORGOT PASSWORD
 const forgotPassword = async (email: string) => {
-  const { data } = await axios.post(
-    "http://localhost:5000/auth/forgot-password",
-    { email }
-  );
+  const { data } = await axios.post(`${API_URL}/auth/forgot-password`, {
+    email,
+  });
   return data;
 };
 
 // RESET PASSWORD
 const resetPassword = async (token: string, password: string) => {
-  const { data } = await axios.put(
-    `http://localhost:5000/auth/confirm-email/${token}`,
-    { password }
-  );
+  const { data } = await axios.put(`${API_URL}/auth/confirm-email/${token}`, {
+    password,
+  });
   return data;
 };
 
 // SEND MESSAGE
 const sendMessage = async (messageData: any) => {
   const { data } = await axios.post(
-    "http://localhost:5000/auth/send-message",
+    `${API_URL}/auth/send-message`,
     messageData
   );
   return data;

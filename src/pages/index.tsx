@@ -27,6 +27,7 @@ const Home: NextPage = () => {
       <Banner />
       <Ads />
       <ProductScreen
+        title="Nouveau Produit"
         openModal={openModal}
         setOpenModal={setOpenModal}
         open={open}
@@ -34,6 +35,7 @@ const Home: NextPage = () => {
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658049972/Ecommerce/Images/side%20images/h1-banner-5-ok_r7vjkn.jpg"
       />
       <ProductScreen
+        title="Meilleur Ventes"
         openModal={openModal}
         setOpenModal={setOpenModal}
         open={open}
@@ -42,6 +44,7 @@ const Home: NextPage = () => {
       />
       <Intersection />
       <ProductScreen
+        title="Produit Populaire"
         openModal={openModal}
         setOpenModal={setOpenModal}
         open={open}
@@ -49,6 +52,7 @@ const Home: NextPage = () => {
         img="https://res.cloudinary.com/didh3wbru/image/upload/v1658946470/Ecommerce/Images/side%20images/h1-banner-6-ok_gss8tt.jpg"
       />
       <ProductScreen
+        title="Plus Notés"
         openModal={openModal}
         setOpenModal={setOpenModal}
         open={open}

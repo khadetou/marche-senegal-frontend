@@ -20,6 +20,7 @@ interface ProductListProps {
   img: string;
   open: any;
   setOpen: any;
+  title: string;
 }
 
 const ProductLandingList: FC<ProductListProps> = ({
@@ -28,6 +29,7 @@ const ProductLandingList: FC<ProductListProps> = ({
   img,
   open,
   setOpen,
+  title,
 }) => {
   const { products } = useAppSelector((state) => state.products);
 
@@ -60,7 +62,7 @@ const ProductLandingList: FC<ProductListProps> = ({
             <div className="flex items-center mb-6">
               <div className="rounded-full w-3 h-3 border border-secondary mr-5" />
               <h2 className="text-[25px] text-primary font-semibold">
-                Shop Now
+                {title}
               </h2>
             </div>
             <div className="w-[179px] xs:w-[244px] h-[318px] relative">

@@ -7,6 +7,7 @@ interface ProductListProps {
   img: string;
   open: any;
   setOpen: any;
+  title: string;
 }
 
 const ProductScreen: FC<ProductListProps> = ({
@@ -15,6 +16,7 @@ const ProductScreen: FC<ProductListProps> = ({
   img,
   open,
   setOpen,
+  title,
 }) => {
   return (
     <div>
@@ -24,6 +26,7 @@ const ProductScreen: FC<ProductListProps> = ({
         open={open}
         setOpen={setOpen}
         img={img}
+        title={title}
       />
     </div>
   );

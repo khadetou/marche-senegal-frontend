@@ -1,4 +1,5 @@
 import axios from "axios";
+import { API_URL } from "@/utils/index";
 
 // CREATE ORDER
 export const createOrder = async (token: string, orderData: any) => {
@@ -8,11 +9,7 @@ export const createOrder = async (token: string, orderData: any) => {
     },
   };
 
-  const { data } = await axios.post(
-    "http://localhost:5000/order",
-    orderData,
-    config
-  );
+  const { data } = await axios.post(`${API_URL}/order`, orderData, config);
 
   return data;
 };
@@ -25,7 +22,7 @@ export const getOrderById = async (token: any, id: string) => {
     },
   };
 
-  const { data } = await axios.get(`http://localhost:5000/order/${id}`, config);
+  const { data } = await axios.get(`${API_URL}/order/${id}`, config);
 
   return data;
 };
@@ -37,7 +34,7 @@ export const getAllOrders = async (token: any) => {
       Authorization: `Bearer ${token}`,
     },
   };
-  const { data } = await axios.get("http://localhost:5000/order", config);
+  const { data } = await axios.get(`${API_URL}/order`, config);
   return data;
 };
 
@@ -49,10 +46,7 @@ export const getMyOrders = async (token: any) => {
     },
   };
 
-  const { data } = await axios.get(
-    "http://localhost:5000/order/myorders",
-    config
-  );
+  const { data } = await axios.get(`${API_URL}/order/myorders`, config);
   return data;
 };
 
@@ -64,10 +58,7 @@ export const deleteOrder = async (id: string, token: string) => {
     },
   };
 
-  const { data } = await axios.delete(
-    `http://localhost:5000/order/${id}`,
-    config
-  );
+  const { data } = await axios.delete(`${API_URL}/order/${id}`, config);
 
   return data;
 };
@@ -81,11 +72,7 @@ export const updatePaid = async (id: string, token: string) => {
   };
 
   console.log(axios.defaults.headers);
-  const { data } = await axios.put(
-    `http://localhost:5000/order/${id}/paid`,
-    {},
-    config
-  );
+  const { data } = await axios.put(`${API_URL}/order/${id}/paid`, {}, config);
 
   return data;
 };
@@ -98,7 +85,7 @@ export const updateDelivered = async (id: string, token: string) => {
   };
 
   const { data } = await axios.put(
-    `http://localhost:5000/order/${id}/delivered`,
+    `${API_URL}/order/${id}/delivered`,
     {},
     config
   );
