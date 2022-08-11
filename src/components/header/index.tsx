@@ -46,7 +46,9 @@ const Icons: FC<{
     }
   }, [open]);
 
-  const { isAuthenticated, roles } = useAppSelector((state) => state.auth);
+  const { isAuthenticated, roles, user } = useAppSelector(
+    (state) => state.auth
+  );
 
   const { totalItems } = useCart();
   const [total, setTotal] = useState(0);
@@ -72,7 +74,12 @@ const Icons: FC<{
         {Icon === AiOutlineUser && !isAuthenticated ? (
           <Icon className="text-base text-white" />
         ) : (
-          Icon === AiOutlineUser && <p className="text-sm font-semibold">KD</p>
+          Icon === AiOutlineUser && (
+            <p className="text-sm font-semibold">
+              {user && user.firstname[0]}
+              {user && user.lastname[0]}
+            </p>
+          )
         )}
       </div>
     </>
