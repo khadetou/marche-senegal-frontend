@@ -79,14 +79,15 @@ const EditProductScreen = () => {
         list.map((item: any) => toast.error(item));
       } else {
         toast.error(message.message);
+        toast.error(message);
+        dispatch(reset());
       }
-      dispatch(getProductById(id as string));
     }
     if (isSuccess) {
       toast.success("Produit créé avec succées!");
       dispatch(reset());
     }
-  }, [isError, dispatch, message, isSuccess, id, product]);
+  }, [dispatch, message, isSuccess, product, id, isError]);
 
   const { brand, category, countInStock, description, name, price, rating } =
     values;

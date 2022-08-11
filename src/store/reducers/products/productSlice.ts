@@ -110,7 +110,7 @@ export const updateProduct = createAsyncThunk(
   "product/update",
   async (productsData: any, thunkAPI: any) => {
     try {
-      const token = thunkAPI.getState().auth.token.accessToken;
+      const token = thunkAPI.getState().auth.token;
       const { id } = productsData.id;
       return await productsService.updateProduct(productsData.Data, token, id);
     } catch (error: any) {
