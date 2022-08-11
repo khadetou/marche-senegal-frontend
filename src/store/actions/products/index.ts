@@ -24,6 +24,7 @@ const getAllProducts = async (
   const { data } = await axios.get(
     `${API_URL}/products?keyword=${keyword}&pageNumber=${pageNumber}`
   );
+  console.log(data);
   return data;
 };
 

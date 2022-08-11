@@ -4,10 +4,10 @@ import Header from "@/components/header";
 import Layout from "@/components/Layout";
 import ProductsList from "@/components/Products";
 import SEO from "@/components/Seo";
-import { useAppSelector } from "@/hooks/index";
+import { useAppDispatch, useAppSelector } from "@/hooks/index";
 import jwtDecode from "jwt-decode";
 import { GetServerSideProps } from "next";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { wrapper } from "store";
 import { getCookie } from "store/actions/auth";
 import { logout, getUser } from "store/reducers/auth";
@@ -18,16 +18,12 @@ import { useRouter } from "next/router";
 const Products = () => {
   const [openModal, setOpenModal] = useState(false);
   const [open, setOpen] = useState(false);
-  const [pageNumber, setPageNumber] = useState(1);
   const { products, pages, page } = useAppSelector((state) => state.products);
 
   const router = useRouter();
 
   const onPageChange = (selected: any) => {
-    setPageNumber(selected.selected);
-    if (pageNumber) {
-      router.push(`/products?pageNumber=${pageNumber}`);
-    }
+    router.push(`/products?pageNumber=${selected.selected + 1}`);
   };
 
   return (
