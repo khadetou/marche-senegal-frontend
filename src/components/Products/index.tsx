@@ -153,11 +153,19 @@ const ProductsList: FC<ProductListProps> = ({
                   <AiOutlineEye />
                 </span>
                 <div className="w-[166px] h-[166px] cursor-pointer  mx-auto relative">
-                  <Image alt="image" src={product.image[0].url} layout="fill" />
+                  <Link href={`/products/${product._id}`}>
+                    <Image
+                      alt="image"
+                      src={product.image[0].url}
+                      layout="fill"
+                    />
+                  </Link>
                 </div>
                 <div className="flex flex-col justify-center mb-[30px] px-[15px]">
                   <h2 className="text-center text-[14px] mb-[20px] hover:text-[#A8B324]">
-                    {product.name}
+                    <Link href={`/products/${product._id}`}>
+                      {product.name}
+                    </Link>
                   </h2>
                   <div className="flex justify-center stars ">
                     <StarsRating
