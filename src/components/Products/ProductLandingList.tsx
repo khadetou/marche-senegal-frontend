@@ -128,7 +128,7 @@ const ProductLandingList: FC<ProductListProps> = ({
                       </Link>
                       <div className="flex flex-col justify-center  px-[15px]">
                         <Link href={`/products/${product._id}`}>
-                          <h2 className="text-center text-[14px] mb-[10px] hover:text-[#A8B324]">
+                          <h2 className="text-center text-[14px] mb-[10px] hover:text-[#A8B324] cursor-pointer">
                             {product.name}
                           </h2>
                         </Link>
