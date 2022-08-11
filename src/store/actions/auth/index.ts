@@ -12,6 +12,21 @@ const getUser = async (token: string) => {
   return { data, token };
 };
 
+const updateUser = async (token: string, profileData: any, id: string) => {
+  const config = {
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+
+  const { data } = await axios.put(
+    `${API_URL}/auth/user/profile/${id}`,
+    profileData,
+    config
+  );
+  return data;
+};
+
 const register = async (userData: any) => {
   const { data } = await axios.post(`${API_URL}/auth/signup`, userData);
   return data;
@@ -111,6 +126,7 @@ const authService = {
   setCookie,
   forgotPassword,
   resetPassword,
+  updateUser,
   sendMessage,
 };
 

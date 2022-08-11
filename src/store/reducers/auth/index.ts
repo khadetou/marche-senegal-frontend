@@ -1,6 +1,5 @@
 import { createAsyncThunk, createSlice } from "@reduxjs/toolkit";
 import authService from "store/actions/auth";
-import { getCookie } from "store/actions/auth";
 
 const localToken =
   typeof window !== "undefined"
@@ -149,6 +148,30 @@ export const sendMess = createAsyncThunk(
   }
 );
 
+export const UpdateUser = createAsyncThunk(
+  "auth/update/profile",
+  async (profileData: any, thunkAPI: any) => {
+    try {
+      const token = thunkAPI.getState().auth.token;
+
+      return await authService.updateUser(
+        token,
+        profileData.data,
+        profileData.id
+      );
+    } catch (error: any) {
+      const message =
+        (error.response &&
+          error.response.data &&
+          error.response.data.message) ||
+        error.message ||
+        error.toString();
+
+      return thunkAPI.rejectWithValue({ message });
+    }
+  }
+);
+
 export const authSlice = createSlice({
   name: "auth",
   initialState,
@@ -249,6 +272,20 @@ export const authSlice = createSlice({
         state.message = action.payload;
       })
       .addCase(sendMess.rejected, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isError = true;
+        state.isAuthenticated = false;
+        state.message = action.payload;
+      })
+      .addCase(UpdateUser.pending, (state: any) => {
+        state.isLoading = true;
+      })
+      .addCase(UpdateUser.fulfilled, (state: any, action: any) => {
+        state.isLoading = false;
+        state.isSuccess = true;
+        state.user = action.payload;
+      })
+      .addCase(UpdateUser.rejected, (state: any, action: any) => {
         state.isLoading = false;
         state.isError = true;
         state.isAuthenticated = false;
