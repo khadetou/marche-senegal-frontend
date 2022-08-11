@@ -28,7 +28,7 @@ export const createProducts = createAsyncThunk(
   "products/create",
   async (productsData: any, thunkAPI: any) => {
     try {
-      const token = thunkAPI.getState().auth.token.accessToken;
+      const token = thunkAPI.getState().auth.token;
       return await productsService.createProducts(productsData, token);
     } catch (error: any) {
       const message =
@@ -90,7 +90,7 @@ export const deleteProduct = createAsyncThunk(
   "product/delete",
   async (id: string, thunkAPI: any) => {
     try {
-      const token = thunkAPI.getState().auth.token.accessToken;
+      const token = thunkAPI.getState().auth.token;
       return await productsService.deleteProduct(id, token);
     } catch (error: any) {
       const message =
