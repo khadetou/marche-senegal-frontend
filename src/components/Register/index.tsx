@@ -29,13 +29,14 @@ const RegisterScreen = () => {
     if (isError) {
       toast.error(message);
       toast.error(message.message);
+      dispatch(reset());
     }
 
     if (isSuccess || token) {
       toast.success("User registered successfully!");
       router.push("/login");
+      dispatch(reset());
     }
-    dispatch(reset());
   }, [isError, isSuccess, message, dispatch, router, token]);
 
   const onChange = (e: any) => {
@@ -54,7 +55,7 @@ const RegisterScreen = () => {
         firstname,
         lastname,
         email,
-        phone: `+221 ${phone}`,
+        phone: phone.includes("+221") ? phone : `+221 ${phone}`,
         password,
         password2,
       };
