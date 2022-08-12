@@ -54,7 +54,7 @@ const RegisterScreen = () => {
         firstname,
         lastname,
         email,
-        phone,
+        phone: `+221 ${phone}`,
         password,
         password2,
       };
