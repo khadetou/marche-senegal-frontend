@@ -84,8 +84,8 @@ const LoginScreen = () => {
               {show ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
-          <div className="flex justify-between">
-            <button className="text-white bg-primary rounded-full text-sm font-medium py-3 px-7">
+          <div className="flex flex-col sm:flex-row justify-between">
+            <button className="text-white sm:mb-0 mb-4 bg-primary rounded-full text-sm font-medium py-3 px-7">
               Se Connecter
             </button>
             <Link href="/register">
@@ -96,7 +96,7 @@ const LoginScreen = () => {
             </Link>
           </div>
           <Link href="/password/forgot">
-            <p className="text-center text-sm hover:text-secondary cursor-pointer mt-5">
+            <p className="text-center text-sm font-medium hover:text-secondary cursor-pointer mt-5">
               Mot de pass oublier
             </p>
           </Link>

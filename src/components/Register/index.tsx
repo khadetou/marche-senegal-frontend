@@ -154,8 +154,8 @@ const RegisterScreen = () => {
               {confShow ? <FaEye /> : <FaEyeSlash />}
             </div>
           </div>
-          <div className="flex justify-between">
-            <button className="text-white bg-primary rounded-full text-sm font-medium py-3 px-7">
+          <div className="flex flex-col sm:flex-row justify-between">
+            <button className="text-white mb-3 sm:mb-0 bg-primary rounded-full text-sm font-medium py-3 px-7">
               Register
             </button>
             <Link href="/login">
@@ -166,7 +166,7 @@ const RegisterScreen = () => {
             </Link>
           </div>
           <Link href="/password/forgot">
-            <p className="text-center text-sm hover:text-secondary cursor-pointer mt-5">
+            <p className="text-center text-sm font-medium hover:text-secondary cursor-pointer mt-5">
               Mot de pass oublier
             </p>
           </Link>

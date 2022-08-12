@@ -34,7 +34,7 @@ const ForgotScreen = () => {
     <section className="mb-28">
       <div className="containers">
         <h1 className="text-center my-[15px] text-xl text-[#2b2b2b]">
-          Forgot Password
+          Mot de passe oublié
         </h1>
         <form
           onSubmit={onSubmit}

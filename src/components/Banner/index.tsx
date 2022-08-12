@@ -59,7 +59,7 @@ const Banner = () => (
                   {h1}
                 </h1>
                 <Link href="/products">
-                  <button className="text-sm rounded-full py-[10px] px-[30px] text-white bg-primary transition-all duration-200 ease-out hover:bg-white hover:text-primary leading-[1.4]">
+                  <button className="text-xs md:text-sm rounded-full py-[10px] px-[30px] text-white bg-primary transition-all duration-200 ease-out hover:bg-white hover:text-primary leading-[1.4]">
                     {button}
                   </button>
                 </Link>
