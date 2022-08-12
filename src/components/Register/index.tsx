@@ -31,7 +31,7 @@ const RegisterScreen = () => {
     }
 
     if (isSuccess || token) {
-      toast.success("User connected!");
+      toast.success("User registered successfully!");
       router.push("/login");
     }
     dispatch(reset());
