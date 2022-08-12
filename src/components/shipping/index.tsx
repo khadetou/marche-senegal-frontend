@@ -407,7 +407,9 @@ const ShippingScreen = () => {
                 <p className="text-sm text-gray-500">
                   {name} <span className="text-dark-gray">x {quantity}</span>
                 </p>
-                <p className="text-sm text-gray-500">{price} FCFA</p>
+                <p className="text-sm text-gray-500">
+                  {price.toLocaleString("fr-FR")} FCFA
+                </p>
               </div>
             ))}
             <div className="flex py-4 border-b justify-between">

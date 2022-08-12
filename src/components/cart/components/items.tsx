@@ -73,7 +73,7 @@ const Items: FC<{
                 </div>
               </div>
               <h3 className="text-light-gray text-[14px] min-w-[83px]">
-                {price} FCFA
+                {price.toLocaleString("fr-FR")} FCFA
               </h3>
             </li>
           ))}
@@ -82,7 +82,9 @@ const Items: FC<{
       <div className="border-t-[0.5px] w-full flex flex-col border-light-gray px-5">
         <div className="flex justify-between items-center text-[14px] font-bold h-[4px] mt-6">
           <h3 className="text-dark-gray">SOUS - TOTAL:</h3>
-          <h3 className="text-primary">{total.toFixed(2)} FCFA</h3>
+          <h3 className="text-primary">
+            {Number(total.toFixed(2)).toLocaleString("fr-FR")} FCFA
+          </h3>
         </div>
         <div className="cursor-pointer">
           <Link href="/cart">

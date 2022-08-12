@@ -44,24 +44,26 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
             <div className="w-full hidden lg:flex flex-col items-center">
               <table>
                 <thead>
-                  <th className="w-10 border-b border-[#ddd] py-[30px] text-dark-gray">
-                    &nbsp;
-                  </th>
-                  <th className="w-[70px] min-w-[70px] border-b border-[#ddd]  py-[30px] text-dark-gray">
-                    &nbsp;
-                  </th>
-                  <th className="px-5 font-semibold min-w-[137px] border-b border-[#ddd] py-[30px] text-dark-gray text-sm text-start">
-                    Produit
-                  </th>
-                  <th className="px-5 border-b border-[#ddd] py-[30px] text-dark-gray min-w-[143px] text-start font-semibold text-sm">
-                    Prix
-                  </th>
-                  <th className="px-5  border-b min-w-[228px] border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm text-center">
-                    Quantité
-                  </th>
-                  <th className=" min-w-[143px] text-end border-b border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm">
-                    Sous Total
-                  </th>
+                  <tr>
+                    <th className="w-10 border-b border-[#ddd] py-[30px] text-dark-gray">
+                      &nbsp;
+                    </th>
+                    <th className="w-[70px] min-w-[70px] border-b border-[#ddd]  py-[30px] text-dark-gray">
+                      &nbsp;
+                    </th>
+                    <th className="px-5 font-semibold min-w-[137px] border-b border-[#ddd] py-[30px] text-dark-gray text-sm text-start">
+                      Produit
+                    </th>
+                    <th className="px-5 border-b border-[#ddd] py-[30px] text-dark-gray min-w-[143px] text-start font-semibold text-sm">
+                      Prix
+                    </th>
+                    <th className="px-5  border-b min-w-[228px] border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm text-center">
+                      Quantité
+                    </th>
+                    <th className=" min-w-[143px] text-end border-b border-[#ddd] py-[30px] text-dark-gray font-semibold text-sm">
+                      Sous Total
+                    </th>
+                  </tr>
                 </thead>
                 <tbody>
                   {Items.map(({ id, price, image, name, quantity }) => (
@@ -94,7 +96,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       </td>
                       <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
                         <h3 className="text-light-gray text-[14px]">
-                          {price} FCFA
+                          {price.toLocaleString("fr-FR")} FCFA
                         </h3>
                       </td>
                       <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
@@ -130,7 +132,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       </td>
                       <td className="py-[30px] pb-[40px] text-end border-b border-[#ddd] cursor-pointer">
                         <h3 className="text-primary font-medium text-[14px]">
-                          {quantity! * price} FCFA
+                          {(quantity! * price).toLocaleString("fr-FR")} FCFA
                         </h3>
                       </td>
                     </tr>
@@ -163,7 +165,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       <div className="flex justify-between py-3 text-sm  border-dashed border-b border-[#ddd] ">
                         <h3 className="text-sm">price</h3>
                         <div>
-                          <p>{price} FCFA </p>
+                          <p>{price.toLocaleString("fr-FR")} FCFA </p>
                         </div>
                       </div>
                       <div className="flex justify-between text-sm py-3 border-dashed border-b border-[#ddd] ">
@@ -203,7 +205,9 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       <div className="flex justify-between py-3">
                         <h3 className="text-sm">Sous Total</h3>
                         <div>
-                          <p className="text-sm">{quantity! * price} FCFA</p>
+                          <p className="text-sm">
+                            {(quantity! * price).toLocaleString("fr-FR")} FCFA
+                          </p>
                         </div>
                       </div>
                     </div>
@@ -221,7 +225,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Subtotal
                 </h1>
                 <p className="text-primary py-[10px] text-sm font-normal">
-                  {total} FCFA
+                  {total.toLocaleString("fr-FR")} FCFA
                 </p>
               </div>
               <div className=" flex items-center justify-between">
@@ -229,7 +233,7 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Total
                 </h1>
                 <h1 className="text-primary text-sm font-semibold pb-[10px] pt-[20px]">
-                  {total} FCFA
+                  {total.toLocaleString("fr-FR")} FCFA
                 </h1>
               </div>
               <Link

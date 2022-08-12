@@ -27,7 +27,9 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      if (Array.isArray(message.message)) {
+        toast.error(message.message[0]);
+      }
       toast.error(message.message);
       dispatch(reset());
     }
@@ -55,7 +57,7 @@ const RegisterScreen = () => {
         firstname,
         lastname,
         email,
-        phone: phone.includes("+221") ? phone : `+221 ${phone}`,
+        phone,
         password,
         password2,
       };

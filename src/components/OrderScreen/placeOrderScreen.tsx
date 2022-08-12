@@ -162,7 +162,7 @@ const PlaceOrderScreen = () => {
                         </td>
                         <td className="w-5 py-8 px-1 min-w-[120px]">
                           <h3 className="text-center text-primary font-medium tex-sm">
-                            {metadatas.price} FCFA
+                            {metadatas.price.toLocaleString("fr-FR")} FCFA
                           </h3>
                         </td>
                       </tr>
@@ -233,7 +233,9 @@ const PlaceOrderScreen = () => {
                           {name}
                         </td>
                         <td className="text-sm font-medium text-center  px-2 text-dark-gray">
-                          {quantity} x {price.toFixed(2)} FCFA
+                          {quantity} x{" "}
+                          {Number(price.toFixed(2)).toLocaleString("fr-FR")}{" "}
+                          FCFA
                         </td>
                       </tr>
                     ))}
@@ -257,7 +259,9 @@ const PlaceOrderScreen = () => {
                 <p className="text-sm text-gray-500">
                   {name} x {quantity}
                 </p>
-                <p className="text-sm text-gray-500">{price} FCFA</p>
+                <p className="text-sm text-gray-500">
+                  {price.toLocaleString("fr-FR")} FCFA
+                </p>
               </div>
             ))}
             <div className="flex py-4 border-b justify-between">
@@ -269,7 +273,10 @@ const PlaceOrderScreen = () => {
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
-                {metadatas.shipping ? metadatas.price + total : total} FCFA
+                {metadatas.shipping
+                  ? (metadatas.price + total).toLocaleString("fr-FR")
+                  : total.toLocaleString("fr-FR")}{" "}
+                FCFA
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">

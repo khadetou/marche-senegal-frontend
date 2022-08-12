@@ -11,29 +11,6 @@ import { FaOpencart } from "react-icons/fa";
 const ProfileScreen = () => {
   const theader = ["ID", "Image", "Date", "Totale", "Payé", "Livré", "Action"];
 
-  const users = [
-    {
-      date: "2022-06-1",
-      total: "$578.00",
-    },
-    {
-      date: "2022-06-1",
-      total: "$578.00",
-    },
-    {
-      date: "2022-06-1",
-      total: "$578.00",
-    },
-    {
-      date: "2022-06-1",
-      total: "$578.00",
-    },
-    {
-      date: "2022-06-1",
-      total: "$578.00",
-    },
-  ];
-
   const dispatch = useAppDispatch();
   const { isError, message, orders } = useAppSelector((store) => store.orders);
   useEffect(() => {

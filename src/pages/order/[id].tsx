@@ -12,7 +12,7 @@ import { getCookie } from "store/actions/auth";
 import { logout, getUser } from "store/reducers/auth";
 import { useRouter } from "next/router";
 import { useAppSelector } from "@/hooks/index";
-
+import { getOrderById } from "store/reducers/order/index";
 const Order = () => {
   const [open, setOpen] = useState(false);
   const router = useRouter();
@@ -40,7 +40,11 @@ export default Order;
 export const getServerSideProps: GetServerSideProps =
   wrapper.getServerSideProps((store) => async (context): Promise<any> => {
     const token: string = getCookie("token", context.req);
-
+    const data = {
+      token,
+      id: context.query.id,
+    };
+    await store.dispatch<any>(getOrderById(data));
     if (token) {
       if (jwtDecode<any>(token).exp < Date.now() / 1000) {
         await store.dispatch<any>(logout());

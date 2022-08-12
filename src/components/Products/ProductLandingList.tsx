@@ -141,7 +141,7 @@ const ProductLandingList: FC<ProductListProps> = ({
                           />
                         </div>
                         <h2 className="text-center text-[#A8B324] font-bold text-base">
-                          {product.price} FCFA
+                          {product.price.toLocaleString("fr-FR")} FCFA
                         </h2>
                         <button
                           className="bg-primary rounded-full flex justify-center items-center w-[165px] mx-auto mt-4 text-white text-[14px] px-[5px] py-[9px] font-normal"

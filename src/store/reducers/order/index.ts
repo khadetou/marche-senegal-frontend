@@ -78,10 +78,12 @@ export const getMyOrders = createAsyncThunk(
 // GET ORDER BY ID
 export const getOrderById = createAsyncThunk(
   "orders/getbyId",
-  async (id: string, thunkAPI: any) => {
-    console.log(id);
+  async (data: any, thunkAPI: any) => {
     try {
-      const token = thunkAPI.getState().auth.token;
+      const token = thunkAPI.getState().auth.token
+        ? thunkAPI.getState().auth.token
+        : data.token;
+      const id = data.id ? data.id : data;
       return await orderService.getOrderById(token, id);
     } catch (error: any) {
       const message =
