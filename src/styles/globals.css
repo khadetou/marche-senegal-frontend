@@ -22,8 +22,30 @@ body {
 }
 .swiper-button-prev {
   @apply bg-no-repeat bg-[url('/images/arrow-left.svg')] bg-white rounded-full w-14 bg-center h-14 left-10  !important;
+
   &::after {
     @apply hidden;
+  }
+}
+
+.banner {
+  &:hover {
+    .swiper-button-next,
+    .swiper-button-prev {
+      @apply block;
+    }
+  }
+  .swiper-button-next,
+  .swiper-button-prev {
+    @apply !w-10 !h-10 sm:!w-14 sm:!h-14 hidden;
+  }
+
+  .swiper-button-next {
+    @apply !right-3  sm:!right-10;
+  }
+
+  .swiper-button-prev {
+    @apply !left-3 sm:!left-10;
   }
 }
 

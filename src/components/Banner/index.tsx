@@ -34,7 +34,7 @@ const Banner = () => (
         autoplay={{
           delay: 5000,
         }}
-        className="h-full"
+        className="h-full banner"
       >
         {images.map(({ button, h1, p, src, title }, idx) => (
           <SwiperSlide
