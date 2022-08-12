@@ -72,7 +72,9 @@ const Icons: FC<{
           <Icon className="text-base text-white" />
         )}
         {Icon === AiOutlineUser && !isAuthenticated ? (
-          <Icon className="text-base text-white" />
+          <Link href="/login">
+            <Icon className="text-base text-white" />
+          </Link>
         ) : (
           Icon === AiOutlineUser && (
             <p className="text-sm font-semibold">
