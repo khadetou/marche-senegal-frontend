@@ -27,6 +27,7 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (isError) {
+      console.log(message);
       toast.error(message.message);
     }
 
