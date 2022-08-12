@@ -49,8 +49,8 @@ const MobileDrawer = () => {
     <Drawer
       width="280px"
       drawerHandler={
-        <div className="flex items-center mr-4 justify-center shrink-0 w-[26px] lg:hidden">
-          <AiOutlineBars size="40px" color="#000" />
+        <div className="flex items-center mr-4 justify-center shrink-0 w-[40px] lg:hidden">
+          <AiOutlineBars size="45px" color="#000" />
         </div>
       }
       open={open}
@@ -66,7 +66,10 @@ const MobileDrawer = () => {
               {menues.map(({ title, path }, key) => (
                 <li key={key} className=" relative w-full">
                   <Link key={key} href={path}>
-                    <a className="block border-b text-[#444444] py-[10px] hover:bg-gray-200 font-medium text-[15px]  hover:text-secondary" onClick={()=>setOpen(false)}>
+                    <a
+                      className="block border-b text-[#444444] py-[10px] hover:bg-gray-200 font-medium text-[15px]  hover:text-secondary"
+                      onClick={() => setOpen(false)}
+                    >
                       {title}
                     </a>
                   </Link>
@@ -87,7 +90,7 @@ const MobileDrawer = () => {
                     >
                       {pages.map(({ title, path }, idx) => (
                         <Link key={idx} href={path}>
-                          <li className="w-full" onClick={()=>setOpen(false)}>
+                          <li className="w-full" onClick={() => setOpen(false)}>
                             <a className="block border-b text-[#777777] pl-[15px] py-[10px] hover:bg-gray-200 font-medium text-sm  hover:text-secondary">
                               {title}
                             </a>
@@ -113,7 +116,7 @@ const MobileDrawer = () => {
                     >
                       {boutique.map(({ title, path }, idx) => (
                         <Link key={idx} href={path}>
-                          <li className="w-full" onClick={()=>setOpen(false)}>
+                          <li className="w-full" onClick={() => setOpen(false)}>
                             <a className="block border-b text-[#777777] pl-[15px] py-[10px] hover:bg-gray-200 font-medium text-sm  hover:text-secondary">
                               {title}
                             </a>

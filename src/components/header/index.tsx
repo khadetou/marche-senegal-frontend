@@ -67,13 +67,14 @@ const Icons: FC<{
             {total}
           </span>
         )}
-        {/* <Icon className="text-base text-white" /> */}
         {Icon === AiOutlineShoppingCart && (
           <Icon className="text-base text-white" />
         )}
         {Icon === AiOutlineUser && !isAuthenticated ? (
           <Link href="/login">
-            <Icon className="text-base text-white" />
+            <div>
+              <Icon className="text-base text-white" />
+            </div>
           </Link>
         ) : (
           Icon === AiOutlineUser && (
@@ -171,13 +172,13 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
         <div
           className={`w-full bg-header h-full flex-col flex items-center ${bgClassName}`}
         >
-          <div className="flex py-5 justify-between items-center relative containers p-[10px]">
+          <div className="flex py-1 lg:py-5 justify-between items-center relative containers p-[10px]">
             <div className="flex lg:items-center w-[180px] flex-col  lg:w-full lg:justify-between lg:mr-14 lg:flex-row">
               <div className="flex items-center">
                 <MobileDrawer />
                 <Link passHref href="/">
                   <div className="flex items-center cursor-pointer ">
-                    <button className="w-[78px] h-[86px]">
+                    <button className="w-[63px] sm:w-[78px] h-[86px]">
                       <Image
                         src={Logo}
                         alt="logo"
@@ -187,16 +188,16 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                         objectFit="contain"
                       />
                     </button>
-                    <h1 className="text-primary font-light text-base lg:text-xl font-Playfair">
+                    <h1 className="text-primary hidden sm:block  font-light text-sm lg:text-xl font-Playfair">
                       Marché Sénégal
                     </h1>
                   </div>
                 </Link>
               </div>
-              <div className=" lg:static absolute lg:w-[397px] left-0  w-full top-[100%]  ">
+              <div className=" lg:static absolute lg:w-[397px] left-0  w-full top-[100%] p-[10px] ">
                 <form
                   onSubmit={onSearch}
-                  className="h-[50px] w-full max-w-[397px] mx-auto mt-2 lg:mt-0 relative group"
+                  className="h-[50px] w-full max-w-[397px] mx-auto mt-0 md:mt-2 lg:mt-0 relative group"
                 >
                   <input
                     type="text"
