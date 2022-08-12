@@ -15,6 +15,8 @@ import { getCookie } from "store/actions/auth";
 import jwtDecode from "jwt-decode";
 import { wrapper } from "store";
 import { getAllProducts } from "store/reducers/products/productSlice";
+import ScrollToTop from "react-scroll-to-top";
+import { BsChevronUp } from "react-icons/bs";
 
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -61,6 +63,11 @@ const Home: NextPage = () => {
       />
       <Category />
       <Services />
+      <ScrollToTop
+        smooth
+        className="bg-primary"
+        component={<BsChevronUp className="text-white text-2xl mx-auto" />}
+      />
       <Footer />
     </Layout>
   );

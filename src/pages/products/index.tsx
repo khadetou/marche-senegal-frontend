@@ -14,6 +14,8 @@ import { logout, getUser } from "store/reducers/auth";
 import { getAllProducts } from "store/reducers/products/productSlice";
 import ReactPaginate from "react-paginate";
 import { useRouter } from "next/router";
+import ScrollToTop from "react-scroll-to-top";
+import { BsChevronUp } from "react-icons/bs";
 
 const Products = () => {
   const [openModal, setOpenModal] = useState(false);
@@ -55,6 +57,11 @@ const Products = () => {
         activeClassName={"paginationEnabled"}
         pageCount={pages}
         selectedPageRel={page}
+      />
+      <ScrollToTop
+        smooth
+        className="bg-primary"
+        component={<BsChevronUp className="text-white text-2xl mx-auto" />}
       />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
     </Layout>
