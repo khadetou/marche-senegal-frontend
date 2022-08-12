@@ -11,19 +11,14 @@ const Items: FC<{
   const { items, updateItemQuantity, removeItem, cartTotal } = useCart();
   const [Item, setItem] = useState<Item[]>([]);
   const [total, setTotal] = useState(0);
-  const [qty, setQty] = useState(0);
   useEffect(() => {
     setTotal(cartTotal);
     setItem(items);
   }, [cartTotal, items]);
 
-  const onChange = (e: any) => {
-    setQty(e.target.value);
-  };
-
   return (
     <div className="w-full h-full flex flex-col justify-between ">
-      <Scrollbars autoHide>
+      <Scrollbars autoHide={true} className="scrollbar">
         <ul>
           {Item.map(({ image, name, price, id, quantity }) => (
             <li

@@ -27,7 +27,7 @@ const RegisterScreen = () => {
 
   useEffect(() => {
     if (isError) {
-      toast.error(message);
+      toast.error(message.message);
     }
 
     if (isSuccess || token) {
@@ -156,7 +156,7 @@ const RegisterScreen = () => {
           </div>
           <div className="flex flex-col sm:flex-row justify-between">
             <button className="text-white mb-3 sm:mb-0 bg-primary rounded-full text-sm font-medium py-3 px-7">
-              Register
+              S'inscrire
             </button>
             <Link href="/login">
               <button className="text-sm flex flex-col items-center ">
