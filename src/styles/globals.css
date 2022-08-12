@@ -128,6 +128,12 @@ input[type="number"]::-webkit-outer-spin-button {
   }
 }
 
+.cart {
+  .drawer-content {
+    @apply flex flex-col h-screen;
+  }
+}
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;

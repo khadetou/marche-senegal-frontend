@@ -55,9 +55,9 @@ const MobileDrawer = () => {
       }
       open={open}
       toggleHandler={() => setOpen(!open)}
-      closeButton={<IoCloseOutline size="26px" color="#000" />}
+      closeButton={<IoCloseOutline size="38px" color="#000" />}
       drawerStyle="w-full h-full"
-      closeBtnStyle="flex items-center justify-center top-[25px] right-[30px] absolute z-10 cursor-pointer"
+      closeBtnStyle="flex items-center justify-center top-[18px] right-[30px] absolute z-10 cursor-pointer"
     >
       <Scrollbars autoHide>
         <div className="w-full h-full flex flex-col pt-[20px] pb-[40px] px-[20px]">

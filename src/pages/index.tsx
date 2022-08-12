@@ -17,6 +17,7 @@ import { wrapper } from "store";
 import { getAllProducts } from "store/reducers/products/productSlice";
 import ScrollToTop from "react-scroll-to-top";
 import { BsChevronUp } from "react-icons/bs";
+import { useAppSelector } from "../hooks";
 
 const Home: NextPage = () => {
   const [openModal, setOpenModal] = useState(false);

@@ -53,7 +53,7 @@ const Drawer: FC<DrawerProps> = ({
               {closeButton}
             </div>
             <Link passHref href="/">
-              <button className="w-[74px] text-white top-0 left-[30px] absolute z-10 cursor-pointer  ">
+              <button className="w-[70px] text-white top-0 left-[30px] absolute z-10 cursor-pointer  ">
                 <Image
                   src={Logo}
                   alt="logo"

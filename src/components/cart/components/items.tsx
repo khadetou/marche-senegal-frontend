@@ -28,13 +28,13 @@ const Items: FC<{
           {Item.map(({ image, name, price, id, quantity }) => (
             <li
               key={id}
-              className="flex justify-between group relative items-center mr-5"
+              className="flex justify-between group relative items-center px-2"
             >
               <div
                 className="absolute right-0 top-0 invisible transition-all duration-300 ease-out opacity-0 group-hover:opacity-100 group-hover:visible cursor-pointer"
                 onClick={() => removeItem(id)}
               >
-                <IoIosClose className="text-red-500" />
+                <IoIosClose className="text-red-500" size="23px" />
               </div>
 
               <div className=" w-[100px] h-[100px]">
@@ -48,8 +48,8 @@ const Items: FC<{
                 />
               </div>
 
-              <div className="flex flex-col justify-center">
-                <p className="text-light-gray text-sm mb-2">{name}</p>
+              <div className="flex flex-col justify-center mr-1">
+                <p className="text-dark-gray text-sm mb-2">{name}</p>
                 <div className="rounded-full border flex items-center justify-center border-light-gray">
                   <span
                     className="border-r px-2 border-light-gray cursor-pointer"
@@ -58,7 +58,7 @@ const Items: FC<{
                     -
                   </span>
                   <input
-                    className="w-14 text-light-gray text-center p-0 text-[14px] focus:ring-0 border-0"
+                    className="w-[35px] sm:w-14 text-light-gray text-center p-0 text-[14px] focus:ring-0 border-0"
                     type="number"
                     onChange={(e: any) => {
                       updateItemQuantity(id, e.target.value);
@@ -77,12 +77,14 @@ const Items: FC<{
                   </span>
                 </div>
               </div>
-              <h3 className="text-light-gray text-[14px]">{price} FCFA</h3>
+              <h3 className="text-light-gray text-[14px] min-w-[83px]">
+                {price} FCFA
+              </h3>
             </li>
           ))}
         </ul>
       </Scrollbars>
-      <div className="border-t-[0.5px] w-full flex flex-col border-light-gray">
+      <div className="border-t-[0.5px] w-full flex flex-col border-light-gray px-5">
         <div className="flex justify-between items-center text-[14px] font-bold h-[4px] mt-6">
           <h3 className="text-dark-gray">SOUS - TOTAL:</h3>
           <h3 className="text-primary">{total.toFixed(2)} FCFA</h3>
