@@ -12,7 +12,7 @@ const getUser = async (token: string) => {
   return { data, token };
 };
 
-const updateUser = async (token: string, profileData: any, id: string) => {
+const updateUser = async (token: string, profileData: any) => {
   const config = {
     headers: {
       Authorization: `Bearer ${token}`,
@@ -20,7 +20,7 @@ const updateUser = async (token: string, profileData: any, id: string) => {
   };
 
   const { data } = await axios.put(
-    `${API_URL}/auth/user/profile/${id}`,
+    `${API_URL}/auth/user/profile`,
     profileData,
     config
   );

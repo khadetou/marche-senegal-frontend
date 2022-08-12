@@ -153,12 +153,7 @@ export const UpdateUser = createAsyncThunk(
   async (profileData: any, thunkAPI: any) => {
     try {
       const token = thunkAPI.getState().auth.token;
-
-      return await authService.updateUser(
-        token,
-        profileData.data,
-        profileData.id
-      );
+      return await authService.updateUser(token, profileData);
     } catch (error: any) {
       const message =
         (error.response &&

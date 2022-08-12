@@ -11,17 +11,21 @@ const Items: FC<{
   const { items, updateItemQuantity, removeItem, cartTotal } = useCart();
   const [Item, setItem] = useState<Item[]>([]);
   const [total, setTotal] = useState(0);
-
+  const [qty, setQty] = useState(0);
   useEffect(() => {
     setTotal(cartTotal);
     setItem(items);
   }, [cartTotal, items]);
 
+  const onChange = (e: any) => {
+    setQty(e.target.value);
+  };
+
   return (
     <div className="w-full h-full flex flex-col justify-between ">
       <Scrollbars autoHide>
         <ul>
-          {Item.map(({ image, name, price, id, quantity }, idx) => (
+          {Item.map(({ image, name, price, id, quantity }) => (
             <li
               key={id}
               className="flex justify-between group relative items-center mr-5"
@@ -56,13 +60,18 @@ const Items: FC<{
                   <input
                     className="w-14 text-light-gray text-center p-0 text-[14px] focus:ring-0 border-0"
                     type="number"
+                    onChange={(e: any) => {
+                      updateItemQuantity(id, e.target.value);
+                    }}
                     step={1}
                     min={1}
                     value={quantity}
                   />
                   <span
                     className="border-l px-2 border-light-gray cursor-pointer"
-                    onClick={() => updateItemQuantity(id, quantity! + 1)}
+                    onClick={() => {
+                      updateItemQuantity(id, quantity! + 1);
+                    }}
                   >
                     +
                   </span>

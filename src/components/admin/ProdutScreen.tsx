@@ -169,7 +169,9 @@ const ProductScreen = () => {
                             pathname: `/admin/${product._id}`,
                           }}
                         >
-                          <TbEdit className="text-white text-[25px] bg-orange-500 p-1 rounded-md cursor-pointer" />
+                          <div>
+                            <TbEdit className="text-white text-[25px] bg-orange-500 p-1 rounded-md cursor-pointer" />
+                          </div>
                         </Link>
                         <BsTrash
                           className="text-white text-[25px] bg-red-500 p-1  rounded-md cursor-pointer"

@@ -45,9 +45,11 @@ const ProfileScreen = () => {
   return (
     <section className="mb-28">
       <div className="containers">
-        <button className="mb-8 text-white font-bold text-sm uppercase bg-primary hover:bg-secondary px-7 py-3 rounded-md">
-          Modifier Mon Profile
-        </button>
+        <Link href="/profile/edit">
+          <button className="mb-8 text-white font-bold text-sm uppercase bg-primary hover:bg-secondary px-7 py-3 rounded-md">
+            Modifier Mon Profile
+          </button>
+        </Link>
 
         <h1 className="text-[25px] text-dark-gray mb-10">Mes Commandes</h1>
         <div className="overflow-auto rounded-lg shadow-md">

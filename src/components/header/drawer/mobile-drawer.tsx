@@ -14,14 +14,14 @@ const MobileDrawer = () => {
 
   const menues = [
     { title: "Accueil", path: "/" },
-    { title: "Boutique", path: "/about" },
+    { title: "Boutique", path: "/products" },
     {
       title: "Blog",
-      path: "/services",
+      path: "/blog",
       className: "relative group",
     },
-    { title: "Pages", path: "/work" },
-    { title: "Nous Contacter", path: "/products" },
+    { title: "Pages", path: "" },
+    { title: "Nous Contacter", path: "/contact" },
   ];
 
   const pages = [
@@ -42,7 +42,7 @@ const MobileDrawer = () => {
     },
     {
       title: "Paiment",
-      path: "/checkout",
+      path: "/shipping",
     },
   ];
   return (
@@ -66,7 +66,7 @@ const MobileDrawer = () => {
               {menues.map(({ title, path }, key) => (
                 <li key={key} className=" relative w-full">
                   <Link key={key} href={path}>
-                    <a className="block border-b text-[#444444] py-[10px] hover:bg-gray-200 font-medium text-[15px]  hover:text-secondary">
+                    <a className="block border-b text-[#444444] py-[10px] hover:bg-gray-200 font-medium text-[15px]  hover:text-secondary" onClick={()=>setOpen(false)}>
                       {title}
                     </a>
                   </Link>
@@ -87,7 +87,7 @@ const MobileDrawer = () => {
                     >
                       {pages.map(({ title, path }, idx) => (
                         <Link key={idx} href={path}>
-                          <li className="w-full">
+                          <li className="w-full" onClick={()=>setOpen(false)}>
                             <a className="block border-b text-[#777777] pl-[15px] py-[10px] hover:bg-gray-200 font-medium text-sm  hover:text-secondary">
                               {title}
                             </a>
@@ -113,7 +113,7 @@ const MobileDrawer = () => {
                     >
                       {boutique.map(({ title, path }, idx) => (
                         <Link key={idx} href={path}>
-                          <li className="w-full">
+                          <li className="w-full" onClick={()=>setOpen(false)}>
                             <a className="block border-b text-[#777777] pl-[15px] py-[10px] hover:bg-gray-200 font-medium text-sm  hover:text-secondary">
                               {title}
                             </a>
