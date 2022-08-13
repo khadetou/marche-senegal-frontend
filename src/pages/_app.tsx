@@ -1,4 +1,4 @@
-import "../styles/globals.css";
+import "@/styles/globals.css";
 import "rc-drawer/assets/index.css";
 import "swiper/css";
 import "swiper/css/navigation";
