@@ -65,7 +65,7 @@ const OrdersScreen = () => {
       title: "Etes vous sure ?",
       icon: "warning",
       showCancelButton: true,
-      confirmButtonColor: "#3085d6",
+      confirmButtonColor: "#0A472E",
       cancelButtonColor: "#d33",
       confirmButtonText: "Oui, supprimer!",
     }).then((result: any) => {
@@ -102,61 +102,63 @@ const OrdersScreen = () => {
               </tr>
             </thead>
             <tbody>
-              {orders.map((order: any) => (
-                <tr
-                  key={order._id}
-                  className="bg-white border-b border-gray-200 even:bg-gray-50"
-                >
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>{order._id}</div>
-                  </td>
+              {orders &&
+                orders.map((order: any) => (
+                  <tr
+                    key={order._id}
+                    className="bg-white border-b border-gray-200 even:bg-gray-50"
+                  >
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order && order._id}</div>
+                    </td>
 
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    {order.user.firstname} {order.user.lastname}
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>{order.createdAt}</div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div>{order.totalPrice}</div>
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    {!order.isPaid ? (
-                      <div className="flex items-center justify-center">
-                        <IoClose className="text-white text-[25px] rounded-md bg-red-600" />
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      {order.user && order.user.firstname}{" "}
+                      {order.user && order.user.lastname}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order && order.createdAt}</div>
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div>{order && order.totalPrice}</div>
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      {!order.isPaid ? (
+                        <div className="flex items-center justify-center">
+                          <IoClose className="text-white text-[25px] rounded-md bg-red-600" />
+                        </div>
+                      ) : (
+                        <div className="flex justify-center items-center">
+                          <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      {order && order.isShipped ? (
+                        <div className="flex justify-center items-center">
+                          <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
+                        </div>
+                      ) : (
+                        <div className="flex items-center justify-center">
+                          <IoClose className="text-white text-[25px] rounded-md bg-red-600" />
+                        </div>
+                      )}
+                    </td>
+                    <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
+                      <div className="w-full h-full flex justify-around items-center">
+                        <Link href={`order/${order._id}`}>
+                          <button className="bg-white mr-5 py-2 px-2 text-dark-gray font-bold shadow-md text-sm ">
+                            Détails
+                          </button>
+                        </Link>
+                        <BsTrash
+                          className="text-white text-[25px] bg-red-500 p-1 cursor-pointer rounded-md"
+                          onClick={() => deleteOrders(order._id)}
+                        />
                       </div>
-                    ) : (
-                      <div className="flex justify-center items-center">
-                        <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
-                      </div>
-                    )}
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    {order.isShipped ? (
-                      <div className="flex justify-center items-center">
-                        <BsCheck className="text-white bg-green-600 text-[25px]  rounded-md" />
-                      </div>
-                    ) : (
-                      <div className="flex items-center justify-center">
-                        <IoClose className="text-white text-[25px] rounded-md bg-red-600" />
-                      </div>
-                    )}
-                  </td>
-                  <td className="p-4 min-w-[94px] text-center text-sm  text-[#8f8f8f]">
-                    <div className="w-full h-full flex justify-around items-center">
-                      <Link href={`order/${order._id}`}>
-                        <button className="bg-white mr-5 py-2 px-2 text-dark-gray font-bold shadow-md text-sm ">
-                          Détails
-                        </button>
-                      </Link>
-                      <BsTrash
-                        className="text-white text-[25px] bg-red-500 p-1 cursor-pointer rounded-md"
-                        onClick={() => deleteOrders(order._id)}
-                      />
-                    </div>
-                  </td>
-                </tr>
-              ))}
+                    </td>
+                  </tr>
+                ))}
             </tbody>
           </table>
         </div>

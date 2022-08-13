@@ -24,7 +24,8 @@ const OrderScreen = () => {
     <section className="mb-10 mt-3">
       <div className="containers">
         <h1 className="text-[25px] font-normal mb-12 uppercase ">
-          COMMANDE N°: <span className="text-primary">{order._id}</span>
+          COMMANDE N°:{" "}
+          <span className="text-primary">{order && order._id}</span>
         </h1>
 
         <div className="flex justify-between  flex-col md:flex-row">
@@ -65,7 +66,7 @@ const OrderScreen = () => {
                     <tr className="border-b border-gray-300 ">
                       <th className="text-sm py-8 font-semibold">Email</th>
                       <th className="text-sm py-8 font-semibold">Nom</th>
-                      {order.shippingAddress.city !== "false" && (
+                      {order && order.shippingAddress.city !== "false" && (
                         <th className="text-sm py-8 font-semibold">Ville</th>
                       )}
                       <th className="text-sm py-8 font-semibold">Address</th>
@@ -77,21 +78,22 @@ const OrderScreen = () => {
                   <tbody>
                     <tr className="border-b border-gray-200 pb-4">
                       <td className="text-sm py-8 px-1 min-w-[164px] text-dark-gray">
-                        {order.user.firstname} {order.user.lastname}
+                        {order && order.user.firstname}{" "}
+                        {order && order.user.lastname}
                       </td>
                       <td className="text-sm min-w-[185px] py-8 px-1 text-dark-gray">
-                        {order.user.email}
+                        {order && order.user.email}
                       </td>
-                      {order.shippingAddress.city !== "false" && (
+                      {order && order.shippingAddress.city !== "false" && (
                         <td className="text-sm  py-8 px-1 text-center text-dark-gray">
                           {order.shippingAddress.city}
                         </td>
                       )}
                       <td className="text-sm py-8 text-center min-w-[189px] px-1 text-dark-gray">
-                        {order.shippingAddress.address}
+                        {order && order.shippingAddress.address}
                       </td>
                       <td className="w-5 py-8 px-1 text-primary text-sm font-medium min-w-[102px]">
-                        {order.shippingAddress.phone}
+                        {order && order.shippingAddress.phone}
                       </td>
                     </tr>
                   </tbody>
@@ -100,7 +102,7 @@ const OrderScreen = () => {
                   <thead>
                     <tr className="border-b border-gray-300 py-6">
                       <th className="text-sm py-8 font-semibold">
-                        {order.shippingAddress.city === "false"
+                        {order && order.shippingAddress.city === "false"
                           ? "Retrait"
                           : "Livré"}
                       </th>
@@ -110,22 +112,22 @@ const OrderScreen = () => {
                   <tbody>
                     <tr className="border-b border-gray-200">
                       <td className="w-5 py-8 px-1">
-                        {order.isShipped ? (
+                        {order && order.isShipped ? (
                           <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
-                            {order.shippingAddress.city === "false"
+                            {order && order.shippingAddress.city === "false"
                               ? "Retiré"
                               : "Livré"}
                           </div>
                         ) : (
                           <div className="text-red-600 font-medium text-sm flex justify-center bg-[#ff56023e] min-w-[112px] rounded-md px-2  py-1">
-                            {order.shippingAddress.city === "false"
+                            {order && order.shippingAddress.city === "false"
                               ? "Non Retiré"
                               : "Non Livré"}
                           </div>
                         )}
                       </td>
                       <td className="w-5 py-8 px-1">
-                        {order.isPaid ? (
+                        {order && order.isPaid ? (
                           <div className="text-primary font-medium text-sm flex justify-center bg-[#5fff023e] min-w-[112px] rounded-md px-2  items-center py-1">
                             Payé
                           </div>
@@ -215,14 +217,14 @@ const OrderScreen = () => {
             <div className="flex py-4 border-b justify-between">
               <p className="text-sm text-gray-500">Livraison</p>
               <p className="text-sm text-gray-500">
-                {order.shippingPrice} FCFA
+                {order && order.shippingPrice} FCFA
               </p>
             </div>
 
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
-                {order.totalPrice}
+                {order && order.totalPrice}
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">
@@ -236,11 +238,11 @@ const OrderScreen = () => {
 
             <button
               className={`text-white font-bold uppercase ${
-                order.isShipped
+                order && order.isShipped
                   ? "bg-secondary cursor-not-allowed"
                   : "bg-primary cursor-pointer"
               } text-xs py-4 rounded-full my-7 hover:bg-secondary flex items-center justify-center`}
-              disabled={order.isShiped}
+              disabled={order && order.isShiped}
               onClick={() => {
                 if (!order.isShipped) {
                   dispatch(orderDelivered(router.query.id as string));
@@ -248,7 +250,9 @@ const OrderScreen = () => {
               }}
             >
               {isLoading && <Loading />}{" "}
-              {order.isShipped ? "Commande Reçu confirmé!" : "Commande Reçue"}
+              {order && order.isShipped
+                ? "Commande Reçu confirmé!"
+                : "Commande Reçue"}
             </button>
           </div>
         </div>

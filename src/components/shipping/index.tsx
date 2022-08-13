@@ -265,17 +265,19 @@ const ShippingScreen = () => {
                   >
                     Livraison à domicile
                   </label>
-                  <input
-                    type="checkbox"
-                    id="livraison"
-                    name="livraison"
-                    checked={checkShip}
-                    onChange={(e) => {
-                      setCheckShip(e.target.checked);
-                      setCheckAgence(!e.target.checked);
-                    }}
-                    className="form-checkbox w-4 h-4 rounded border-secondary border-2 text-primary shadow-sm focus:border-secondary focus:ring focus:ring-offset-0 focus:ring-green-400 focus:ring-opacity-50"
-                  />
+                  {checkShip !== undefined && (
+                    <input
+                      type="checkbox"
+                      id="livraison"
+                      name="livraison"
+                      checked={checkShip}
+                      onChange={(e) => {
+                        setCheckShip(e.target.checked);
+                        setCheckAgence(!e.target.checked);
+                      }}
+                      className="form-checkbox w-4 h-4 rounded border-secondary border-2 text-primary shadow-sm focus:border-secondary focus:ring focus:ring-offset-0 focus:ring-green-400 focus:ring-opacity-50"
+                    />
+                  )}
                 </div>
                 <div className="flex items-center flex-row-reverse ml-2 cursor-pointer">
                   <label
@@ -284,17 +286,19 @@ const ShippingScreen = () => {
                   >
                     Retrait en agence
                   </label>
-                  <input
-                    type="checkbox"
-                    id="agence"
-                    name="agence"
-                    checked={checkAgence}
-                    onChange={(e) => {
-                      setCheckAgence(e.target.checked);
-                      setCheckShip(!e.target.checked);
-                    }}
-                    className="form-checkbox w-4 h-4 rounded border-secondary border-2 text-primary shadow-sm focus:border-secondary focus:ring focus:ring-offset-0 focus:ring-green-400 focus:ring-opacity-50"
-                  />
+                  {checkAgence !== undefined && (
+                    <input
+                      type="checkbox"
+                      id="agence"
+                      name="agence"
+                      checked={checkAgence}
+                      onChange={(e) => {
+                        setCheckAgence(e.target.checked);
+                        setCheckShip(!e.target.checked);
+                      }}
+                      className="form-checkbox w-4 h-4 rounded border-secondary border-2 text-primary shadow-sm focus:border-secondary focus:ring focus:ring-offset-0 focus:ring-green-400 focus:ring-opacity-50"
+                    />
+                  )}
                 </div>
               </div>
             </div>
@@ -362,17 +366,19 @@ const ShippingScreen = () => {
                   Champ ne doit pas être vide
                 </span>
               )}
-              <input
-                type="text"
-                onChange={(e) => setAddress(e.target.value)}
-                value={address}
-                className={`w-full border-gray-200 focus:border-gray-200 focus:ring-0 ${
-                  metadatas &&
-                  !metadatas.address &&
-                  address === "" &&
-                  "border border-red-600"
-                }`}
-              />
+              {address !== undefined && (
+                <input
+                  type="text"
+                  onChange={(e) => setAddress(e.target.value)}
+                  value={address}
+                  className={`w-full border-gray-200 focus:border-gray-200 focus:ring-0 ${
+                    metadatas &&
+                    !metadatas.address &&
+                    address === "" &&
+                    "border border-red-600"
+                  }`}
+                />
+              )}
             </div>
             <div className="flex flex-col mt-4 w-full">
               <label htmlFor="" className="text-sm text-dark-gray mb-2">
@@ -383,14 +389,16 @@ const ShippingScreen = () => {
                   Champ ne doit pas être vide
                 </span>
               )}
-              <input
-                type="tel"
-                onChange={(e) => setPhone(e.target.value)}
-                value={phone}
-                className={`w-full border-gray-200 focus:border-gray-200 focus:ring-0 ${
-                  phone === "" && "border-red-600 border"
-                }`}
-              />
+              {phone !== undefined && (
+                <input
+                  type="tel"
+                  onChange={(e) => setPhone(e.target.value)}
+                  value={phone}
+                  className={`w-full border-gray-200 focus:border-gray-200 focus:ring-0 ${
+                    phone === "" && "border-red-600 border"
+                  }`}
+                />
+              )}
             </div>
           </form>
           <div className="w-full max-w-[400px] p-5 bg-gray-100 flex flex-col ">

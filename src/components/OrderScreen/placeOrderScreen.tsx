@@ -7,6 +7,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { toast } from "react-toastify";
 import Loading from "../Loading";
+import Swal from "sweetalert2";
+import withReactContent from "sweetalert2-react-content";
+
+// MYSWAL
+const MySwal = withReactContent(Swal);
 
 const PlaceOrderScreen = () => {
   const { items, metadata, cartTotal } = useCart();
@@ -33,9 +38,7 @@ const PlaceOrderScreen = () => {
       setTotal(cartTotal);
     }
     if (isSuccess) {
-      toast.success("Order created successfully");
       router.push(`/order/${order._id}`);
-      dispatch(reset());
     }
 
     if (isError) {
@@ -81,7 +84,19 @@ const PlaceOrderScreen = () => {
       totalPrice: cartTotal + (metadata!.shipping ? metadata!.price : 0),
     };
 
-    dispatch(createOrder(cart));
+    MySwal.fire({
+      title: "Etes vous sure",
+      text: "D'avoir bien vérifier votre commande ?",
+      icon: "question",
+      showCancelButton: true,
+      confirmButtonColor: "#0A472E",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Confirmez votre commande !",
+    }).then((result: any) => {
+      if (result.isConfirmed) {
+        dispatch(createOrder(cart));
+      }
+    });
   };
 
   return (
@@ -162,7 +177,11 @@ const PlaceOrderScreen = () => {
                         </td>
                         <td className="w-5 py-8 px-1 min-w-[120px]">
                           <h3 className="text-center text-primary font-medium tex-sm">
-                            {metadatas.price.toLocaleString("fr-FR")} FCFA
+                            {metadatas.price.toLocaleString("fr-FR", {
+                              style: "currency",
+                              currency: "CFA",
+                              currencyDisplay: "narrowSymbol",
+                            })}{" "}
                           </h3>
                         </td>
                       </tr>
@@ -234,8 +253,11 @@ const PlaceOrderScreen = () => {
                         </td>
                         <td className="text-sm font-medium text-center  px-2 text-dark-gray">
                           {quantity} x{" "}
-                          {Number(price.toFixed(2)).toLocaleString("fr-FR")}{" "}
-                          FCFA
+                          {Number(price.toFixed(2)).toLocaleString("fr-FR", {
+                            style: "currency",
+                            currency: "CFA",
+                            currencyDisplay: "narrowSymbol",
+                          })}
                         </td>
                       </tr>
                     ))}
@@ -260,23 +282,34 @@ const PlaceOrderScreen = () => {
                   {name} x {quantity}
                 </p>
                 <p className="text-sm text-gray-500">
-                  {price.toLocaleString("fr-FR")} FCFA
+                  {price.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "CFA",
+                    currencyDisplay: "narrowSymbol",
+                  })}
                 </p>
               </div>
             ))}
             <div className="flex py-4 border-b justify-between">
               <p className="text-sm text-gray-500">Livraison</p>
               <p className="text-sm text-gray-500">
-                {metadatas.shipping ? metadatas.price : "0"} FCFA
+                {metadatas.shipping ? metadatas.price : "0"}
               </p>
             </div>
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
                 {metadatas.shipping
-                  ? (metadatas.price + total).toLocaleString("fr-FR")
-                  : total.toLocaleString("fr-FR")}{" "}
-                FCFA
+                  ? (metadatas.price + total).toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrowSymbol",
+                    })
+                  : total.toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrowSymbol",
+                    })}
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">
