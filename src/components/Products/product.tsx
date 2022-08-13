@@ -120,7 +120,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                 {product && product.description}
               </p>
             </div>
-            <div className="flex">
+            <div className="flex flex-col sm:flex-row">
               <div className="rounded-full border flex items-center justify-center border-light-gray">
                 <span
                   className=" px-5  cursor-pointer"
@@ -148,7 +148,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                 </span>
               </div>
               <button
-                className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4"
+                className="ml-2 text-white bg-primary text-sm font-bold rounded-full px-4 py-4 my-3 sm:py-0 sm:my-0"
                 onClick={() => {
                   addItem({ ...product, id: product._id }, qty);
                   setOpen(true);
@@ -186,12 +186,12 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                     {review.name.split(" ")[0][0]}
                     {review.name.split(" ")[1][0]}
                   </h1>
-                  <div className="ml-5 px-0 sm:px-3">
+                  <div className="ml-5 px-0 sm:px-3 w-full">
                     <h1 className="text-sm font-semibold capitalize text-[#2b2b2b]  ">
                       {review.name.split(" ")[0]} {review.name.split(" ")[1][0]}
                       .
                     </h1>
-                    <div>
+                    <div className="w-full">
                       <div className="flex items-center -ml-1 my-4">
                         <StarsRating
                           value={review.rating}
@@ -203,7 +203,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                           {moment(review.createdAt).fromNow()}
                         </p>
                       </div>
-                      <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-[300px]  sm:max-w-[70%]">
+                      <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-full xs:min-w-[300px]  sm:max-w-[70%]">
                         {review.comment}
                       </p>
                     </div>
