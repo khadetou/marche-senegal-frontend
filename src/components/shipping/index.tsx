@@ -422,7 +422,7 @@ const ShippingScreen = () => {
                 {total.toLocaleString("fr-FR", {
                   style: "currency",
                   currency: "CFA",
-                  currencyDisplay: "narrawSymbol",
+                  // currencyDisplay: "narrawSymbol",
                 })}
               </p>
             </div>
@@ -433,12 +433,12 @@ const ShippingScreen = () => {
                   ? shippingPrice.toLocaleString("fr-FR", {
                       style: "currency",
                       currency: "CFA",
-                      currencyDisplay: "narrawSymbol",
+                      currencyDisplay: "narrowSymbol",
                     })
                   : Number("0").toLocaleString("fr-FR", {
                       style: "currency",
                       currency: "CFA",
-                      currencyDisplay: "narrawSymbol",
+                      currencyDisplay: "narrowSymbol",
                     })}
               </p>
             </div>
@@ -449,12 +449,12 @@ const ShippingScreen = () => {
                   ? (total + shippingPrice).toLocaleString("fr-FR", {
                       style: "currency",
                       currency: "CFA",
-                      currencyDisplay: "narrawSymbol",
+                      currencyDisplay: "narrowSymbol",
                     })
                   : total.toLocaleString("fr-FR", {
                       style: "currency",
                       currency: "CFA",
-                      currencyDisplay: "narrawSymbol",
+                      currencyDisplay: "narrowSymbol",
                     })}
               </h1>
             </div>
