@@ -408,24 +408,54 @@ const ShippingScreen = () => {
                   {name} <span className="text-dark-gray">x {quantity}</span>
                 </p>
                 <p className="text-sm text-gray-500">
-                  {price.toLocaleString("fr-FR")} FCFA
+                  {price.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "CFA",
+                    currencyDisplay: "narrowSymbol",
+                  })}
                 </p>
               </div>
             ))}
             <div className="flex py-4 border-b justify-between">
               <p className="text-[15px] text-[#2b2b2b]">Sous total</p>
-              <p className="text-sm text-primary text-normal">{total} FCFA</p>
+              <p className="text-sm text-primary text-normal">
+                {total.toLocaleString("fr-FR", {
+                  style: "currency",
+                  currency: "CFA",
+                  currencyDisplay: "narrawSymbol",
+                })}
+              </p>
             </div>
             <div className="flex py-4 border-b justify-between">
               <p className="text-[15px] text-[#2b2b2b]">Montant Livraison</p>
               <p className="text-sm text-primary text-normal">
-                {checkShip ? shippingPrice : "0"} FCFA
+                {checkShip
+                  ? shippingPrice.toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrawSymbol",
+                    })
+                  : Number("0").toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrawSymbol",
+                    })}
               </p>
             </div>
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
-                {checkShip ? total + shippingPrice : total} FCFA
+                {checkShip
+                  ? (total + shippingPrice).toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrawSymbol",
+                    })
+                  : total.toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "CFA",
+                      currencyDisplay: "narrawSymbol",
+                    })}
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">

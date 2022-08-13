@@ -8,7 +8,6 @@ import Link from "next/link";
 import { useAppSelector } from "@/hooks/index";
 
 const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
-  const [value, setValue] = useState(1);
   const [qty, setQty] = useState(1);
   const { items, isEmpty, removeItem, updateItemQuantity, cartTotal } =
     useCart();
@@ -96,7 +95,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       </td>
                       <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
                         <h3 className="text-light-gray text-[14px]">
-                          {price.toLocaleString("fr-FR")} FCFA
+                          {price.toLocaleString("fr-FR", {
+                            style: "currency",
+                            currency: "CFA",
+                            // currencyDisplay: "narrawSymbol",
+                          })}
                         </h3>
                       </td>
                       <td className="py-[30px] pb-[40px] px-[20px] border-b border-[#ddd] cursor-pointer">
@@ -132,7 +135,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       </td>
                       <td className="py-[30px] pb-[40px] text-end border-b border-[#ddd] cursor-pointer">
                         <h3 className="text-primary font-medium text-[14px]">
-                          {(quantity! * price).toLocaleString("fr-FR")} FCFA
+                          {(quantity! * price).toLocaleString("fr-FR", {
+                            style: "currency",
+                            currency: "CFA",
+                            // currencyDisplay: "narrawSymbol",
+                          })}
                         </h3>
                       </td>
                     </tr>
@@ -165,7 +172,13 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                       <div className="flex justify-between py-3 text-sm  border-dashed border-b border-[#ddd] ">
                         <h3 className="text-sm">price</h3>
                         <div>
-                          <p>{price.toLocaleString("fr-FR")} FCFA </p>
+                          <p>
+                            {price.toLocaleString("fr-FR", {
+                              style: "currency",
+                              currency: "CFA",
+                              // currencyDisplay: "narrawSymbol",
+                            })}
+                          </p>
                         </div>
                       </div>
                       <div className="flex justify-between text-sm py-3 border-dashed border-b border-[#ddd] ">
@@ -206,7 +219,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                         <h3 className="text-sm">Sous Total</h3>
                         <div>
                           <p className="text-sm">
-                            {(quantity! * price).toLocaleString("fr-FR")} FCFA
+                            {(quantity! * price).toLocaleString("fr-FR", {
+                              style: "currency",
+                              currency: "CFA",
+                              // currencyDisplay: "narrawSymbol",
+                            })}
                           </p>
                         </div>
                       </div>
@@ -225,7 +242,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Subtotal
                 </h1>
                 <p className="text-primary py-[10px] text-sm font-normal">
-                  {total.toLocaleString("fr-FR")} FCFA
+                  {total.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "CFA",
+                    // currencyDisplay: "narrawSymbol",
+                  })}
                 </p>
               </div>
               <div className=" flex items-center justify-between">
@@ -233,7 +254,11 @@ const CartItems: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                   Total
                 </h1>
                 <h1 className="text-primary text-sm font-semibold pb-[10px] pt-[20px]">
-                  {total.toLocaleString("fr-FR")} FCFA
+                  {total.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "CFA",
+                    // currencyDisplay: "narrawSymbol",
+                  })}
                 </h1>
               </div>
               <Link

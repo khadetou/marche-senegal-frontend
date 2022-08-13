@@ -34,7 +34,6 @@ const ProductLandingList: FC<ProductListProps> = ({
   const { products } = useAppSelector((state) => state.products);
 
   const [id, setId] = useState("");
-  const [qty, setQty] = useState(1);
 
   const { addItem, inCart } = useCart();
   const [inCarts, setInCarts] = useState<any>({
