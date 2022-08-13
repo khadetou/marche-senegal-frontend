@@ -203,7 +203,7 @@ const ProductDetail: FC<{ open: any; setOpen: any }> = ({ open, setOpen }) => {
                           {moment(review.createdAt).fromNow()}
                         </p>
                       </div>
-                      <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-full xs:min-w-[300px]  sm:max-w-[70%]">
+                      <p className="text-sm text-[#8b8b8b] leading-[1.5] max-w-full min-w-full sm:min-w-[300px]  sm:max-w-[70%]">
                         {review.comment}
                       </p>
                     </div>
