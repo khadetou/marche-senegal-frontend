@@ -178,7 +178,7 @@ const ProductsList: FC<ProductListProps> = ({
                   <h2 className="text-center text-[#A8B324] font-bold text-base">
                     {product.price.toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })}
                   </h2>
