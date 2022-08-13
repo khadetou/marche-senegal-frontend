@@ -60,7 +60,7 @@ const Products = () => {
       />
       <ScrollToTop
         smooth
-        className="bg-primary"
+        className="!bg-primary"
         component={<BsChevronUp className="text-white text-2xl mx-auto" />}
       />
       <Footer bgColor="!bg-primary" textColor="!text-white" />
