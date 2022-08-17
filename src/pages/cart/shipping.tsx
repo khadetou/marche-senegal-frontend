@@ -50,12 +50,5 @@ export const getServerSideProps: GetServerSideProps =
       } else {
         await store.dispatch<any>(getUser(token));
       }
-    } else {
-      return {
-        redirect: {
-          destination: "/login",
-          permanent: false,
-        },
-      };
     }
   });
