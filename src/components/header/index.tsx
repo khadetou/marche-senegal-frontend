@@ -93,11 +93,6 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
   const menues = [
     { title: "Accueil", path: "/" },
     { title: "Boutique", path: "/products" },
-    {
-      title: "Blog",
-      path: "/services",
-      className: "relative group",
-    },
     { title: "Pages", path: "/work" },
     { title: "Nous Contacter", path: "/contact" },
   ];
@@ -399,7 +394,7 @@ const Header: FC<HeaderProps> = ({ className, bgClassName, open, setOpen }) => {
                 </div>
               </div>
               <nav className="mx-auto hidden lg:flex nav">
-                {menues.map(({ title, path, className }, key) => (
+                {menues.map(({ title, path }, key) => (
                   <Link key={key} href={path}>
                     <button
                       className={`flex items-center px-1 mx-3 my-1 py-3 xl:px-1 xl:py-3 relative group  font-normal leading-none text-sm  before:contente-[""] before:w-0  hover:before:w-full before:h-[3px] before:transition-all before:left-0 before:bg-secondary before:absolute before:bottom-1  hover:text-secondary before:duration-500 ease-linear ${className} ${

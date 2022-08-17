@@ -15,11 +15,6 @@ const MobileDrawer = () => {
   const menues = [
     { title: "Accueil", path: "/" },
     { title: "Boutique", path: "/products" },
-    {
-      title: "Blog",
-      path: "/blog",
-      className: "relative group",
-    },
     { title: "Pages", path: "" },
     { title: "Nous Contacter", path: "/contact" },
   ];
