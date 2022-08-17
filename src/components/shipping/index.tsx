@@ -243,7 +243,9 @@ const ShippingScreen = () => {
               <Select
                 options={[{ value: "Dakar", label: "Dakar" }]}
                 styles={styles}
-                className={region === "" ? "border-red-700 border" : ""}
+                className={
+                  region === "" ? "border-red-700 border select" : "select"
+                }
                 theme={theme}
                 value={{
                   label: region,
@@ -345,7 +347,9 @@ const ShippingScreen = () => {
                   options={options}
                   styles={styles}
                   className={
-                    checkShip && ville === "" ? "border border-red-600" : ""
+                    checkShip && ville === ""
+                      ? "border border-red-600 select"
+                      : "select"
                   }
                   theme={theme}
                   value={{
