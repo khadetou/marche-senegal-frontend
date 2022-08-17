@@ -116,6 +116,35 @@ const ShippingScreen = () => {
       label: "Castors",
     },
   ];
+  const prices: any = {
+    Bargny: 1250,
+    Centenaire: 5000,
+    Diamniadio: 6000,
+    "Grand Mbao": 6500,
+    "Grand Yoff": 1350,
+    Guédiawaye: 5500,
+    HLM: 1500,
+    "HLM Grand Yoff": 7000,
+    "Keur Massar": 7500,
+    Maristes: 1300,
+    Medina: 2000,
+    Mermoz: 2500,
+    "Ngor - Almadie": 2550,
+    Ouakam: 3000,
+    "Ouest foire": 3500,
+    "Parcelles Assainies": 2500,
+    Pikine: 3000,
+    "Pikine Icotaf": 2530,
+    Plateau: 2500,
+    Rufisque: 5000,
+    "Sicap Baobab": 3500,
+    Soprim: 2500,
+    "Thiaroye sur mer": 3000,
+    Yeumbeul: 1250,
+    Yoff: 2500,
+    "Zac Mbao": 3500,
+    Castors: 1000,
+  };
   const styles = {
     control: (base: any, state: any) => ({
       ...base,
@@ -140,7 +169,8 @@ const ShippingScreen = () => {
       ...theme,
       colors: {
         ...theme.colors,
-        primary: "#Efefef",
+        primary25: "#a8b324",
+        primary: "#0A472E",
       },
     };
   };
@@ -157,6 +187,7 @@ const ShippingScreen = () => {
   const { items, cartTotal, setCartMetadata, metadata } = useCart();
   const [metadatas, setMetadatas] = useState<Metadata>({});
   const router = useRouter();
+
   useEffect(() => {
     setTotal(cartTotal);
     setItem(items);
@@ -336,7 +367,7 @@ const ShippingScreen = () => {
             {checkShip && (
               <div className="mb-3 flex flex-col">
                 <label className="text-sm text-dark-gray mb-2" htmlFor="">
-                  Ville <span className="text-red-700">*</span>{" "}
+                  Départements <span className="text-red-700">*</span>{" "}
                 </label>
                 {checkShip && ville === "" && (
                   <span className="text-red-600 text-sm mb-2">
@@ -356,8 +387,11 @@ const ShippingScreen = () => {
                     label: ville,
                     value: ville,
                   }}
-                  onChange={(e: any) => setVille(e.value)}
-                  instanceId="ville"
+                  onChange={(e: any) => {
+                    setChippingPrice(prices[e.value]);
+                    setVille(e.value);
+                  }}
+                  instanceId="Departements"
                 />
               </div>
             )}
