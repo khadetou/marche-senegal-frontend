@@ -180,7 +180,12 @@ const OrderScreen = () => {
                             {orderItem.name}
                           </td>
                           <td className="text-sm font-medium text-center  px-2 text-dark-gray">
-                            {orderItem.qty} x {orderItem.price} FCFA
+                            {orderItem.qty} x{" "}
+                            {orderItem.price.toLocaleString("fr-FR", {
+                              style: "currency",
+                              currency: "XOF",
+                              currencyDisplay: "narrowSymbol",
+                            })}
                           </td>
                         </tr>
                       ))}
@@ -210,21 +215,35 @@ const OrderScreen = () => {
                     <span className="text-black">{orderItem.qty}</span>
                   </p>
                   <p className="text-sm text-gray-500">
-                    {orderItem.price} FCFA
+                    {orderItem.price.toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "XOF",
+                      currencyDisplay: "narrowSymbol",
+                    })}
                   </p>
                 </div>
               ))}
             <div className="flex py-4 border-b justify-between">
               <p className="text-sm text-gray-500">Livraison</p>
               <p className="text-sm text-gray-500">
-                {order && order.shippingPrice} FCFA
+                {order &&
+                  order.shippingPrice.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "XOF",
+                    currencyDisplay: "narrowSymbol",
+                  })}
               </p>
             </div>
 
             <div className="flex py-4 border-b justify-between">
               <h1 className="text-lg font-medium text-dark-gray">Total</h1>
               <h1 className="text-lg font-semibold text-primary">
-                {order && order.totalPrice}
+                {order &&
+                  order.totalPrice.toLocaleString("fr-FR", {
+                    style: "currency",
+                    currency: "XOF",
+                    currencyDisplay: "narrowSymbol",
+                  })}
               </h1>
             </div>
             <div className="py-5 px-6 bg-primary my-5">

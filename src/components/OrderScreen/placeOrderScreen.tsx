@@ -179,9 +179,9 @@ const PlaceOrderScreen = () => {
                           <h3 className="text-center text-primary font-medium tex-sm">
                             {metadatas.price.toLocaleString("fr-FR", {
                               style: "currency",
-                              currency: "CFA",
+                              currency: "XOF",
                               currencyDisplay: "narrowSymbol",
-                            })}{" "}
+                            })}
                           </h3>
                         </td>
                       </tr>
@@ -255,7 +255,7 @@ const PlaceOrderScreen = () => {
                           {quantity} x{" "}
                           {Number(price.toFixed(2)).toLocaleString("fr-FR", {
                             style: "currency",
-                            currency: "CFA",
+                            currency: "XOF",
                             currencyDisplay: "narrowSymbol",
                           })}
                         </td>
@@ -284,7 +284,7 @@ const PlaceOrderScreen = () => {
                 <p className="text-sm text-gray-500">
                   {price.toLocaleString("fr-FR", {
                     style: "currency",
-                    currency: "CFA",
+                    currency: "XOF",
                     currencyDisplay: "narrowSymbol",
                   })}
                 </p>
@@ -293,7 +293,17 @@ const PlaceOrderScreen = () => {
             <div className="flex py-4 border-b justify-between">
               <p className="text-sm text-gray-500">Livraison</p>
               <p className="text-sm text-gray-500">
-                {metadatas.shipping ? metadatas.price : "0"}
+                {metadatas.shipping
+                  ? metadatas.price.toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "XOF",
+                      currencyDisplay: "narrowSymbol",
+                    })
+                  : Number("0").toLocaleString("fr-FR", {
+                      style: "currency",
+                      currency: "XOF",
+                      currencyDisplay: "narrowSymbol",
+                    })}
               </p>
             </div>
             <div className="flex py-4 border-b justify-between">
@@ -302,12 +312,12 @@ const PlaceOrderScreen = () => {
                 {metadatas.shipping
                   ? (metadatas.price + total).toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })
                   : total.toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })}
               </h1>
