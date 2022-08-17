@@ -418,7 +418,7 @@ const ShippingScreen = () => {
                 <p className="text-sm text-gray-500">
                   {price.toLocaleString("fr-FR", {
                     style: "currency",
-                    currency: "CFA",
+                    currency: "XOF",
                     currencyDisplay: "narrowSymbol",
                   })}
                 </p>
@@ -429,8 +429,8 @@ const ShippingScreen = () => {
               <p className="text-sm text-primary text-normal">
                 {total.toLocaleString("fr-FR", {
                   style: "currency",
-                  currency: "CFA",
-                  // currencyDisplay: "narrawSymbol",
+                  currency: "XOF",
+                  currencyDisplay: "narrowSymbol",
                 })}
               </p>
             </div>
@@ -440,12 +440,12 @@ const ShippingScreen = () => {
                 {checkShip
                   ? shippingPrice.toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })
                   : Number("0").toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })}
               </p>
@@ -456,12 +456,12 @@ const ShippingScreen = () => {
                 {checkShip
                   ? (total + shippingPrice).toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })
                   : total.toLocaleString("fr-FR", {
                       style: "currency",
-                      currency: "CFA",
+                      currency: "XOF",
                       currencyDisplay: "narrowSymbol",
                     })}
               </h1>
